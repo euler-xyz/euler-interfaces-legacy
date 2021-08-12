@@ -58,7 +58,7 @@ interface IEulerMarkets {
     /// @return Token address
     function eTokenToUnderlying(address eToken) external view returns (address);
 
-    /// @notice Given an EToken address, looks up the associated DToken underlying
+    /// @notice Given an EToken address, looks up the associated DToken
     /// @param eToken EToken address
     /// @return DToken address
     function eTokenToDToken(address eToken) external view returns (address);
@@ -85,7 +85,7 @@ interface IEulerMarkets {
 
     /// @notice Retrieves the pricing config for an asset
     /// @param underlying Token address
-    /// @return pricingType (1=pegged, 2=uniswap3)
+    /// @return pricingType (1=pegged, 2=uniswap3, 3=forwarded)
     /// @return pricingParameters If uniswap3 pricingType then this represents the uniswap pool fee used, otherwise unused
     /// @return pricingForwarded If forwarded pricingType then this is the address prices are forwarded to, otherwise address(0)
     function getPricingConfig(address underlying) external view returns (uint16 pricingType, uint32 pricingParameters, address pricingForwarded);
@@ -372,3 +372,12 @@ interface IEulerPToken {
     /// @param amount In pToken units (which are equivalent to underlying units)
     function unwrap(uint amount) external;
 }
+
+
+library EulerAddrsRopsten {
+    IEuler public constant euler = IEuler(0x72bA850C2C4bC278FAaB215500Fd7EF229607299);
+    IEulerMarkets public constant markets = IEulerMarkets(0x5B4055036B8Df7f93dE6FA5c4A5599a94307fB01);
+    IEulerLiquidation public constant liquidation = IEulerLiquidation(0xC298C38f5b286bbCbb5A8BcA045160CeF2B17530);
+    IEulerExec public constant exec = IEulerExec(0x459BcC2bb26c235Ec0878663848c33c658F3601d);
+}
+

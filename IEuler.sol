@@ -447,9 +447,9 @@ interface IEulerPToken {
 
 
 library EulerAddrsRopsten {
-    IEuler public constant euler = IEuler(0x72bA850C2C4bC278FAaB215500Fd7EF229607299);
-    IEulerMarkets public constant markets = IEulerMarkets(0x5B4055036B8Df7f93dE6FA5c4A5599a94307fB01);
-    IEulerLiquidation public constant liquidation = IEulerLiquidation(0xC298C38f5b286bbCbb5A8BcA045160CeF2B17530);
-    IEulerExec public constant exec = IEulerExec(0x459BcC2bb26c235Ec0878663848c33c658F3601d);
+    IEuler public constant euler = IEuler(0xfC3DD73e918b931be7DEfd0cc616508391bcc001);
+    IEulerMarkets public constant markets = IEulerMarkets(0x60Ec84902908f5c8420331300055A63E6284F522);
+    IEulerLiquidation public constant liquidation = IEulerLiquidation(0xf9773f2D869Bdbe0B6aC6D6fD7df82b82C998DC7);
+    IEulerExec public constant exec = IEulerExec(0xF7B8611008Ed073Ef348FE130671688BBb20409d);
 }
 

@@ -48,10 +48,15 @@ interface IEulerMarkets {
     /// @return PToken address, or address(0) if it doesn't exist
     function underlyingToPToken(address underlying) external view returns (address);
 
-    /// @notice Looks up the Euler-related configuration for a token
+    /// @notice Looks up the Euler-related configuration for a token, and resolves all default-value placeholders to their currently configured values.
     /// @param underlying Token address
     /// @return Configuration struct
     function underlyingToAssetConfig(address underlying) external view returns (IEuler.AssetConfig memory);
+
+    /// @notice Looks up the Euler-related configuration for a token, and returns it unresolved (with default-value placeholders)
+    /// @param underlying Token address
+    /// @return Configuration struct
+    function underlyingToAssetConfigUnresolved(address underlying) external view returns (IEuler.AssetConfig memory);
 
     /// @notice Given an EToken address, looks up the associated underlying
     /// @param eToken EToken address
@@ -175,6 +180,20 @@ interface IEulerExec {
     /// @return List of operation results
     function batchDispatch(EulerBatchItem[] calldata items, address[] calldata deferLiquidityChecks) external returns (EulerBatchItemResponse[] memory);
 
+    /// @notice Results of a batchDispatch, but with extra information
+    struct EulerBatchExtra {
+        EulerBatchItemResponse[] responses;
+        uint gasUsed;
+        AssetLiquidity[][] liquidities;
+    }
+
+    /// @notice Call batchDispatch, but return extra information. Only intended to be used with callStatic.
+    /// @param items List of operations to execute
+    /// @param deferLiquidityChecks List of user accounts to defer liquidity checks for
+    /// @param queryLiquidity List of user accounts to return detailed liquidity information for
+    /// @return output Structure with extra information
+    function batchDispatchExtra(EulerBatchItem[] calldata items, address[] calldata deferLiquidityChecks, address[] calldata queryLiquidity) external returns (EulerBatchExtra memory output);
+
     /// @notice Enable average liquidity tracking for your account. Operations will cost more gas, but you may get additional benefits when performing liquidations
     /// @param subAccountId subAccountId 0 for primary, 1-255 for a sub-account
     function trackAverageLiquidity(uint subAccountId) external;
@@ -187,6 +206,16 @@ interface IEulerExec {
     /// @param account User account (xor in subAccountId, if applicable)
     /// @return The average liquidity, in terms of the reference asset, and post risk-adjustment
     function getAverageLiquidity(address account) external returns (uint);
+
+    /// @notice Transfer underlying tokens from sender's wallet into the pToken wrapper. Allowance should be set for the euler address.
+    /// @param underlying Token address
+    /// @param amount The amount to wrap in underlying units
+    function pTokenWrap(address underlying, uint amount) external;
+
+    /// @notice Transfer underlying tokens from the pToken wrapper to the sender's wallet.
+    /// @param underlying Token address
+    /// @param amount The amount to unwrap in underlying units
+    function pTokenUnWrap(address underlying, uint amount) external;
 }
 
 
@@ -364,6 +393,45 @@ interface IEulerLiquidation {
 
 /// @notice Protected Tokens are simple wrappers for tokens, allowing you to use tokens as collateral without permitting borrowing
 interface IEulerPToken {
+    /// @notice PToken name, ie "Euler Protected DAI"
+    function name() external view returns (string memory);
+
+    /// @notice PToken symbol, ie "pDAI"
+    function symbol() external view returns (string memory);
+
+    /// @notice Number of decimals, which is same as the underlying's
+    function decimals() external view returns (uint8);
+
+    /// @notice Address of the underlying asset
+    function underlying() external view returns (address);
+
+    /// @notice Balance of an account's wrapped tokens
+    function balanceOf(address who) external view returns (uint);
+
+    /// @notice Sum of all wrapped token balances
+    function totalSupply() external view returns (uint);
+
+    /// @notice Retrieve the current allowance
+    /// @param holder Address giving permission to access tokens
+    /// @param spender Trusted address
+    function allowance(address holder, address spender) external view returns (uint);
+
+    /// @notice Transfer your own pTokens to another address
+    /// @param recipient Recipient address
+    /// @param amount Amount of wrapped token to transfer
+    function transfer(address recipient, uint amount) external returns (bool);
+
+    /// @notice Transfer pTokens from one address to another. The euler address is automatically granted approval.
+    /// @param from This address must've approved the to address
+    /// @param recipient Recipient address
+    /// @param amount Amount to transfer
+    function transferFrom(address from, address recipient, uint amount) external returns (bool);
+
+    /// @notice Allow spender to access an amount of your pTokens. It is not necessary to approve the euler address.
+    /// @param spender Trusted address
+    /// @param amount Use max uint256 for "infinite" allowance
+    function approve(address spender, uint amount) external returns (bool);
+
     /// @notice Convert underlying tokens to pTokens
     /// @param amount In underlying units (which are equivalent to pToken units)
     function wrap(uint amount) external;
@@ -371,6 +439,10 @@ interface IEulerPToken {
     /// @notice Convert pTokens to underlying tokens
     /// @param amount In pToken units (which are equivalent to underlying units)
     function unwrap(uint amount) external;
+
+    /// @notice Claim any surplus tokens held by the PToken contract. This should only be used by contracts.
+    /// @param who Beneficiary to be credited for the surplus token amount
+    function claimSurplus(address who) external;
 }
 
 

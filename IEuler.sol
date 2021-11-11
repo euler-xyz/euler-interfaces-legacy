@@ -55,18 +55,18 @@ interface IEulerMarkets {
 
     /// @notice Looks up the Euler-related configuration for a token, and returns it unresolved (with default-value placeholders)
     /// @param underlying Token address
-    /// @return Configuration struct
-    function underlyingToAssetConfigUnresolved(address underlying) external view returns (IEuler.AssetConfig memory);
+    /// @return config Configuration struct
+    function underlyingToAssetConfigUnresolved(address underlying) external view returns (IEuler.AssetConfig memory config);
 
     /// @notice Given an EToken address, looks up the associated underlying
     /// @param eToken EToken address
-    /// @return Token address
-    function eTokenToUnderlying(address eToken) external view returns (address);
+    /// @return underlying Token address
+    function eTokenToUnderlying(address eToken) external view returns (address underlying);
 
     /// @notice Given an EToken address, looks up the associated DToken
     /// @param eToken EToken address
-    /// @return DToken address
-    function eTokenToDToken(address eToken) external view returns (address);
+    /// @return dTokenAddr DToken address
+    function eTokenToDToken(address eToken) external view returns (address dTokenAddr);
 
     /// @notice Looks up an asset's currently configured interest rate model
     /// @param underlying Token address
@@ -195,10 +195,12 @@ interface IEulerExec {
     function batchDispatchExtra(EulerBatchItem[] calldata items, address[] calldata deferLiquidityChecks, address[] calldata queryLiquidity) external returns (EulerBatchExtra memory output);
 
     /// @notice Enable average liquidity tracking for your account. Operations will cost more gas, but you may get additional benefits when performing liquidations
-    /// @param subAccountId subAccountId 0 for primary, 1-255 for a sub-account
-    function trackAverageLiquidity(uint subAccountId) external;
+    /// @param subAccountId subAccountId 0 for primary, 1-255 for a sub-account. 
+    /// @param delegate An address of another account that you would allow to use the benefits of your account's average liquidity (use the null address if you don't care about this). The other address must also reciprocally delegate to your account.
+    /// @param onlyDelegate Set this flag to skip tracking average liquidity and only set the delegate.
+    function trackAverageLiquidity(uint subAccountId, address delegate, bool onlyDelegate) external;
 
-    /// @notice Disable average liquidity tracking for your account
+    /// @notice Disable average liquidity tracking for your account and remove delegate
     /// @param subAccountId subAccountId 0 for primary, 1-255 for a sub-account
     function unTrackAverageLiquidity(uint subAccountId) external;
 
@@ -206,6 +208,16 @@ interface IEulerExec {
     /// @param account User account (xor in subAccountId, if applicable)
     /// @return The average liquidity, in terms of the reference asset, and post risk-adjustment
     function getAverageLiquidity(address account) external returns (uint);
+
+    /// @notice Retrieve the average liquidity for an account or a delegate account, if set
+    /// @param account User account (xor in subAccountId, if applicable)
+    /// @return The average liquidity, in terms of the reference asset, and post risk-adjustment
+    function getAverageLiquidityWithDelegate(address account) external returns (uint);
+
+    /// @notice Retrieve the account which delegates average liquidity for an account, if set
+    /// @param account User account (xor in subAccountId, if applicable)
+    /// @return The average liquidity delegate account
+    function getAverageLiquidityDelegateAccount(address account) external view returns (address);
 
     /// @notice Transfer underlying tokens from sender's wallet into the pToken wrapper. Allowance should be set for the euler address.
     /// @param underlying Token address
@@ -311,7 +323,7 @@ interface IEulerDToken {
     /// @notice Sum of all outstanding debts, in underlying units (increases as interest is accrued)
     function totalSupply() external view returns (uint);
 
-    /// @notice Sum of all outstanding debts, in underlying units with extra precision
+    /// @notice Sum of all outstanding debts, in underlying units with extra precision (increases as interest is accrued)
     function totalSupplyExact() external view returns (uint);
 
     /// @notice Debt owed by a particular account, in underlying units
@@ -330,21 +342,16 @@ interface IEulerDToken {
     /// @param amount In underlying units (use max uint256 for full debt owed)
     function repay(uint subAccountId, uint amount) external;
 
-    /// @notice Allow spender to send an amount of dTokens to your sub-account 0
-    /// @param spender Trusted address
-    /// @param amount Use max uint256 for "infinite" allowance
-    function approve(address spender, uint amount) external returns (bool);
-
     /// @notice Allow spender to send an amount of dTokens to a particular sub-account
     /// @param subAccountId 0 for primary, 1-255 for a sub-account
     /// @param spender Trusted address
     /// @param amount Use max uint256 for "infinite" allowance
-    function approveSubAccount(uint subAccountId, address spender, uint amount) external returns (bool);
+    function approveDebt(uint subAccountId, address spender, uint amount) external returns (bool);
 
-    /// @notice Retrieve the current allowance
+    /// @notice Retrieve the current debt allowance
     /// @param holder Xor with the desired sub-account ID (if applicable)
     /// @param spender Trusted address
-    function allowance(address holder, address spender) external view returns (uint);
+    function debtAllowance(address holder, address spender) external view returns (uint);
 
     /// @notice Transfer dTokens to another address (from sub-account 0)
     /// @param to Xor with the desired sub-account ID (if applicable)

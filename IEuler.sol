@@ -265,6 +265,9 @@ interface IEulerEToken {
     /// @notice Balance of the reserves, in underlying units (increases as interest is earned)
     function reserveBalanceUnderlying() external view returns (uint);
 
+    /// @notice Updates interest accumulator and totalBorrows, credits reserves, re-targets interest rate, and logs asset status
+    function touch() external;
+
     /// @notice Transfer underlying tokens from sender to the Euler pool, and increase account's eTokens
     /// @param subAccountId 0 for primary, 1-255 for a sub-account
     /// @param amount In underlying units (use max uint256 for full underlying token balance)
@@ -282,7 +285,7 @@ interface IEulerEToken {
 
     /// @notice Pay off dToken liability with eTokens ("self-repay")
     /// @param subAccountId 0 for primary, 1-255 for a sub-account
-    /// @param amount In underlying units (use max uint256 to repay full dToken balance)
+    /// @param amount In underlying units (use max uint256 to repay the debt in full or up to the available underlying balance)
     function burn(uint subAccountId, uint amount) external;
 
     /// @notice Allow spender to access an amount of your eTokens in sub-account 0
@@ -403,6 +406,138 @@ interface IEulerLiquidation {
 }
 
 
+/// @notice Trading assets on Uniswap V3 and 1Inch V4 DEXs
+interface IEulerSwap {
+    /// @notice Params for Uniswap V3 exact input trade on a single pool
+    /// @param subAccountIdIn subaccount id to trade from
+    /// @param subAccountIdOut subaccount id to trade to
+    /// @param underlyingIn sold token address
+    /// @param underlyingOut bought token address
+    /// @param amountIn amount of token to sell
+    /// @param amountOutMinimum minimum amount of bought token
+    /// @param deadline trade must complete before this timestamp
+    /// @param fee uniswap pool fee to use
+    /// @param sqrtPriceLimitX96 maximum acceptable price
+    struct SwapUniExactInputSingleParams {
+        uint subAccountIdIn;
+        uint subAccountIdOut;
+        address underlyingIn;
+        address underlyingOut;
+        uint amountIn;
+        uint amountOutMinimum;
+        uint deadline;
+        uint24 fee;
+        uint160 sqrtPriceLimitX96;
+    }
+
+    /// @notice Params for Uniswap V3 exact input trade routed through multiple pools
+    /// @param subAccountIdIn subaccount id to trade from
+    /// @param subAccountIdOut subaccount id to trade to
+    /// @param underlyingIn sold token address
+    /// @param underlyingOut bought token address
+    /// @param amountIn amount of token to sell
+    /// @param amountOutMinimum minimum amount of bought token
+    /// @param deadline trade must complete before this timestamp
+    /// @param path list of pools to use for the trade
+    struct SwapUniExactInputParams {
+        uint subAccountIdIn;
+        uint subAccountIdOut;
+        uint amountIn;
+        uint amountOutMinimum;
+        uint deadline;
+        bytes path; // list of pools to hop - constructed with uni SDK 
+    }
+
+    /// @notice Params for Uniswap V3 exact output trade on a single pool
+    /// @param subAccountIdIn subaccount id to trade from
+    /// @param subAccountIdOut subaccount id to trade to
+    /// @param underlyingIn sold token address
+    /// @param underlyingOut bought token address
+    /// @param amountOut amount of token to buy
+    /// @param amountInMaximum maximum amount of sold token
+    /// @param deadline trade must complete before this timestamp
+    /// @param fee uniswap pool fee to use
+    /// @param sqrtPriceLimitX96 maximum acceptable price
+    struct SwapUniExactOutputSingleParams {
+        uint subAccountIdIn;
+        uint subAccountIdOut;
+        address underlyingIn;
+        address underlyingOut;
+        uint amountOut;
+        uint amountInMaximum;
+        uint deadline;
+        uint24 fee;
+        uint160 sqrtPriceLimitX96;
+    }
+
+    /// @notice Params for Uniswap V3 exact output trade routed through multiple pools
+    /// @param subAccountIdIn subaccount id to trade from
+    /// @param subAccountIdOut subaccount id to trade to
+    /// @param underlyingIn sold token address
+    /// @param underlyingOut bought token address
+    /// @param amountOut amount of token to buy
+    /// @param amountInMaximum maximum amount of sold token
+    /// @param deadline trade must complete before this timestamp
+    /// @param path list of pools to use for the trade
+    struct SwapUniExactOutputParams {
+        uint subAccountIdIn;
+        uint subAccountIdOut;
+        uint amountOut;
+        uint amountInMaximum;
+        uint deadline;
+        bytes path;
+    }
+
+    /// @notice Params for 1Inch trade
+    /// @param subAccountIdIn subaccount id to trade from
+    /// @param subAccountIdOut subaccount id to trade to
+    /// @param underlyingIn sold token address
+    /// @param underlyingOut bought token address
+    /// @param amount amount of token to sell
+    /// @param amountOutMinimum minimum amount of bought token
+    /// @param payload call data passed to 1Inch contract
+    struct Swap1InchParams {
+        uint subAccountIdIn;
+        uint subAccountIdOut;
+        address underlyingIn;
+        address underlyingOut;
+        uint amount;
+        uint amountOutMinimum;
+        bytes payload;
+    }
+
+    /// @notice Execute Uniswap V3 exact input trade on a single pool
+    /// @param params struct defining trade parameters
+    function swapUniExactInputSingle(SwapUniExactInputSingleParams memory params) external;
+
+    /// @notice Execute Uniswap V3 exact input trade routed through multiple pools
+    /// @param params struct defining trade parameters
+    function swapUniExactInput(SwapUniExactInputParams memory params) external;
+
+    /// @notice Execute Uniswap V3 exact output trade on a single pool
+    /// @param params struct defining trade parameters
+    function swapUniExactOutputSingle(SwapUniExactOutputSingleParams memory params) external;
+
+    /// @notice Execute Uniswap V3 exact output trade routed through multiple pools
+    /// @param params struct defining trade parameters
+    function swapUniExactOutput(SwapUniExactOutputParams memory params) external;
+
+    /// @notice Trade on Uniswap V3 single pool and repay debt with bought asset
+    /// @param params struct defining trade parameters (amountOut is ignored)
+    /// @param targetDebt amount of debt that is expected to remain after trade and repay (0 to repay full debt)
+    function swapAndRepayUniSingle(SwapUniExactOutputSingleParams memory params, uint targetDebt) external;
+
+    /// @notice Trade on Uniswap V3 through multiple pools pool and repay debt with bought asset
+    /// @param params struct defining trade parameters (amountOut is ignored)
+    /// @param targetDebt amount of debt that is expected to remain after trade and repay (0 to repay full debt)
+    function swapAndRepayUni(SwapUniExactOutputParams memory params, uint targetDebt) external;
+
+    /// @notice Execute 1Inch V4 trade
+    /// @param params struct defining trade parameters
+    function swap1Inch(Swap1InchParams memory params) external;
+}
+
+
 /// @notice Protected Tokens are simple wrappers for tokens, allowing you to use tokens as collateral without permitting borrowing
 interface IEulerPToken {
     /// @notice PToken name, ie "Euler Protected DAI"
@@ -457,6 +592,13 @@ interface IEulerPToken {
     function claimSurplus(address who) external;
 }
 
+
+library EulerAddrsMainnet {
+    IEuler public constant euler = IEuler(0x27182842E098f60e3D576794A5bFFb0777E025d3);
+    IEulerMarkets public constant markets = IEulerMarkets(0x3520d5a913427E6F0D6A83E07ccD4A4da316e4d3);
+    IEulerLiquidation public constant liquidation = IEulerLiquidation(0xf43ce1d09050BAfd6980dD43Cde2aB9F18C85b34);
+    IEulerExec public constant exec = IEulerExec(0x59828FdF7ee634AaaD3f58B19fDBa3b03E2D9d80);
+}
 
 library EulerAddrsRopsten {
     IEuler public constant euler = IEuler(0xfC3DD73e918b931be7DEfd0cc616508391bcc001);

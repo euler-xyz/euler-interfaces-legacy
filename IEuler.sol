@@ -598,6 +598,7 @@ library EulerAddrsMainnet {
     IEulerMarkets public constant markets = IEulerMarkets(0x3520d5a913427E6F0D6A83E07ccD4A4da316e4d3);
     IEulerLiquidation public constant liquidation = IEulerLiquidation(0xf43ce1d09050BAfd6980dD43Cde2aB9F18C85b34);
     IEulerExec public constant exec = IEulerExec(0x59828FdF7ee634AaaD3f58B19fDBa3b03E2D9d80);
+    IEulerSwap public constant swap = IEulerSwap(0x7123C8cBBD76c5C7fCC9f7150f23179bec0bA341);
 }
 
 library EulerAddrsRopsten {
@@ -605,5 +606,5 @@ library EulerAddrsRopsten {
     IEulerMarkets public constant markets = IEulerMarkets(0x60Ec84902908f5c8420331300055A63E6284F522);
     IEulerLiquidation public constant liquidation = IEulerLiquidation(0xf9773f2D869Bdbe0B6aC6D6fD7df82b82C998DC7);
     IEulerExec public constant exec = IEulerExec(0xF7B8611008Ed073Ef348FE130671688BBb20409d);
+    // swap module not available on Ropsten
 }
-

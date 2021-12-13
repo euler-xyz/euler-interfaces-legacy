@@ -306,13 +306,13 @@ interface IEulerEToken {
 
     /// @notice Transfer eTokens to another address (from sub-account 0)
     /// @param to Xor with the desired sub-account ID (if applicable)
-    /// @param amount In internal book-keeping units (as returned from balanceOf). Use max uint256 for full balance.
+    /// @param amount In internal book-keeping units (as returned from balanceOf).
     function transfer(address to, uint amount) external returns (bool);
 
     /// @notice Transfer eTokens from one address to another
     /// @param from This address must've approved the to address, or be a sub-account of msg.sender
     /// @param to Xor with the desired sub-account ID (if applicable)
-    /// @param amount In internal book-keeping units (as returned from balanceOf). Use max uint256 for full balance.
+    /// @param amount In internal book-keeping units (as returned from balanceOf).
     function transferFrom(address from, address to, uint amount) external returns (bool);
 }
 
@@ -606,5 +606,5 @@ library EulerAddrsRopsten {
     IEulerMarkets public constant markets = IEulerMarkets(0x60Ec84902908f5c8420331300055A63E6284F522);
     IEulerLiquidation public constant liquidation = IEulerLiquidation(0xf9773f2D869Bdbe0B6aC6D6fD7df82b82C998DC7);
     IEulerExec public constant exec = IEulerExec(0xF7B8611008Ed073Ef348FE130671688BBb20409d);
-    // swap module not available on Ropsten
+    IEulerSwap public constant swap = IEulerSwap(0x86ea9f57d81Bf0C69Ff71114522fB3f29230DbA6);
 }

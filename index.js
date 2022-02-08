@@ -1,13 +1,13 @@
-export EulAbi from "./abis/Eul.json"
-export Euler from "./abis/Euler.json"
-export PToken from "./abis/PToken.json"
+export { default as EulAbi } from "./abis/Eul.json"
+export { default as EulerABI } from "./abis/Euler.json"
+export { default as PTokenABI } from "./abis/PToken.json"
 /// Mining
-export EulDistributor from './abis/mining/EulDistributor.json';
-export EulStakes from './abis/mining/EulStakes.json';
+export { default as EulDistributorABI } from "./abis/mining/EulDistributor.json"
+export { default as EulStakesABI } from "./abis/mining/EulStakes.json"
 /// Modules
-export DToken from './abis/modules/DToken.json'
-export EToken from './abis/modules/EToken.json'
-export Exec from './abis/modules/Exec.json'
-export Liquidation from './abis/modules/Liquidation.json'
-export Markets from './abis/modules/Markets.json'
-export Swap from './abis/modules/Swap.json'
+export { default as DTokenABI } from "./abis/modules/DToken.json"
+export { default as ETokenABI } from "./abis/modules/EToken.json"
+export { default as ExecABI } from "./abis/modules/Exec.json"
+export { default as LiquidationABI } from "./abis/modules/Liquidation.json"
+export { default as MarketsABI } from "./abis/modules/Markets.json"
+export { default as SwapABI } from "./abis/modules/Swap.json"

@@ -154,25 +154,25 @@ interface IEulerExec {
     /// @notice Compute aggregate liquidity for an account
     /// @param account User address
     /// @return status Aggregate liquidity (sum of all entered assets)
-    function liquidity(address account) external returns (LiquidityStatus memory status);
+    function liquidity(address account) external view returns (LiquidityStatus memory status);
 
     /// @notice Compute detailed liquidity for an account, broken down by asset
     /// @param account User address
     /// @return assets List of user's entered assets and each asset's corresponding liquidity
-    function detailedLiquidity(address account) external returns (AssetLiquidity[] memory assets);
+    function detailedLiquidity(address account) external view returns (AssetLiquidity[] memory assets);
 
     /// @notice Retrieve Euler's view of an asset's price
     /// @param underlying Token address
     /// @return twap Time-weighted average price
     /// @return twapPeriod TWAP duration, either the twapWindow value in AssetConfig, or less if that duration not available
-    function getPrice(address underlying) external returns (uint twap, uint twapPeriod);
+    function getPrice(address underlying) external view returns (uint twap, uint twapPeriod);
 
     /// @notice Retrieve Euler's view of an asset's price, as well as the current marginal price on uniswap
     /// @param underlying Token address
     /// @return twap Time-weighted average price
     /// @return twapPeriod TWAP duration, either the twapWindow value in AssetConfig, or less if that duration not available
     /// @return currPrice The current marginal price on uniswap3 (informational: not used anywhere in the Euler protocol)
-    function getPriceFull(address underlying) external returns (uint twap, uint twapPeriod, uint currPrice);
+    function getPriceFull(address underlying) external view returns (uint twap, uint twapPeriod, uint currPrice);
 
     /// @notice Defer liquidity checking for an account, to perform rebalancing, flash loans, etc. msg.sender must implement IDeferredLiquidityCheck
     /// @param account The account to defer liquidity for. Usually address(this), although not always
@@ -233,6 +233,13 @@ interface IEulerExec {
     /// @param underlying Token address
     /// @param amount The amount to unwrap in underlying units
     function pTokenUnWrap(address underlying, uint amount) external;
+
+    /// @notice Execute a staticcall to an arbitrary address with an arbitrary payload.
+    /// @param contractAddress Address of the contract to call
+    /// @param payload Encoded call payload
+    /// @return result Encoded return data
+    /// @dev Intended to be used in static-called batches, to e.g. provide detailed information about the impacts of the simulated operation.
+    function doStaticCall(address contractAddress, bytes memory payload) external view returns (bytes memory);
 }
 
 

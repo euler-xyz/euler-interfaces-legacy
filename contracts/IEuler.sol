@@ -606,13 +606,19 @@ interface IEulerEulDistributor {
 
 
 interface IEulerEulStakes {
+    /// @notice Retrieve current amount staked
+    /// @param account User address
+    /// @param underlying Token staked upon
+    /// @return Amount of EUL token staked
+    function staked(address account, address underlying) external view returns (uint);
+
     /// @notice Staking operation item. Positive amount means to increase stake on this underlying, negative to decrease.
     struct StakeOp {
         address underlying;
         int amount;
     }
 
-    /// @notice Modify stake of a series of underlyings. If the sum of all amounts is positive, then this amount of EUL will be transferred from the sender's wallet. Otherwise, it will be transferred out to the sender's wallet.
+    /// @notice Modify stake of a series of underlyings. If the sum of all amounts is positive, then this amount of EUL will be transferred in from the sender's wallet. If negative, EUL will be transferred out to the sender's wallet.
     /// @param ops Array of operations to perform
     function stake(StakeOp[] memory ops) external;
 

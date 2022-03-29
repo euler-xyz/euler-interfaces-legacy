@@ -154,25 +154,25 @@ interface IEulerExec {
     /// @notice Compute aggregate liquidity for an account
     /// @param account User address
     /// @return status Aggregate liquidity (sum of all entered assets)
-    function liquidity(address account) external returns (LiquidityStatus memory status);
+    function liquidity(address account) external view returns (LiquidityStatus memory status);
 
     /// @notice Compute detailed liquidity for an account, broken down by asset
     /// @param account User address
     /// @return assets List of user's entered assets and each asset's corresponding liquidity
-    function detailedLiquidity(address account) external returns (AssetLiquidity[] memory assets);
+    function detailedLiquidity(address account) external view returns (AssetLiquidity[] memory assets);
 
     /// @notice Retrieve Euler's view of an asset's price
     /// @param underlying Token address
     /// @return twap Time-weighted average price
     /// @return twapPeriod TWAP duration, either the twapWindow value in AssetConfig, or less if that duration not available
-    function getPrice(address underlying) external returns (uint twap, uint twapPeriod);
+    function getPrice(address underlying) external view returns (uint twap, uint twapPeriod);
 
     /// @notice Retrieve Euler's view of an asset's price, as well as the current marginal price on uniswap
     /// @param underlying Token address
     /// @return twap Time-weighted average price
     /// @return twapPeriod TWAP duration, either the twapWindow value in AssetConfig, or less if that duration not available
     /// @return currPrice The current marginal price on uniswap3 (informational: not used anywhere in the Euler protocol)
-    function getPriceFull(address underlying) external returns (uint twap, uint twapPeriod, uint currPrice);
+    function getPriceFull(address underlying) external view returns (uint twap, uint twapPeriod, uint currPrice);
 
     /// @notice Defer liquidity checking for an account, to perform rebalancing, flash loans, etc. msg.sender must implement IDeferredLiquidityCheck
     /// @param account The account to defer liquidity for. Usually address(this), although not always
@@ -233,6 +233,39 @@ interface IEulerExec {
     /// @param underlying Token address
     /// @param amount The amount to unwrap in underlying units
     function pTokenUnWrap(address underlying, uint amount) external;
+
+    /// @notice Apply EIP2612 signed permit on a target token from sender to euler contract
+    /// @param token Token address
+    /// @param value Allowance value
+    /// @param deadline Permit expiry timestamp
+    /// @param v secp256k1 signature v
+    /// @param r secp256k1 signature r
+    /// @param s secp256k1 signature s
+    function usePermit(address token, uint256 value, uint256 deadline, uint8 v, bytes32 r, bytes32 s) external;
+
+    /// @notice Apply DAI like (allowed) signed permit on a target token from sender to euler contract
+    /// @param token Token address
+    /// @param nonce Sender nonce
+    /// @param expiry Permit expiry timestamp
+    /// @param allowed If true, set unlimited allowance, otherwise set zero allowance
+    /// @param v secp256k1 signature v
+    /// @param r secp256k1 signature r
+    /// @param s secp256k1 signature s
+    function usePermitAllowed(address token, uint256 nonce, uint256 expiry, bool allowed, uint8 v, bytes32 r, bytes32 s) external;
+
+    /// @notice Apply allowance to tokens expecting the signature packed in a single bytes param
+    /// @param token Token address
+    /// @param value Allowance value
+    /// @param deadline Permit expiry timestamp
+    /// @param signature secp256k1 signature encoded as rsv
+    function usePermitPacked(address token, uint256 value, uint256 deadline, bytes calldata signature) external;
+
+    /// @notice Execute a staticcall to an arbitrary address with an arbitrary payload.
+    /// @param contractAddress Address of the contract to call
+    /// @param payload Encoded call payload
+    /// @return result Encoded return data
+    /// @dev Intended to be used in static-called batches, to e.g. provide detailed information about the impacts of the simulated operation.
+    function doStaticCall(address contractAddress, bytes memory payload) external view returns (bytes memory);
 }
 
 
@@ -264,6 +297,16 @@ interface IEulerEToken {
 
     /// @notice Balance of the reserves, in underlying units (increases as interest is earned)
     function reserveBalanceUnderlying() external view returns (uint);
+
+    /// @notice Convert an eToken balance to an underlying amount, taking into account current exchange rate
+    /// @param balance eToken balance, in internal book-keeping units (18 decimals)
+    /// @return Amount in underlying units, (same decimals as underlying token)
+    function convertBalanceToUnderlying(uint balance) external view returns (uint);
+
+    /// @notice Convert an underlying amount to an eToken balance, taking into account current exchange rate
+    /// @param underlyingAmount Amount in underlying units (same decimals as underlying token)
+    /// @return eToken balance, in internal book-keeping units (18 decimals)
+    function convertUnderlyingToBalance(uint underlyingAmount) external view returns (uint);
 
     /// @notice Updates interest accumulator and totalBorrows, credits reserves, re-targets interest rate, and logs asset status
     function touch() external;
@@ -308,6 +351,11 @@ interface IEulerEToken {
     /// @param to Xor with the desired sub-account ID (if applicable)
     /// @param amount In internal book-keeping units (as returned from balanceOf).
     function transfer(address to, uint amount) external returns (bool);
+
+    /// @notice Transfer the full eToken balance of an address to another
+    /// @param from This address must've approved the to address, or be a sub-account of msg.sender
+    /// @param to Xor with the desired sub-account ID (if applicable)
+    function transferFromMax(address from, address to) external returns (bool);
 
     /// @notice Transfer eTokens from one address to another
     /// @param from This address must've approved the to address, or be a sub-account of msg.sender

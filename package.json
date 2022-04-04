@@ -6,7 +6,8 @@
     "index.js",
     "index.d.ts",
     "types",
-    "abis"
+    "abis",
+    "contracts"
   ],
   "repository": "https://github.com/euler-xyz/euler-interfaces",
   "publishConfig": {

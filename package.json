@@ -1,5 +1,5 @@
 {
-  "version": "1.0.4-ropsten.0",
+  "version": "1.0.5-ropsten.0",
   "name": "@eulerxyz/euler-interfaces",
   "main": "index.js",
   "files": [

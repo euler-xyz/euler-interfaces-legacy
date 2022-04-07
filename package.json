@@ -7,7 +7,8 @@
     "index.d.ts",
     "types",
     "abis",
-    "contracts"
+    "contracts",
+    "addresses"
   ],
   "repository": "https://github.com/euler-xyz/euler-interfaces",
   "peerDependencies": {

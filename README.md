@@ -4,6 +4,6 @@
   * [Reference](https://docs.euler.xyz/developers/contract-reference)
   * [Examples](https://docs.euler.xyz/developers/integration-guide)
 
-* `abis/` - ABIs that can be used to interact with the contracts from off-chain programs.
+* `abis` - ABIs that can be used to interact with the contracts from off-chain programs.
 * `types` - Types for the ABIS to be imported into application
-* `addresses-{network}.json` - Addresses of deployed Euler contracts
+* `addresses` - Addresses of deployed Euler contracts

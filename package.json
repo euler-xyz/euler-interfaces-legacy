@@ -1,6 +1,6 @@
 {
   "version": "1.0.3",
-  "name": "@euler-xyz/euler-interfaces",
+  "name": "@eulerxyz/euler-interfaces",
   "main": "index.js",
   "files": [
     "index.js",
@@ -10,9 +10,6 @@
     "contracts"
   ],
   "repository": "https://github.com/euler-xyz/euler-interfaces",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "peerDependencies": {
     "ethers": "^5.5.3"
   },

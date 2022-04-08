@@ -1,4 +1,23 @@
 {
+   "eul": {
+      "name": "Euler",
+      "address": "0xd9fcd98c322942075a5c3860693e9f4f03aae07b",
+      "chainId": 1,
+      "symbol": "EUL",
+      "decimals": 18,
+      "image": "https://app.euler.finance/static/media/EF_logo__EF_social_element_lite-bg.608ecf3f.svg",
+      "extensions": {
+         "permit": {
+            "type": "EIP2612",
+            "domain": {
+               "name": "Euler",
+               "version": "1",
+               "chainId": 1,
+               "verifyingContract": "0xd9fcd98c322942075a5c3860693e9f4f03aae07b"
+            }
+         }
+      }
+   },
    "markets" : "0x3520d5a913427E6F0D6A83E07ccD4A4da316e4d3",
    "euler" : "0x27182842E098f60e3D576794A5bFFb0777E025d3",
    "swap" : "0x7123C8cBBD76c5C7fCC9f7150f23179bec0bA341",

@@ -280,6 +280,9 @@ interface IEulerEToken {
     /// @notice Decimals, always normalised to 18.
     function decimals() external pure returns (uint8);
 
+    /// @notice Address of underlying asset
+    function underlyingAsset() external view returns (address);
+
     /// @notice Sum of all balances, in internal book-keeping units (non-increasing)
     function totalSupply() external view returns (uint);
 
@@ -373,19 +376,22 @@ interface IEulerDToken {
     /// @notice Debt token symbol, ie "dDAI"
     function symbol() external view returns (string memory);
 
-    /// @notice Decimals, always normalised to 18.
-    function decimals() external pure returns (uint8);
+    /// @notice Decimals of underlying
+    function decimals() external view returns (uint8);
+
+    /// @notice Address of underlying asset
+    function underlyingAsset() external view returns (address);
 
     /// @notice Sum of all outstanding debts, in underlying units (increases as interest is accrued)
     function totalSupply() external view returns (uint);
 
-    /// @notice Sum of all outstanding debts, in underlying units with extra precision (increases as interest is accrued)
+    /// @notice Sum of all outstanding debts, in underlying units normalized to 27 decimals (increases as interest is accrued)
     function totalSupplyExact() external view returns (uint);
 
     /// @notice Debt owed by a particular account, in underlying units
     function balanceOf(address account) external view returns (uint);
 
-    /// @notice Debt owed by a particular account, in underlying units with extra precision
+    /// @notice Debt owed by a particular account, in underlying units normalized to 27 decimals
     function balanceOfExact(address account) external view returns (uint);
 
     /// @notice Transfer underlying tokens from the Euler pool to the sender, and increase sender's dTokens
@@ -401,7 +407,7 @@ interface IEulerDToken {
     /// @notice Allow spender to send an amount of dTokens to a particular sub-account
     /// @param subAccountId 0 for primary, 1-255 for a sub-account
     /// @param spender Trusted address
-    /// @param amount Use max uint256 for "infinite" allowance
+    /// @param amount In underlying units (use max uint256 for "infinite" allowance)
     function approveDebt(uint subAccountId, address spender, uint amount) external returns (bool);
 
     /// @notice Retrieve the current debt allowance
@@ -417,7 +423,7 @@ interface IEulerDToken {
     /// @notice Transfer dTokens from one address to another
     /// @param from Xor with the desired sub-account ID (if applicable)
     /// @param to This address must've approved the from address, or be a sub-account of msg.sender
-    /// @param amount In underlying. Use max uint256 for full balance.
+    /// @param amount In underlying units. Use max uint256 for full balance.
     function transferFrom(address from, address to, uint amount) external returns (bool);
 }
 

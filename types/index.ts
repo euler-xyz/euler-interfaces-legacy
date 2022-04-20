@@ -4,3 +4,4 @@ export type { PToken } from "./PToken"
 /// Mining
 export type { EulDistributor, EulStakes } from "./mining"
 export type { DToken, EToken, Liquidation, Markets, Swap } from "./modules"
+export type { EulerGeneralView } from "./views/EulerGeneralView"

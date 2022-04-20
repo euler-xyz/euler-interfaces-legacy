@@ -23,4 +23,5 @@ export type {
   Swap,
   EulDistributor,
   EulStakes,
+  EulerGeneralView
 } from "./types"

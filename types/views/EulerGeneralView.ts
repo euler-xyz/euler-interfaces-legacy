@@ -3,6 +3,7 @@ import {
   BytesLike as Arrayish,
   BigNumber,
   BigNumberish,
+  Contract,
 } from "ethers"
 import { ContractCallOverrides, ContractTransactionOverrides } from "../shared"
 
@@ -126,7 +127,7 @@ export interface DoQueryIRMRequest {
   underlying: string
 }
 
-export interface EulerGeneralView {
+export interface EulerGeneralView extends Contract {
   /**
    * Payable: false
    * Constant: false

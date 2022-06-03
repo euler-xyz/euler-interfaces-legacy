@@ -10,7 +10,7 @@
          "permit": {
             "type": "EIP2612",
             "domain": {
-               "name": "Euler",
+               "name": "Eul",
                "version": "1",
                "chainId": 3,
                "verifyingContract": "0x2fee9f774f8d963bf253d41111d03ae990b0834d"

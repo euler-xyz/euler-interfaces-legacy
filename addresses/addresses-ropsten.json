@@ -5,7 +5,7 @@
       "address": "0x2fee9f774f8d963bf253d41111d03ae990b0834d",
       "symbol": "EUL",
       "decimals": 18,
-      "image": "https://app.euler.finance/static/media/EF_logo__EF_social_element_lite-bg.608ecf3f.svg",
+      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/14280.png",
       "extensions": {
          "permit": {
             "type": "EIP2612",

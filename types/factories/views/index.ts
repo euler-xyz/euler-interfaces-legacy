@@ -2,3 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 export { EulerGeneralView__factory } from "./EulerGeneralView__factory";
+export { EulerSimpleLens__factory } from "./EulerSimpleLens__factory";

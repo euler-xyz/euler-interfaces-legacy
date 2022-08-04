@@ -32,3 +32,5 @@ export { Swap__factory } from "./factories/modules/Swap__factory";
 export { PToken__factory } from "./factories/PToken__factory";
 export type { EulerGeneralView } from "./views/EulerGeneralView";
 export { EulerGeneralView__factory } from "./factories/views/EulerGeneralView__factory";
+export type { EulerSimpleLens } from "./views/EulerSimpleLens";
+export { EulerSimpleLens__factory } from "./factories/views/EulerSimpleLens__factory";

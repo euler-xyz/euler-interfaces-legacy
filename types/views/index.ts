@@ -2,3 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { EulerGeneralView } from "./EulerGeneralView";
+export type { EulerSimpleLens } from "./EulerSimpleLens";

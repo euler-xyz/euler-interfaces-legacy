@@ -8,50 +8,51 @@ import type { EulStakes, EulStakesInterface } from "../../mining/EulStakes";
 
 const _abi = [
   {
-    type: "constructor",
     inputs: [
       {
-        internalType: "address",
-        type: "address",
         name: "eul_",
+        type: "address",
+        internalType: "address",
       },
     ],
     stateMutability: "nonpayable",
+    type: "constructor",
   },
   {
+    type: "event",
+    name: "Stake",
     inputs: [
       {
+        indexed: true,
         internalType: "address",
-        type: "address",
         name: "who",
-        indexed: true,
-      },
-      {
-        internalType: "address",
-        name: "underlying",
         type: "address",
+      },
+      {
+        type: "address",
+        name: "underlying",
+        internalType: "address",
         indexed: true,
       },
       {
-        indexed: false,
         type: "address",
         name: "sender",
+        indexed: false,
         internalType: "address",
       },
       {
-        indexed: false,
         type: "uint256",
         name: "newAmount",
+        indexed: false,
         internalType: "uint256",
       },
     ],
-    name: "Stake",
     anonymous: false,
-    type: "event",
   },
   {
+    name: "eul",
+    type: "function",
     stateMutability: "view",
-    inputs: [],
     outputs: [
       {
         internalType: "address",
@@ -59,143 +60,142 @@ const _abi = [
         type: "address",
       },
     ],
-    name: "eul",
-    type: "function",
+    inputs: [],
   },
   {
-    outputs: [
-      {
-        type: "string",
-        name: "",
-        internalType: "string",
-      },
-    ],
     type: "function",
     name: "name",
     inputs: [],
     stateMutability: "view",
+    outputs: [
+      {
+        name: "",
+        type: "string",
+        internalType: "string",
+      },
+    ],
   },
   {
+    inputs: [
+      {
+        type: "tuple[]",
+        components: [
+          {
+            name: "underlying",
+            type: "address",
+            internalType: "address",
+          },
+          {
+            name: "amount",
+            type: "int256",
+            internalType: "int256",
+          },
+        ],
+        name: "ops",
+        internalType: "struct EulStakes.StakeOp[]",
+      },
+    ],
+    stateMutability: "nonpayable",
     outputs: [],
     type: "function",
     name: "stake",
-    inputs: [
-      {
-        components: [
-          {
-            type: "address",
-            name: "underlying",
-            internalType: "address",
-          },
-          {
-            internalType: "int256",
-            name: "amount",
-            type: "int256",
-          },
-        ],
-        internalType: "struct EulStakes.StakeOp[]",
-        name: "ops",
-        type: "tuple[]",
-      },
-    ],
-    stateMutability: "nonpayable",
   },
   {
-    name: "stakeGift",
-    type: "function",
     outputs: [],
     stateMutability: "nonpayable",
     inputs: [
       {
         internalType: "address",
+        type: "address",
         name: "beneficiary",
-        type: "address",
       },
       {
-        name: "underlying",
-        type: "address",
         internalType: "address",
+        type: "address",
+        name: "underlying",
       },
       {
-        type: "uint256",
-        name: "amount",
         internalType: "uint256",
+        name: "amount",
+        type: "uint256",
       },
     ],
+    name: "stakeGift",
+    type: "function",
   },
   {
     stateMutability: "nonpayable",
+    outputs: [],
     inputs: [
       {
         internalType: "struct EulStakes.StakeOp[]",
-        components: [
-          {
-            name: "underlying",
-            type: "address",
-            internalType: "address",
-          },
-          {
-            internalType: "int256",
-            type: "int256",
-            name: "amount",
-          },
-        ],
         name: "ops",
         type: "tuple[]",
+        components: [
+          {
+            internalType: "address",
+            name: "underlying",
+            type: "address",
+          },
+          {
+            type: "int256",
+            name: "amount",
+            internalType: "int256",
+          },
+        ],
       },
       {
         internalType: "uint256",
+        type: "uint256",
         name: "value",
-        type: "uint256",
       },
       {
         internalType: "uint256",
-        type: "uint256",
         name: "deadline",
+        type: "uint256",
       },
       {
+        internalType: "uint8",
         name: "v",
         type: "uint8",
-        internalType: "uint8",
       },
       {
-        internalType: "bytes32",
-        name: "r",
         type: "bytes32",
+        name: "r",
+        internalType: "bytes32",
       },
       {
-        internalType: "bytes32",
         name: "s",
         type: "bytes32",
+        internalType: "bytes32",
       },
     ],
     name: "stakePermit",
     type: "function",
-    outputs: [],
   },
   {
-    outputs: [
-      {
-        name: "",
-        type: "uint256",
-        internalType: "uint256",
-      },
-    ],
-    type: "function",
-    name: "staked",
     inputs: [
       {
         internalType: "address",
-        type: "address",
         name: "account",
+        type: "address",
       },
       {
-        internalType: "address",
         type: "address",
         name: "underlying",
+        internalType: "address",
+      },
+    ],
+    outputs: [
+      {
+        type: "uint256",
+        name: "",
+        internalType: "uint256",
       },
     ],
     stateMutability: "view",
+    type: "function",
+    name: "staked",
   },
 ];
 

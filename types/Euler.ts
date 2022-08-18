@@ -98,6 +98,7 @@ export interface EulerInterface extends utils.Interface {
     "Genesis()": EventFragment;
     "GovConvertReserves(address,address,uint256)": EventFragment;
     "GovSetAssetConfig(address,tuple)": EventFragment;
+    "GovSetChainlinkPriceFeed(address,address)": EventFragment;
     "GovSetIRM(address,uint256,bytes)": EventFragment;
     "GovSetPricingConfig(address,uint16,uint32)": EventFragment;
     "GovSetReserveFee(address,uint32)": EventFragment;
@@ -114,6 +115,7 @@ export interface EulerInterface extends utils.Interface {
     "RequestBorrow(address,uint256)": EventFragment;
     "RequestBurn(address,uint256)": EventFragment;
     "RequestDeposit(address,uint256)": EventFragment;
+    "RequestDonate(address,uint256)": EventFragment;
     "RequestLiquidate(address,address,address,address,uint256,uint256)": EventFragment;
     "RequestMint(address,uint256)": EventFragment;
     "RequestRepay(address,uint256)": EventFragment;
@@ -135,6 +137,7 @@ export interface EulerInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "Genesis"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovConvertReserves"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetAssetConfig"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "GovSetChainlinkPriceFeed"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetIRM"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetPricingConfig"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetReserveFee"): EventFragment;
@@ -151,6 +154,7 @@ export interface EulerInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "RequestBorrow"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestBurn"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestDeposit"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RequestDonate"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestLiquidate"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestMint"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestRepay"): EventFragment;
@@ -276,6 +280,18 @@ export type GovSetAssetConfigEvent = TypedEvent<
 
 export type GovSetAssetConfigEventFilter =
   TypedEventFilter<GovSetAssetConfigEvent>;
+
+export interface GovSetChainlinkPriceFeedEventObject {
+  underlying: string;
+  chainlinkAggregator: string;
+}
+export type GovSetChainlinkPriceFeedEvent = TypedEvent<
+  [string, string],
+  GovSetChainlinkPriceFeedEventObject
+>;
+
+export type GovSetChainlinkPriceFeedEventFilter =
+  TypedEventFilter<GovSetChainlinkPriceFeedEvent>;
 
 export interface GovSetIRMEventObject {
   underlying: string;
@@ -479,6 +495,17 @@ export type RequestDepositEvent = TypedEvent<
 >;
 
 export type RequestDepositEventFilter = TypedEventFilter<RequestDepositEvent>;
+
+export interface RequestDonateEventObject {
+  account: string;
+  amount: BigNumber;
+}
+export type RequestDonateEvent = TypedEvent<
+  [string, BigNumber],
+  RequestDonateEventObject
+>;
+
+export type RequestDonateEventFilter = TypedEventFilter<RequestDonateEvent>;
 
 export interface RequestLiquidateEventObject {
   liquidator: string;
@@ -774,6 +801,15 @@ export interface Euler extends BaseContract {
       newConfig?: null
     ): GovSetAssetConfigEventFilter;
 
+    "GovSetChainlinkPriceFeed(address,address)"(
+      underlying?: string | null,
+      chainlinkAggregator?: null
+    ): GovSetChainlinkPriceFeedEventFilter;
+    GovSetChainlinkPriceFeed(
+      underlying?: string | null,
+      chainlinkAggregator?: null
+    ): GovSetChainlinkPriceFeedEventFilter;
+
     "GovSetIRM(address,uint256,bytes)"(
       underlying?: string | null,
       interestRateModel?: null,
@@ -938,6 +974,15 @@ export interface Euler extends BaseContract {
       account?: string | null,
       amount?: null
     ): RequestDepositEventFilter;
+
+    "RequestDonate(address,uint256)"(
+      account?: string | null,
+      amount?: null
+    ): RequestDonateEventFilter;
+    RequestDonate(
+      account?: string | null,
+      amount?: null
+    ): RequestDonateEventFilter;
 
     "RequestLiquidate(address,address,address,address,uint256,uint256)"(
       liquidator?: string | null,

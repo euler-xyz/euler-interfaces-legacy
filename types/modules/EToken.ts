@@ -62,6 +62,7 @@ export interface ETokenInterface extends utils.Interface {
     "convertUnderlyingToBalance(uint256)": FunctionFragment;
     "decimals()": FunctionFragment;
     "deposit(uint256,uint256)": FunctionFragment;
+    "donateToReserves(uint256,uint256)": FunctionFragment;
     "mint(uint256,uint256)": FunctionFragment;
     "moduleGitCommit()": FunctionFragment;
     "moduleId()": FunctionFragment;
@@ -91,6 +92,7 @@ export interface ETokenInterface extends utils.Interface {
       | "convertUnderlyingToBalance"
       | "decimals"
       | "deposit"
+      | "donateToReserves"
       | "mint"
       | "moduleGitCommit"
       | "moduleId"
@@ -140,6 +142,10 @@ export interface ETokenInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "deposit",
+    values: [BigNumberish, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "donateToReserves",
     values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
@@ -213,6 +219,10 @@ export interface ETokenInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "donateToReserves",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "moduleGitCommit",
@@ -264,6 +274,7 @@ export interface ETokenInterface extends utils.Interface {
     "Genesis()": EventFragment;
     "GovConvertReserves(address,address,uint256)": EventFragment;
     "GovSetAssetConfig(address,tuple)": EventFragment;
+    "GovSetChainlinkPriceFeed(address,address)": EventFragment;
     "GovSetIRM(address,uint256,bytes)": EventFragment;
     "GovSetPricingConfig(address,uint16,uint32)": EventFragment;
     "GovSetReserveFee(address,uint32)": EventFragment;
@@ -280,6 +291,7 @@ export interface ETokenInterface extends utils.Interface {
     "RequestBorrow(address,uint256)": EventFragment;
     "RequestBurn(address,uint256)": EventFragment;
     "RequestDeposit(address,uint256)": EventFragment;
+    "RequestDonate(address,uint256)": EventFragment;
     "RequestLiquidate(address,address,address,address,uint256,uint256)": EventFragment;
     "RequestMint(address,uint256)": EventFragment;
     "RequestRepay(address,uint256)": EventFragment;
@@ -303,6 +315,7 @@ export interface ETokenInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "Genesis"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovConvertReserves"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetAssetConfig"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "GovSetChainlinkPriceFeed"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetIRM"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetPricingConfig"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetReserveFee"): EventFragment;
@@ -319,6 +332,7 @@ export interface ETokenInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "RequestBorrow"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestBurn"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestDeposit"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RequestDonate"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestLiquidate"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestMint"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestRepay"): EventFragment;
@@ -457,6 +471,18 @@ export type GovSetAssetConfigEvent = TypedEvent<
 
 export type GovSetAssetConfigEventFilter =
   TypedEventFilter<GovSetAssetConfigEvent>;
+
+export interface GovSetChainlinkPriceFeedEventObject {
+  underlying: string;
+  chainlinkAggregator: string;
+}
+export type GovSetChainlinkPriceFeedEvent = TypedEvent<
+  [string, string],
+  GovSetChainlinkPriceFeedEventObject
+>;
+
+export type GovSetChainlinkPriceFeedEventFilter =
+  TypedEventFilter<GovSetChainlinkPriceFeedEvent>;
 
 export interface GovSetIRMEventObject {
   underlying: string;
@@ -660,6 +686,17 @@ export type RequestDepositEvent = TypedEvent<
 >;
 
 export type RequestDepositEventFilter = TypedEventFilter<RequestDepositEvent>;
+
+export interface RequestDonateEventObject {
+  account: string;
+  amount: BigNumber;
+}
+export type RequestDonateEvent = TypedEvent<
+  [string, BigNumber],
+  RequestDonateEventObject
+>;
+
+export type RequestDonateEventFilter = TypedEventFilter<RequestDonateEvent>;
 
 export interface RequestLiquidateEventObject {
   liquidator: string;
@@ -874,6 +911,12 @@ export interface EToken extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    donateToReserves(
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     mint(
       subAccountId: BigNumberish,
       amount: BigNumberish,
@@ -978,6 +1021,12 @@ export interface EToken extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  donateToReserves(
+    subAccountId: BigNumberish,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   mint(
     subAccountId: BigNumberish,
     amount: BigNumberish,
@@ -1077,6 +1126,12 @@ export interface EToken extends BaseContract {
     decimals(overrides?: CallOverrides): Promise<number>;
 
     deposit(
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    donateToReserves(
       subAccountId: BigNumberish,
       amount: BigNumberish,
       overrides?: CallOverrides
@@ -1238,6 +1293,15 @@ export interface EToken extends BaseContract {
       underlying?: string | null,
       newConfig?: null
     ): GovSetAssetConfigEventFilter;
+
+    "GovSetChainlinkPriceFeed(address,address)"(
+      underlying?: string | null,
+      chainlinkAggregator?: null
+    ): GovSetChainlinkPriceFeedEventFilter;
+    GovSetChainlinkPriceFeed(
+      underlying?: string | null,
+      chainlinkAggregator?: null
+    ): GovSetChainlinkPriceFeedEventFilter;
 
     "GovSetIRM(address,uint256,bytes)"(
       underlying?: string | null,
@@ -1403,6 +1467,15 @@ export interface EToken extends BaseContract {
       account?: string | null,
       amount?: null
     ): RequestDepositEventFilter;
+
+    "RequestDonate(address,uint256)"(
+      account?: string | null,
+      amount?: null
+    ): RequestDonateEventFilter;
+    RequestDonate(
+      account?: string | null,
+      amount?: null
+    ): RequestDonateEventFilter;
 
     "RequestLiquidate(address,address,address,address,uint256,uint256)"(
       liquidator?: string | null,
@@ -1572,6 +1645,12 @@ export interface EToken extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    donateToReserves(
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     mint(
       subAccountId: BigNumberish,
       amount: BigNumberish,
@@ -1675,6 +1754,12 @@ export interface EToken extends BaseContract {
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     deposit(
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    donateToReserves(
       subAccountId: BigNumberish,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }

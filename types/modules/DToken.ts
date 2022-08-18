@@ -58,6 +58,7 @@ export interface DTokenInterface extends utils.Interface {
     "borrow(uint256,uint256)": FunctionFragment;
     "debtAllowance(address,address)": FunctionFragment;
     "decimals()": FunctionFragment;
+    "flashLoan(uint256,bytes)": FunctionFragment;
     "moduleGitCommit()": FunctionFragment;
     "moduleId()": FunctionFragment;
     "name()": FunctionFragment;
@@ -78,6 +79,7 @@ export interface DTokenInterface extends utils.Interface {
       | "borrow"
       | "debtAllowance"
       | "decimals"
+      | "flashLoan"
       | "moduleGitCommit"
       | "moduleId"
       | "name"
@@ -108,6 +110,10 @@ export interface DTokenInterface extends utils.Interface {
     values: [string, string]
   ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "flashLoan",
+    values: [BigNumberish, BytesLike]
+  ): string;
   encodeFunctionData(
     functionFragment: "moduleGitCommit",
     values?: undefined
@@ -155,6 +161,7 @@ export interface DTokenInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "flashLoan", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "moduleGitCommit",
     data: BytesLike
@@ -192,6 +199,7 @@ export interface DTokenInterface extends utils.Interface {
     "Genesis()": EventFragment;
     "GovConvertReserves(address,address,uint256)": EventFragment;
     "GovSetAssetConfig(address,tuple)": EventFragment;
+    "GovSetChainlinkPriceFeed(address,address)": EventFragment;
     "GovSetIRM(address,uint256,bytes)": EventFragment;
     "GovSetPricingConfig(address,uint16,uint32)": EventFragment;
     "GovSetReserveFee(address,uint32)": EventFragment;
@@ -208,6 +216,7 @@ export interface DTokenInterface extends utils.Interface {
     "RequestBorrow(address,uint256)": EventFragment;
     "RequestBurn(address,uint256)": EventFragment;
     "RequestDeposit(address,uint256)": EventFragment;
+    "RequestDonate(address,uint256)": EventFragment;
     "RequestLiquidate(address,address,address,address,uint256,uint256)": EventFragment;
     "RequestMint(address,uint256)": EventFragment;
     "RequestRepay(address,uint256)": EventFragment;
@@ -231,6 +240,7 @@ export interface DTokenInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "Genesis"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovConvertReserves"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetAssetConfig"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "GovSetChainlinkPriceFeed"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetIRM"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetPricingConfig"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetReserveFee"): EventFragment;
@@ -247,6 +257,7 @@ export interface DTokenInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "RequestBorrow"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestBurn"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestDeposit"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RequestDonate"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestLiquidate"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestMint"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestRepay"): EventFragment;
@@ -385,6 +396,18 @@ export type GovSetAssetConfigEvent = TypedEvent<
 
 export type GovSetAssetConfigEventFilter =
   TypedEventFilter<GovSetAssetConfigEvent>;
+
+export interface GovSetChainlinkPriceFeedEventObject {
+  underlying: string;
+  chainlinkAggregator: string;
+}
+export type GovSetChainlinkPriceFeedEvent = TypedEvent<
+  [string, string],
+  GovSetChainlinkPriceFeedEventObject
+>;
+
+export type GovSetChainlinkPriceFeedEventFilter =
+  TypedEventFilter<GovSetChainlinkPriceFeedEvent>;
 
 export interface GovSetIRMEventObject {
   underlying: string;
@@ -589,6 +612,17 @@ export type RequestDepositEvent = TypedEvent<
 
 export type RequestDepositEventFilter = TypedEventFilter<RequestDepositEvent>;
 
+export interface RequestDonateEventObject {
+  account: string;
+  amount: BigNumber;
+}
+export type RequestDonateEvent = TypedEvent<
+  [string, BigNumber],
+  RequestDonateEventObject
+>;
+
+export type RequestDonateEventFilter = TypedEventFilter<RequestDonateEvent>;
+
 export interface RequestLiquidateEventObject {
   liquidator: string;
   violator: string;
@@ -780,6 +814,12 @@ export interface DToken extends BaseContract {
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
 
+    flashLoan(
+      amount: BigNumberish,
+      data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     moduleGitCommit(overrides?: CallOverrides): Promise<[string]>;
 
     moduleId(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -842,6 +882,12 @@ export interface DToken extends BaseContract {
 
   decimals(overrides?: CallOverrides): Promise<number>;
 
+  flashLoan(
+    amount: BigNumberish,
+    data: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   moduleGitCommit(overrides?: CallOverrides): Promise<string>;
 
   moduleId(overrides?: CallOverrides): Promise<BigNumber>;
@@ -903,6 +949,12 @@ export interface DToken extends BaseContract {
     ): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<number>;
+
+    flashLoan(
+      amount: BigNumberish,
+      data: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     moduleGitCommit(overrides?: CallOverrides): Promise<string>;
 
@@ -1042,6 +1094,15 @@ export interface DToken extends BaseContract {
       underlying?: string | null,
       newConfig?: null
     ): GovSetAssetConfigEventFilter;
+
+    "GovSetChainlinkPriceFeed(address,address)"(
+      underlying?: string | null,
+      chainlinkAggregator?: null
+    ): GovSetChainlinkPriceFeedEventFilter;
+    GovSetChainlinkPriceFeed(
+      underlying?: string | null,
+      chainlinkAggregator?: null
+    ): GovSetChainlinkPriceFeedEventFilter;
 
     "GovSetIRM(address,uint256,bytes)"(
       underlying?: string | null,
@@ -1208,6 +1269,15 @@ export interface DToken extends BaseContract {
       amount?: null
     ): RequestDepositEventFilter;
 
+    "RequestDonate(address,uint256)"(
+      account?: string | null,
+      amount?: null
+    ): RequestDonateEventFilter;
+    RequestDonate(
+      account?: string | null,
+      amount?: null
+    ): RequestDonateEventFilter;
+
     "RequestLiquidate(address,address,address,address,uint256,uint256)"(
       liquidator?: string | null,
       violator?: string | null,
@@ -1354,6 +1424,12 @@ export interface DToken extends BaseContract {
 
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
 
+    flashLoan(
+      amount: BigNumberish,
+      data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     moduleGitCommit(overrides?: CallOverrides): Promise<BigNumber>;
 
     moduleId(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1419,6 +1495,12 @@ export interface DToken extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    flashLoan(
+      amount: BigNumberish,
+      data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     moduleGitCommit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

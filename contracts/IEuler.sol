@@ -68,6 +68,11 @@ interface IEulerMarkets {
     /// @return underlying Token address
     function eTokenToUnderlying(address eToken) external view returns (address underlying);
 
+    /// @notice Given a DToken address, looks up the associated underlying
+    /// @param dToken DToken address
+    /// @return underlying Token address
+    function dTokenToUnderlying(address dToken) external view returns (address underlying);
+
     /// @notice Given an EToken address, looks up the associated DToken
     /// @param eToken EToken address
     /// @return dTokenAddr DToken address
@@ -95,10 +100,15 @@ interface IEulerMarkets {
 
     /// @notice Retrieves the pricing config for an asset
     /// @param underlying Token address
-    /// @return pricingType (1=pegged, 2=uniswap3, 3=forwarded)
-    /// @return pricingParameters If uniswap3 pricingType then this represents the uniswap pool fee used, otherwise unused
+    /// @return pricingType (1=pegged, 2=uniswap3, 3=forwarded, 4=chainlink)
+    /// @return pricingParameters If uniswap3 pricingType then this represents the uniswap pool fee used, if chainlink pricing type this represents the fallback uniswap pool fee or 0 if none
     /// @return pricingForwarded If forwarded pricingType then this is the address prices are forwarded to, otherwise address(0)
     function getPricingConfig(address underlying) external view returns (uint16 pricingType, uint32 pricingParameters, address pricingForwarded);
+
+    /// @notice Retrieves the Chainlink price feed config for an asset
+    /// @param underlying Token address
+    /// @return chainlinkAggregator Chainlink aggregator proxy address
+    function getChainlinkPriceFeedConfig(address underlying) external view returns (address chainlinkAggregator);
 
     /// @notice Retrieves the list of entered markets for an account (assets enabled for collateral or borrowing)
     /// @param account User account
@@ -359,8 +369,18 @@ interface IEulerEToken {
     /// @param to Xor with the desired sub-account ID (if applicable)
     /// @param amount In internal book-keeping units (as returned from balanceOf).
     function transferFrom(address from, address to, uint amount) external returns (bool);
+
+    /// @notice Donate eTokens to the reserves
+    /// @param subAccountId 0 for primary, 1-255 for a sub-account
+    /// @param amount In internal book-keeping units (as returned from balanceOf).
+    function donateToReserves(uint subAccountId, uint amount) external;
 }
 
+
+/// @notice Definition of callback method that flashLoan will invoke on your contract
+interface IFlashLoan {
+    function onFlashLoan(bytes memory data) external;
+}
 
 /// @notice Tokenised representation of debts
 interface IEulerDToken {
@@ -397,6 +417,11 @@ interface IEulerDToken {
     /// @param subAccountId 0 for primary, 1-255 for a sub-account
     /// @param amount In underlying units (use max uint256 for full debt owed)
     function repay(uint subAccountId, uint amount) external;
+
+    /// @notice Request a flash-loan. A onFlashLoan() callback in msg.sender will be invoked, which must repay the loan to the main Euler address prior to returning.
+    /// @param amount In underlying units
+    /// @param data Passed through to the onFlashLoan() callback, so contracts don't need to store transient data in storage
+    function flashLoan(uint amount, bytes calldata data) external;
 
     /// @notice Allow spender to send an amount of dTokens to a particular sub-account
     /// @param subAccountId 0 for primary, 1-255 for a sub-account

@@ -1,7 +1,7 @@
 {
    "eul": {
       "name": "Euler",
-      "chainId": 420,
+      "chainId": 5,
       "address": "0x64f5d968e3D3162404067A0d15ba70d8dC6122E4",
       "symbol": "EUL",
       "decimals": 18,
@@ -12,7 +12,7 @@
             "domain": {
                "name": "Eul",
                "version": "1",
-               "chainId": 420,
+               "chainId": 5,
                "verifyingContract": "0x64f5d968e3D3162404067A0d15ba70d8dC6122E4"
             }
          }

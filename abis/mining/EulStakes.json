@@ -1,129 +1,81 @@
 {
    "abi" : [
       {
-         "inputs" : [
-            {
-               "name" : "eul_",
-               "type" : "address",
-               "internalType" : "address"
-            }
-         ],
+         "type" : "constructor",
          "stateMutability" : "nonpayable",
-         "type" : "constructor"
-      },
-      {
-         "type" : "event",
-         "name" : "Stake",
          "inputs" : [
             {
-               "indexed" : true,
                "internalType" : "address",
-               "name" : "who",
+               "name" : "eul_",
                "type" : "address"
-            },
-            {
-               "type" : "address",
-               "name" : "underlying",
-               "internalType" : "address",
-               "indexed" : true
-            },
-            {
-               "type" : "address",
-               "name" : "sender",
-               "indexed" : false,
-               "internalType" : "address"
-            },
-            {
-               "type" : "uint256",
-               "name" : "newAmount",
-               "indexed" : false,
-               "internalType" : "uint256"
-            }
-         ],
-         "anonymous" : false
-      },
-      {
-         "name" : "eul",
-         "type" : "function",
-         "stateMutability" : "view",
-         "outputs" : [
-            {
-               "internalType" : "address",
-               "name" : "",
-               "type" : "address"
-            }
-         ],
-         "inputs" : []
-      },
-      {
-         "type" : "function",
-         "name" : "name",
-         "inputs" : [],
-         "stateMutability" : "view",
-         "outputs" : [
-            {
-               "name" : "",
-               "type" : "string",
-               "internalType" : "string"
             }
          ]
       },
       {
+         "name" : "Stake",
          "inputs" : [
             {
-               "type" : "tuple[]",
-               "components" : [
-                  {
-                     "name" : "underlying",
-                     "type" : "address",
-                     "internalType" : "address"
-                  },
-                  {
-                     "name" : "amount",
-                     "type" : "int256",
-                     "internalType" : "int256"
-                  }
-               ],
-               "name" : "ops",
-               "internalType" : "struct EulStakes.StakeOp[]"
-            }
-         ],
-         "stateMutability" : "nonpayable",
-         "outputs" : [],
-         "type" : "function",
-         "name" : "stake"
-      },
-      {
-         "outputs" : [],
-         "stateMutability" : "nonpayable",
-         "inputs" : [
-            {
-               "internalType" : "address",
+               "indexed" : true,
                "type" : "address",
-               "name" : "beneficiary"
+               "internalType" : "address",
+               "name" : "who"
             },
             {
-               "internalType" : "address",
                "type" : "address",
+               "indexed" : true,
+               "internalType" : "address",
                "name" : "underlying"
             },
             {
+               "type" : "address",
+               "indexed" : false,
+               "name" : "sender",
+               "internalType" : "address"
+            },
+            {
                "internalType" : "uint256",
-               "name" : "amount",
+               "name" : "newAmount",
+               "indexed" : false,
                "type" : "uint256"
             }
          ],
-         "name" : "stakeGift",
+         "anonymous" : false,
+         "type" : "event"
+      },
+      {
+         "type" : "function",
+         "outputs" : [
+            {
+               "name" : "",
+               "internalType" : "address",
+               "type" : "address"
+            }
+         ],
+         "stateMutability" : "view",
+         "name" : "eul",
+         "inputs" : []
+      },
+      {
+         "stateMutability" : "view",
+         "outputs" : [
+            {
+               "internalType" : "string",
+               "name" : "",
+               "type" : "string"
+            }
+         ],
+         "inputs" : [],
+         "name" : "name",
          "type" : "function"
       },
       {
+         "type" : "function",
          "stateMutability" : "nonpayable",
          "outputs" : [],
          "inputs" : [
             {
-               "internalType" : "struct EulStakes.StakeOp[]",
-               "name" : "ops",
                "type" : "tuple[]",
+               "internalType" : "struct EulStakes.StakeOp[]",
                "components" : [
                   {
                      "internalType" : "address",
@@ -131,54 +83,92 @@
                      "type" : "address"
                   },
                   {
-                     "type" : "int256",
                      "name" : "amount",
-                     "internalType" : "int256"
+                     "internalType" : "int256",
+                     "type" : "int256"
                   }
-               ]
-            },
-            {
-               "internalType" : "uint256",
-               "type" : "uint256",
-               "name" : "value"
-            },
-            {
-               "internalType" : "uint256",
-               "name" : "deadline",
-               "type" : "uint256"
-            },
-            {
-               "internalType" : "uint8",
-               "name" : "v",
-               "type" : "uint8"
-            },
-            {
-               "type" : "bytes32",
-               "name" : "r",
-               "internalType" : "bytes32"
-            },
-            {
-               "name" : "s",
-               "type" : "bytes32",
-               "internalType" : "bytes32"
+               ],
+               "name" : "ops"
             }
          ],
-         "name" : "stakePermit",
-         "type" : "function"
+         "name" : "stake"
       },
       {
+         "type" : "function",
+         "outputs" : [],
+         "stateMutability" : "nonpayable",
+         "name" : "stakeGift",
          "inputs" : [
             {
+               "name" : "beneficiary",
                "internalType" : "address",
-               "name" : "account",
                "type" : "address"
             },
             {
                "type" : "address",
                "name" : "underlying",
                "internalType" : "address"
+            },
+            {
+               "name" : "amount",
+               "internalType" : "uint256",
+               "type" : "uint256"
+            }
+         ]
+      },
+      {
+         "outputs" : [],
+         "stateMutability" : "nonpayable",
+         "name" : "stakePermit",
+         "inputs" : [
+            {
+               "internalType" : "struct EulStakes.StakeOp[]",
+               "components" : [
+                  {
+                     "type" : "address",
+                     "name" : "underlying",
+                     "internalType" : "address"
+                  },
+                  {
+                     "type" : "int256",
+                     "name" : "amount",
+                     "internalType" : "int256"
+                  }
+               ],
+               "name" : "ops",
+               "type" : "tuple[]"
+            },
+            {
+               "internalType" : "uint256",
+               "name" : "value",
+               "type" : "uint256"
+            },
+            {
+               "type" : "uint256",
+               "internalType" : "uint256",
+               "name" : "deadline"
+            },
+            {
+               "name" : "v",
+               "internalType" : "uint8",
+               "type" : "uint8"
+            },
+            {
+               "name" : "r",
+               "internalType" : "bytes32",
+               "type" : "bytes32"
+            },
+            {
+               "type" : "bytes32",
+               "internalType" : "bytes32",
+               "name" : "s"
             }
          ],
+         "type" : "function"
+      },
+      {
+         "type" : "function",
+         "stateMutability" : "view",
          "outputs" : [
             {
                "type" : "uint256",
@@ -186,8 +176,18 @@
                "internalType" : "uint256"
             }
          ],
-         "stateMutability" : "view",
-         "type" : "function",
+         "inputs" : [
+            {
+               "type" : "address",
+               "name" : "account",
+               "internalType" : "address"
+            },
+            {
+               "type" : "address",
+               "name" : "underlying",
+               "internalType" : "address"
+            }
+         ],
          "name" : "staked"
       }
    ]

@@ -611,6 +611,36 @@ interface IEulerSwap {
 }
 
 
+/// @notice Common logic for executing and processing trades through external swap handler contracts
+interface IEulerSwapHub {
+    /// @notice Params defining a swap request
+    struct SwapParams {
+        address underlyingIn;
+        address underlyingOut;
+        uint mode;
+        uint amountIn;
+        uint amountOut;
+        uint exactOutTolerance;
+        bytes payload;
+    }
+
+    /// @notice Execute a trade using the requested swap handler
+    /// @param subAccountIdIn sub-account holding the sold token. 0 for primary, 1-255 for a sub-account
+    /// @param subAccountIdOut sub-account to receive the bought token. 0 for primary, 1-255 for a sub-account
+    /// @param swapHandler address of a swap handler to use
+    /// @param params struct defining the requested trade
+    function swap(uint subAccountIdIn, uint subAccountIdOut, address swapHandler, SwapParams memory params) external;
+
+    /// @notice Repay debt by selling another deposited token
+    /// @param subAccountIdIn sub-account holding the sold token. 0 for primary, 1-255 for a sub-account
+    /// @param subAccountIdOut sub-account to receive the bought token. 0 for primary, 1-255 for a sub-account
+    /// @param swapHandler address of a swap handler to use
+    /// @param params struct defining the requested trade
+    /// @param targetDebt how much debt should remain after calling the function
+    function swapAndRepay(uint subAccountIdIn, uint subAccountIdOut, address swapHandler, SwapParams memory params, uint targetDebt) external;
+}
+
+
 /// @notice Protected Tokens are simple wrappers for tokens, allowing you to use tokens as collateral without permitting borrowing
 interface IEulerPToken {
     /// @notice PToken name, ie "Euler Protected DAI"

@@ -1,194 +1,194 @@
 {
    "abi" : [
       {
-         "type" : "constructor",
-         "stateMutability" : "nonpayable",
          "inputs" : [
             {
-               "name" : "eul_",
                "type" : "address",
-               "internalType" : "address"
+               "internalType" : "address",
+               "name" : "eul_"
             },
             {
                "type" : "address",
                "name" : "eulStakes_",
                "internalType" : "address"
             }
-         ]
+         ],
+         "type" : "constructor",
+         "stateMutability" : "nonpayable"
       },
       {
-         "anonymous" : false,
          "inputs" : [
             {
-               "name" : "newOwner",
-               "type" : "address",
                "indexed" : true,
+               "type" : "address",
+               "name" : "newOwner",
                "internalType" : "address"
             }
          ],
          "name" : "OwnerChanged",
-         "type" : "event"
-      },
-      {
-         "name" : "claim",
-         "type" : "function",
-         "stateMutability" : "nonpayable",
-         "outputs" : [],
-         "inputs" : [
-            {
-               "internalType" : "address",
-               "type" : "address",
-               "name" : "account"
-            },
-            {
-               "name" : "token",
-               "type" : "address",
-               "internalType" : "address"
-            },
-            {
-               "internalType" : "uint256",
-               "name" : "claimable",
-               "type" : "uint256"
-            },
-            {
-               "name" : "proof",
-               "type" : "bytes32[]",
-               "internalType" : "bytes32[]"
-            },
-            {
-               "internalType" : "address",
-               "name" : "stake",
-               "type" : "address"
-            }
-         ]
+         "type" : "event",
+         "anonymous" : false
       },
       {
          "inputs" : [
             {
-               "name" : "",
+               "name" : "account",
                "type" : "address",
                "internalType" : "address"
             },
             {
-               "name" : "",
                "type" : "address",
-               "internalType" : "address"
-            }
-         ],
-         "outputs" : [
+               "internalType" : "address",
+               "name" : "token"
+            },
             {
                "type" : "uint256",
-               "name" : "",
+               "name" : "claimable",
                "internalType" : "uint256"
+            },
+            {
+               "type" : "bytes32[]",
+               "internalType" : "bytes32[]",
+               "name" : "proof"
+            },
+            {
+               "name" : "stake",
+               "type" : "address",
+               "internalType" : "address"
             }
          ],
-         "stateMutability" : "view",
+         "outputs" : [],
          "type" : "function",
-         "name" : "claimed"
+         "name" : "claim",
+         "stateMutability" : "nonpayable"
+      },
+      {
+         "outputs" : [
+            {
+               "internalType" : "uint256",
+               "type" : "uint256",
+               "name" : ""
+            }
+         ],
+         "inputs" : [
+            {
+               "name" : "",
+               "type" : "address",
+               "internalType" : "address"
+            },
+            {
+               "type" : "address",
+               "internalType" : "address",
+               "name" : ""
+            }
+         ],
+         "type" : "function",
+         "name" : "claimed",
+         "stateMutability" : "view"
+      },
+      {
+         "outputs" : [
+            {
+               "type" : "bytes32",
+               "name" : "",
+               "internalType" : "bytes32"
+            }
+         ],
+         "inputs" : [],
+         "type" : "function",
+         "name" : "currRoot",
+         "stateMutability" : "view"
       },
       {
          "type" : "function",
-         "name" : "currRoot",
+         "stateMutability" : "view",
+         "name" : "eul",
+         "outputs" : [
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "name" : ""
+            }
+         ],
+         "inputs" : []
+      },
+      {
+         "outputs" : [
+            {
+               "type" : "address",
+               "name" : "",
+               "internalType" : "address"
+            }
+         ],
          "inputs" : [],
          "stateMutability" : "view",
+         "type" : "function",
+         "name" : "eulStakes"
+      },
+      {
+         "inputs" : [],
+         "outputs" : [
+            {
+               "type" : "string",
+               "internalType" : "string",
+               "name" : ""
+            }
+         ],
+         "type" : "function",
+         "stateMutability" : "view",
+         "name" : "name"
+      },
+      {
+         "outputs" : [
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "name" : ""
+            }
+         ],
+         "inputs" : [],
+         "name" : "owner",
+         "type" : "function",
+         "stateMutability" : "view"
+      },
+      {
+         "type" : "function",
+         "stateMutability" : "view",
+         "name" : "prevRoot",
          "outputs" : [
             {
                "internalType" : "bytes32",
                "type" : "bytes32",
                "name" : ""
             }
-         ]
+         ],
+         "inputs" : []
       },
       {
-         "stateMutability" : "view",
-         "outputs" : [
+         "inputs" : [
             {
                "internalType" : "address",
                "type" : "address",
-               "name" : ""
+               "name" : "newOwner"
             }
          ],
-         "inputs" : [],
-         "name" : "eul",
-         "type" : "function"
-      },
-      {
-         "stateMutability" : "view",
-         "outputs" : [
-            {
-               "name" : "",
-               "type" : "address",
-               "internalType" : "address"
-            }
-         ],
-         "inputs" : [],
-         "name" : "eulStakes",
-         "type" : "function"
-      },
-      {
-         "outputs" : [
-            {
-               "internalType" : "string",
-               "name" : "",
-               "type" : "string"
-            }
-         ],
-         "stateMutability" : "view",
-         "inputs" : [],
-         "name" : "name",
-         "type" : "function"
-      },
-      {
+         "outputs" : [],
          "type" : "function",
-         "name" : "owner",
-         "inputs" : [],
-         "stateMutability" : "view",
-         "outputs" : [
-            {
-               "type" : "address",
-               "name" : "",
-               "internalType" : "address"
-            }
-         ]
-      },
-      {
-         "inputs" : [],
-         "stateMutability" : "view",
-         "outputs" : [
-            {
-               "name" : "",
-               "type" : "bytes32",
-               "internalType" : "bytes32"
-            }
-         ],
-         "type" : "function",
-         "name" : "prevRoot"
-      },
-      {
-         "type" : "function",
-         "name" : "transferOwnership",
-         "inputs" : [
-            {
-               "name" : "newOwner",
-               "type" : "address",
-               "internalType" : "address"
-            }
-         ],
          "stateMutability" : "nonpayable",
-         "outputs" : []
+         "name" : "transferOwnership"
       },
       {
          "name" : "updateRoot",
          "type" : "function",
          "stateMutability" : "nonpayable",
-         "outputs" : [],
          "inputs" : [
             {
-               "name" : "newRoot",
                "type" : "bytes32",
+               "name" : "newRoot",
                "internalType" : "bytes32"
             }
-         ]
+         ],
+         "outputs" : []
       }
    ]
 }

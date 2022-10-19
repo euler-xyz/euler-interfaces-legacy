@@ -50,221 +50,84 @@ export declare namespace Storage {
   };
 }
 
-export interface ETokenInterface extends utils.Interface {
+export declare namespace ISwapHandler {
+  export type SwapParamsStruct = {
+    underlyingIn: string;
+    underlyingOut: string;
+    mode: BigNumberish;
+    amountIn: BigNumberish;
+    amountOut: BigNumberish;
+    exactOutTolerance: BigNumberish;
+    payload: BytesLike;
+  };
+
+  export type SwapParamsStructOutput = [
+    string,
+    string,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    string
+  ] & {
+    underlyingIn: string;
+    underlyingOut: string;
+    mode: BigNumber;
+    amountIn: BigNumber;
+    amountOut: BigNumber;
+    exactOutTolerance: BigNumber;
+    payload: string;
+  };
+}
+
+export interface SwapHubInterface extends utils.Interface {
   functions: {
-    "allowance(address,address)": FunctionFragment;
-    "approve(address,uint256)": FunctionFragment;
-    "approveSubAccount(uint256,address,uint256)": FunctionFragment;
-    "balanceOf(address)": FunctionFragment;
-    "balanceOfUnderlying(address)": FunctionFragment;
-    "burn(uint256,uint256)": FunctionFragment;
-    "convertBalanceToUnderlying(uint256)": FunctionFragment;
-    "convertUnderlyingToBalance(uint256)": FunctionFragment;
-    "decimals()": FunctionFragment;
-    "deposit(uint256,uint256)": FunctionFragment;
-    "donateToReserves(uint256,uint256)": FunctionFragment;
-    "mint(uint256,uint256)": FunctionFragment;
     "moduleGitCommit()": FunctionFragment;
     "moduleId()": FunctionFragment;
-    "name()": FunctionFragment;
-    "reserveBalance()": FunctionFragment;
-    "reserveBalanceUnderlying()": FunctionFragment;
-    "symbol()": FunctionFragment;
-    "totalSupply()": FunctionFragment;
-    "totalSupplyUnderlying()": FunctionFragment;
-    "touch()": FunctionFragment;
-    "transfer(address,uint256)": FunctionFragment;
-    "transferFrom(address,address,uint256)": FunctionFragment;
-    "transferFromMax(address,address)": FunctionFragment;
-    "underlyingAsset()": FunctionFragment;
-    "withdraw(uint256,uint256)": FunctionFragment;
+    "swap(uint256,uint256,address,(address,address,uint256,uint256,uint256,uint256,bytes))": FunctionFragment;
+    "swapAndRepay(uint256,uint256,address,(address,address,uint256,uint256,uint256,uint256,bytes),uint256)": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "allowance"
-      | "approve"
-      | "approveSubAccount"
-      | "balanceOf"
-      | "balanceOfUnderlying"
-      | "burn"
-      | "convertBalanceToUnderlying"
-      | "convertUnderlyingToBalance"
-      | "decimals"
-      | "deposit"
-      | "donateToReserves"
-      | "mint"
       | "moduleGitCommit"
       | "moduleId"
-      | "name"
-      | "reserveBalance"
-      | "reserveBalanceUnderlying"
-      | "symbol"
-      | "totalSupply"
-      | "totalSupplyUnderlying"
-      | "touch"
-      | "transfer"
-      | "transferFrom"
-      | "transferFromMax"
-      | "underlyingAsset"
-      | "withdraw"
+      | "swap"
+      | "swapAndRepay"
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: "allowance",
-    values: [string, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "approve",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "approveSubAccount",
-    values: [BigNumberish, string, BigNumberish]
-  ): string;
-  encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "balanceOfUnderlying",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "burn",
-    values: [BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "convertBalanceToUnderlying",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "convertUnderlyingToBalance",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "deposit",
-    values: [BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "donateToReserves",
-    values: [BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "mint",
-    values: [BigNumberish, BigNumberish]
-  ): string;
   encodeFunctionData(
     functionFragment: "moduleGitCommit",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "moduleId", values?: undefined): string;
-  encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "reserveBalance",
-    values?: undefined
+    functionFragment: "swap",
+    values: [BigNumberish, BigNumberish, string, ISwapHandler.SwapParamsStruct]
   ): string;
   encodeFunctionData(
-    functionFragment: "reserveBalanceUnderlying",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "totalSupply",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "totalSupplyUnderlying",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "touch", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "transfer",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transferFrom",
-    values: [string, string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transferFromMax",
-    values: [string, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "underlyingAsset",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "withdraw",
-    values: [BigNumberish, BigNumberish]
+    functionFragment: "swapAndRepay",
+    values: [
+      BigNumberish,
+      BigNumberish,
+      string,
+      ISwapHandler.SwapParamsStruct,
+      BigNumberish
+    ]
   ): string;
 
-  decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "approveSubAccount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "balanceOfUnderlying",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "convertBalanceToUnderlying",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "convertUnderlyingToBalance",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "donateToReserves",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "moduleGitCommit",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "moduleId", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "swap", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "reserveBalance",
+    functionFragment: "swapAndRepay",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "reserveBalanceUnderlying",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "totalSupply",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "totalSupplyUnderlying",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "touch", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "transfer", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "transferFrom",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "transferFromMax",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "underlyingAsset",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {
-    "Approval(address,address,uint256)": EventFragment;
     "AssetStatus(address,uint256,uint256,uint96,uint256,uint256,int96,uint256)": EventFragment;
     "Borrow(address,address,uint256)": EventFragment;
     "DelegateAverageLiquidity(address,address)": EventFragment;
@@ -302,12 +165,10 @@ export interface ETokenInterface extends utils.Interface {
     "RequestTransferEToken(address,address,uint256)": EventFragment;
     "RequestWithdraw(address,uint256)": EventFragment;
     "TrackAverageLiquidity(address)": EventFragment;
-    "Transfer(address,address,uint256)": EventFragment;
     "UnTrackAverageLiquidity(address)": EventFragment;
     "Withdraw(address,address,uint256)": EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "AssetStatus"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Borrow"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "DelegateAverageLiquidity"): EventFragment;
@@ -345,22 +206,9 @@ export interface ETokenInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "RequestTransferEToken"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestWithdraw"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TrackAverageLiquidity"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UnTrackAverageLiquidity"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Withdraw"): EventFragment;
 }
-
-export interface ApprovalEventObject {
-  owner: string;
-  spender: string;
-  value: BigNumber;
-}
-export type ApprovalEvent = TypedEvent<
-  [string, string, BigNumber],
-  ApprovalEventObject
->;
-
-export type ApprovalEventFilter = TypedEventFilter<ApprovalEvent>;
 
 export interface AssetStatusEventObject {
   underlying: string;
@@ -836,18 +684,6 @@ export type TrackAverageLiquidityEvent = TypedEvent<
 export type TrackAverageLiquidityEventFilter =
   TypedEventFilter<TrackAverageLiquidityEvent>;
 
-export interface TransferEventObject {
-  from: string;
-  to: string;
-  value: BigNumber;
-}
-export type TransferEvent = TypedEvent<
-  [string, string, BigNumber],
-  TransferEventObject
->;
-
-export type TransferEventFilter = TypedEventFilter<TransferEvent>;
-
 export interface UnTrackAverageLiquidityEventObject {
   account: string;
 }
@@ -871,12 +707,12 @@ export type WithdrawEvent = TypedEvent<
 
 export type WithdrawEventFilter = TypedEventFilter<WithdrawEvent>;
 
-export interface EToken extends BaseContract {
+export interface SwapHub extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: ETokenInterface;
+  interface: SwapHubInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -898,346 +734,73 @@ export interface EToken extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    allowance(
-      holder: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    approve(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    approveSubAccount(
-      subAccountId: BigNumberish,
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    balanceOfUnderlying(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    burn(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    convertBalanceToUnderlying(
-      balance: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    convertUnderlyingToBalance(
-      underlyingAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    decimals(overrides?: CallOverrides): Promise<[number]>;
-
-    deposit(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    donateToReserves(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    mint(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     moduleGitCommit(overrides?: CallOverrides): Promise<[string]>;
 
     moduleId(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    name(overrides?: CallOverrides): Promise<[string]>;
-
-    reserveBalance(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    reserveBalanceUnderlying(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    symbol(overrides?: CallOverrides): Promise<[string]>;
-
-    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    totalSupplyUnderlying(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    touch(
+    swap(
+      subAccountIdIn: BigNumberish,
+      subAccountIdOut: BigNumberish,
+      swapHandler: string,
+      params: ISwapHandler.SwapParamsStruct,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    transfer(
-      to: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    transferFrom(
-      from: string,
-      to: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    transferFromMax(
-      from: string,
-      to: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    underlyingAsset(overrides?: CallOverrides): Promise<[string]>;
-
-    withdraw(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
+    swapAndRepay(
+      subAccountIdIn: BigNumberish,
+      subAccountIdOut: BigNumberish,
+      swapHandler: string,
+      params: ISwapHandler.SwapParamsStruct,
+      targetDebt: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
-
-  allowance(
-    holder: string,
-    spender: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  approve(
-    spender: string,
-    amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  approveSubAccount(
-    subAccountId: BigNumberish,
-    spender: string,
-    amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-  balanceOfUnderlying(
-    account: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  burn(
-    subAccountId: BigNumberish,
-    amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  convertBalanceToUnderlying(
-    balance: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  convertUnderlyingToBalance(
-    underlyingAmount: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  decimals(overrides?: CallOverrides): Promise<number>;
-
-  deposit(
-    subAccountId: BigNumberish,
-    amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  donateToReserves(
-    subAccountId: BigNumberish,
-    amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  mint(
-    subAccountId: BigNumberish,
-    amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
 
   moduleGitCommit(overrides?: CallOverrides): Promise<string>;
 
   moduleId(overrides?: CallOverrides): Promise<BigNumber>;
 
-  name(overrides?: CallOverrides): Promise<string>;
-
-  reserveBalance(overrides?: CallOverrides): Promise<BigNumber>;
-
-  reserveBalanceUnderlying(overrides?: CallOverrides): Promise<BigNumber>;
-
-  symbol(overrides?: CallOverrides): Promise<string>;
-
-  totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-  totalSupplyUnderlying(overrides?: CallOverrides): Promise<BigNumber>;
-
-  touch(
+  swap(
+    subAccountIdIn: BigNumberish,
+    subAccountIdOut: BigNumberish,
+    swapHandler: string,
+    params: ISwapHandler.SwapParamsStruct,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  transfer(
-    to: string,
-    amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  transferFrom(
-    from: string,
-    to: string,
-    amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  transferFromMax(
-    from: string,
-    to: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  underlyingAsset(overrides?: CallOverrides): Promise<string>;
-
-  withdraw(
-    subAccountId: BigNumberish,
-    amount: BigNumberish,
+  swapAndRepay(
+    subAccountIdIn: BigNumberish,
+    subAccountIdOut: BigNumberish,
+    swapHandler: string,
+    params: ISwapHandler.SwapParamsStruct,
+    targetDebt: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    allowance(
-      holder: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    approve(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    approveSubAccount(
-      subAccountId: BigNumberish,
-      spender: string,
-      amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    balanceOfUnderlying(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    burn(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    convertBalanceToUnderlying(
-      balance: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    convertUnderlyingToBalance(
-      underlyingAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    decimals(overrides?: CallOverrides): Promise<number>;
-
-    deposit(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    donateToReserves(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    mint(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     moduleGitCommit(overrides?: CallOverrides): Promise<string>;
 
     moduleId(overrides?: CallOverrides): Promise<BigNumber>;
 
-    name(overrides?: CallOverrides): Promise<string>;
-
-    reserveBalance(overrides?: CallOverrides): Promise<BigNumber>;
-
-    reserveBalanceUnderlying(overrides?: CallOverrides): Promise<BigNumber>;
-
-    symbol(overrides?: CallOverrides): Promise<string>;
-
-    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-    totalSupplyUnderlying(overrides?: CallOverrides): Promise<BigNumber>;
-
-    touch(overrides?: CallOverrides): Promise<void>;
-
-    transfer(
-      to: string,
-      amount: BigNumberish,
+    swap(
+      subAccountIdIn: BigNumberish,
+      subAccountIdOut: BigNumberish,
+      swapHandler: string,
+      params: ISwapHandler.SwapParamsStruct,
       overrides?: CallOverrides
-    ): Promise<boolean>;
+    ): Promise<void>;
 
-    transferFrom(
-      from: string,
-      to: string,
-      amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    transferFromMax(
-      from: string,
-      to: string,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    underlyingAsset(overrides?: CallOverrides): Promise<string>;
-
-    withdraw(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
+    swapAndRepay(
+      subAccountIdIn: BigNumberish,
+      subAccountIdOut: BigNumberish,
+      swapHandler: string,
+      params: ISwapHandler.SwapParamsStruct,
+      targetDebt: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
   };
 
   filters: {
-    "Approval(address,address,uint256)"(
-      owner?: string | null,
-      spender?: string | null,
-      value?: null
-    ): ApprovalEventFilter;
-    Approval(
-      owner?: string | null,
-      spender?: string | null,
-      value?: null
-    ): ApprovalEventFilter;
-
     "AssetStatus(address,uint256,uint256,uint96,uint256,uint256,int96,uint256)"(
       underlying?: string | null,
       totalBalances?: null,
@@ -1639,17 +1202,6 @@ export interface EToken extends BaseContract {
       account?: string | null
     ): TrackAverageLiquidityEventFilter;
 
-    "Transfer(address,address,uint256)"(
-      from?: string | null,
-      to?: string | null,
-      value?: null
-    ): TransferEventFilter;
-    Transfer(
-      from?: string | null,
-      to?: string | null,
-      value?: null
-    ): TransferEventFilter;
-
     "UnTrackAverageLiquidity(address)"(
       account?: string | null
     ): UnTrackAverageLiquidityEventFilter;
@@ -1670,230 +1222,47 @@ export interface EToken extends BaseContract {
   };
 
   estimateGas: {
-    allowance(
-      holder: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    approve(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    approveSubAccount(
-      subAccountId: BigNumberish,
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    balanceOfUnderlying(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    burn(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    convertBalanceToUnderlying(
-      balance: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    convertUnderlyingToBalance(
-      underlyingAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    decimals(overrides?: CallOverrides): Promise<BigNumber>;
-
-    deposit(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    donateToReserves(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    mint(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     moduleGitCommit(overrides?: CallOverrides): Promise<BigNumber>;
 
     moduleId(overrides?: CallOverrides): Promise<BigNumber>;
 
-    name(overrides?: CallOverrides): Promise<BigNumber>;
-
-    reserveBalance(overrides?: CallOverrides): Promise<BigNumber>;
-
-    reserveBalanceUnderlying(overrides?: CallOverrides): Promise<BigNumber>;
-
-    symbol(overrides?: CallOverrides): Promise<BigNumber>;
-
-    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-    totalSupplyUnderlying(overrides?: CallOverrides): Promise<BigNumber>;
-
-    touch(
+    swap(
+      subAccountIdIn: BigNumberish,
+      subAccountIdOut: BigNumberish,
+      swapHandler: string,
+      params: ISwapHandler.SwapParamsStruct,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    transfer(
-      to: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    transferFrom(
-      from: string,
-      to: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    transferFromMax(
-      from: string,
-      to: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    underlyingAsset(overrides?: CallOverrides): Promise<BigNumber>;
-
-    withdraw(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
+    swapAndRepay(
+      subAccountIdIn: BigNumberish,
+      subAccountIdOut: BigNumberish,
+      swapHandler: string,
+      params: ISwapHandler.SwapParamsStruct,
+      targetDebt: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    allowance(
-      holder: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    approve(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    approveSubAccount(
-      subAccountId: BigNumberish,
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    balanceOf(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    balanceOfUnderlying(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    burn(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    convertBalanceToUnderlying(
-      balance: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    convertUnderlyingToBalance(
-      underlyingAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    deposit(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    donateToReserves(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    mint(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
     moduleGitCommit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     moduleId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    reserveBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    reserveBalanceUnderlying(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    totalSupplyUnderlying(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    touch(
+    swap(
+      subAccountIdIn: BigNumberish,
+      subAccountIdOut: BigNumberish,
+      swapHandler: string,
+      params: ISwapHandler.SwapParamsStruct,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    transfer(
-      to: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    transferFrom(
-      from: string,
-      to: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    transferFromMax(
-      from: string,
-      to: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    underlyingAsset(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    withdraw(
-      subAccountId: BigNumberish,
-      amount: BigNumberish,
+    swapAndRepay(
+      subAccountIdIn: BigNumberish,
+      subAccountIdOut: BigNumberish,
+      swapHandler: string,
+      params: ISwapHandler.SwapParamsStruct,
+      targetDebt: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

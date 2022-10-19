@@ -29,6 +29,8 @@ export type { Markets } from "./modules/Markets";
 export { Markets__factory } from "./factories/modules/Markets__factory";
 export type { Swap } from "./modules/Swap";
 export { Swap__factory } from "./factories/modules/Swap__factory";
+export type { SwapHub } from "./modules/SwapHub";
+export { SwapHub__factory } from "./factories/modules/SwapHub__factory";
 export { PToken__factory } from "./factories/PToken__factory";
 export type { EulerGeneralView } from "./views/EulerGeneralView";
 export { EulerGeneralView__factory } from "./factories/views/EulerGeneralView__factory";

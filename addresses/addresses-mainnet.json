@@ -18,9 +18,12 @@
          }
       }
    },
+   "swapHandler1Inch": "0x32673dAA164F4a290AE1f75DDc6aea5A2d343065",
+   "swapHandlerUniAutoRouter": "0xD1679029Ae81DA676d9b5850feb6C8EE68f9d04E",
    "markets" : "0x3520d5a913427E6F0D6A83E07ccD4A4da316e4d3",
    "euler" : "0x27182842E098f60e3D576794A5bFFb0777E025d3",
    "swap" : "0x7123C8cBBD76c5C7fCC9f7150f23179bec0bA341",
+   "swapHub" : "0x542ACC8E1db037d6008587aBfB1B7fB44014c629",
    "liquidation" : "0xf43ce1d09050BAfd6980dD43Cde2aB9F18C85b34",
    "eulerGeneralView" : "0xACC25c4d40651676FEEd43a3467F3169e3E68e42",
    "eulerSimpleLens": "0xc2d41d42939109CDCfa26C6965269D9C0220b38E",

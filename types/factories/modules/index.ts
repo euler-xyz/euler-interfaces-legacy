@@ -7,3 +7,4 @@ export { Exec__factory } from "./Exec__factory";
 export { Liquidation__factory } from "./Liquidation__factory";
 export { Markets__factory } from "./Markets__factory";
 export { Swap__factory } from "./Swap__factory";
+export { SwapHub__factory } from "./SwapHub__factory";

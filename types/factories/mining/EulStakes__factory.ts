@@ -8,101 +8,100 @@ import type { EulStakes, EulStakesInterface } from "../../mining/EulStakes";
 
 const _abi = [
   {
+    type: "constructor",
+    stateMutability: "nonpayable",
     inputs: [
       {
-        name: "eul_",
         type: "address",
         internalType: "address",
+        name: "eul_",
       },
     ],
-    stateMutability: "nonpayable",
-    type: "constructor",
   },
   {
+    anonymous: false,
     type: "event",
-    name: "Stake",
     inputs: [
       {
-        indexed: true,
+        type: "address",
         internalType: "address",
         name: "who",
-        type: "address",
-      },
-      {
-        type: "address",
-        name: "underlying",
-        internalType: "address",
         indexed: true,
       },
       {
+        internalType: "address",
         type: "address",
+        name: "underlying",
+        indexed: true,
+      },
+      {
         name: "sender",
         indexed: false,
+        type: "address",
         internalType: "address",
       },
       {
         type: "uint256",
+        internalType: "uint256",
         name: "newAmount",
         indexed: false,
-        internalType: "uint256",
       },
     ],
-    anonymous: false,
+    name: "Stake",
   },
   {
-    name: "eul",
     type: "function",
     stateMutability: "view",
+    name: "eul",
     outputs: [
       {
-        internalType: "address",
         name: "",
+        internalType: "address",
         type: "address",
       },
     ],
     inputs: [],
   },
   {
-    type: "function",
     name: "name",
     inputs: [],
-    stateMutability: "view",
     outputs: [
       {
         name: "",
-        type: "string",
         internalType: "string",
+        type: "string",
       },
     ],
+    type: "function",
+    stateMutability: "view",
   },
   {
+    type: "function",
+    stateMutability: "nonpayable",
+    name: "stake",
     inputs: [
       {
         type: "tuple[]",
+        internalType: "struct EulStakes.StakeOp[]",
         components: [
           {
             name: "underlying",
-            type: "address",
             internalType: "address",
+            type: "address",
           },
           {
             name: "amount",
-            type: "int256",
             internalType: "int256",
+            type: "int256",
           },
         ],
         name: "ops",
-        internalType: "struct EulStakes.StakeOp[]",
       },
     ],
-    stateMutability: "nonpayable",
     outputs: [],
-    type: "function",
-    name: "stake",
   },
   {
     outputs: [],
-    stateMutability: "nonpayable",
     inputs: [
       {
         internalType: "address",
@@ -110,92 +109,93 @@ const _abi = [
         name: "beneficiary",
       },
       {
+        name: "underlying",
         internalType: "address",
         type: "address",
-        name: "underlying",
       },
       {
-        internalType: "uint256",
         name: "amount",
+        internalType: "uint256",
         type: "uint256",
       },
     ],
     name: "stakeGift",
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
+    type: "function",
     stateMutability: "nonpayable",
+    name: "stakePermit",
     outputs: [],
     inputs: [
       {
+        type: "tuple[]",
         internalType: "struct EulStakes.StakeOp[]",
         name: "ops",
-        type: "tuple[]",
         components: [
           {
+            type: "address",
             internalType: "address",
             name: "underlying",
-            type: "address",
           },
           {
-            type: "int256",
             name: "amount",
+            type: "int256",
             internalType: "int256",
           },
         ],
       },
       {
-        internalType: "uint256",
-        type: "uint256",
         name: "value",
+        type: "uint256",
+        internalType: "uint256",
       },
       {
+        type: "uint256",
         internalType: "uint256",
         name: "deadline",
-        type: "uint256",
       },
       {
-        internalType: "uint8",
         name: "v",
+        internalType: "uint8",
         type: "uint8",
       },
       {
-        type: "bytes32",
         name: "r",
+        type: "bytes32",
         internalType: "bytes32",
       },
       {
-        name: "s",
-        type: "bytes32",
         internalType: "bytes32",
+        type: "bytes32",
+        name: "s",
       },
     ],
-    name: "stakePermit",
-    type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        type: "address",
-        name: "underlying",
-        internalType: "address",
-      },
-    ],
+    type: "function",
+    stateMutability: "view",
+    name: "staked",
     outputs: [
       {
+        internalType: "uint256",
         type: "uint256",
         name: "",
-        internalType: "uint256",
       },
     ],
-    stateMutability: "view",
-    type: "function",
-    name: "staked",
+    inputs: [
+      {
+        name: "account",
+        internalType: "address",
+        type: "address",
+      },
+      {
+        type: "address",
+        internalType: "address",
+        name: "underlying",
+      },
+    ],
   },
 ];
 

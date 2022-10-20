@@ -200,6 +200,8 @@ export interface LiquidationInterface extends utils.Interface {
     "RequestMint(address,uint256)": EventFragment;
     "RequestRepay(address,uint256)": EventFragment;
     "RequestSwap(address,address,address,address,uint256,uint256)": EventFragment;
+    "RequestSwapHub(address,address,address,address,uint256,uint256,uint256,address)": EventFragment;
+    "RequestSwapHubRepay(address,address,address,address,uint256,address)": EventFragment;
     "RequestTransferDToken(address,address,uint256)": EventFragment;
     "RequestTransferEToken(address,address,uint256)": EventFragment;
     "RequestWithdraw(address,uint256)": EventFragment;
@@ -239,6 +241,8 @@ export interface LiquidationInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "RequestMint"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestRepay"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestSwap"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RequestSwapHub"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RequestSwapHubRepay"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestTransferDToken"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestTransferEToken"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RequestWithdraw"): EventFragment;
@@ -639,6 +643,39 @@ export type RequestSwapEvent = TypedEvent<
 >;
 
 export type RequestSwapEventFilter = TypedEventFilter<RequestSwapEvent>;
+
+export interface RequestSwapHubEventObject {
+  accountIn: string;
+  accountOut: string;
+  underlyingIn: string;
+  underlyingOut: string;
+  amountIn: BigNumber;
+  amountOut: BigNumber;
+  mode: BigNumber;
+  swapHandler: string;
+}
+export type RequestSwapHubEvent = TypedEvent<
+  [string, string, string, string, BigNumber, BigNumber, BigNumber, string],
+  RequestSwapHubEventObject
+>;
+
+export type RequestSwapHubEventFilter = TypedEventFilter<RequestSwapHubEvent>;
+
+export interface RequestSwapHubRepayEventObject {
+  accountIn: string;
+  accountOut: string;
+  underlyingIn: string;
+  underlyingOut: string;
+  targetDebt: BigNumber;
+  swapHandler: string;
+}
+export type RequestSwapHubRepayEvent = TypedEvent<
+  [string, string, string, string, BigNumber, string],
+  RequestSwapHubRepayEventObject
+>;
+
+export type RequestSwapHubRepayEventFilter =
+  TypedEventFilter<RequestSwapHubRepayEvent>;
 
 export interface RequestTransferDTokenEventObject {
   from: string;
@@ -1159,6 +1196,44 @@ export interface Liquidation extends BaseContract {
       amount?: null,
       swapType?: null
     ): RequestSwapEventFilter;
+
+    "RequestSwapHub(address,address,address,address,uint256,uint256,uint256,address)"(
+      accountIn?: string | null,
+      accountOut?: string | null,
+      underlyingIn?: string | null,
+      underlyingOut?: null,
+      amountIn?: null,
+      amountOut?: null,
+      mode?: null,
+      swapHandler?: null
+    ): RequestSwapHubEventFilter;
+    RequestSwapHub(
+      accountIn?: string | null,
+      accountOut?: string | null,
+      underlyingIn?: string | null,
+      underlyingOut?: null,
+      amountIn?: null,
+      amountOut?: null,
+      mode?: null,
+      swapHandler?: null
+    ): RequestSwapHubEventFilter;
+
+    "RequestSwapHubRepay(address,address,address,address,uint256,address)"(
+      accountIn?: string | null,
+      accountOut?: string | null,
+      underlyingIn?: string | null,
+      underlyingOut?: null,
+      targetDebt?: null,
+      swapHandler?: null
+    ): RequestSwapHubRepayEventFilter;
+    RequestSwapHubRepay(
+      accountIn?: string | null,
+      accountOut?: string | null,
+      underlyingIn?: string | null,
+      underlyingOut?: null,
+      targetDebt?: null,
+      swapHandler?: null
+    ): RequestSwapHubRepayEventFilter;
 
     "RequestTransferDToken(address,address,uint256)"(
       from?: string | null,

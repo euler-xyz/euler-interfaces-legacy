@@ -1,159 +1,159 @@
 {
    "abi" : [
       {
+         "type" : "constructor",
          "stateMutability" : "nonpayable",
          "inputs" : [
             {
                "type" : "bytes32",
-               "name" : "moduleGitCommit_",
-               "internalType" : "bytes32"
+               "internalType" : "bytes32",
+               "name" : "moduleGitCommit_"
             }
-         ],
-         "type" : "constructor"
+         ]
       },
       {
-         "name" : "BatchDispatchSimulation",
          "inputs" : [
             {
-               "type" : "tuple[]",
-               "internalType" : "struct Exec.EulerBatchItemResponse[]",
+               "name" : "simulation",
                "components" : [
                   {
-                     "type" : "bool",
                      "internalType" : "bool",
+                     "type" : "bool",
                      "name" : "success"
                   },
                   {
-                     "name" : "result",
                      "internalType" : "bytes",
-                     "type" : "bytes"
+                     "type" : "bytes",
+                     "name" : "result"
                   }
                ],
-               "name" : "simulation"
+               "type" : "tuple[]",
+               "internalType" : "struct Exec.EulerBatchItemResponse[]"
             }
          ],
+         "name" : "BatchDispatchSimulation",
          "type" : "error"
       },
       {
-         "type" : "event",
-         "anonymous" : false,
+         "name" : "AssetStatus",
          "inputs" : [
             {
                "name" : "underlying",
-               "internalType" : "address",
                "indexed" : true,
-               "type" : "address"
+               "type" : "address",
+               "internalType" : "address"
             },
             {
-               "indexed" : false,
                "type" : "uint256",
                "internalType" : "uint256",
+               "indexed" : false,
                "name" : "totalBalances"
             },
             {
                "internalType" : "uint256",
-               "name" : "totalBorrows",
                "type" : "uint256",
+               "indexed" : false,
+               "name" : "totalBorrows"
+            },
+            {
+               "internalType" : "uint96",
+               "type" : "uint96",
+               "name" : "reserveBalance",
                "indexed" : false
             },
             {
-               "type" : "uint96",
                "indexed" : false,
-               "name" : "reserveBalance",
-               "internalType" : "uint96"
-            },
-            {
-               "indexed" : false,
-               "type" : "uint256",
                "name" : "poolSize",
+               "type" : "uint256",
                "internalType" : "uint256"
             },
             {
+               "type" : "uint256",
                "internalType" : "uint256",
                "name" : "interestAccumulator",
-               "type" : "uint256",
+               "indexed" : false
+            },
+            {
+               "internalType" : "int96",
+               "type" : "int96",
+               "name" : "interestRate",
                "indexed" : false
             },
             {
                "indexed" : false,
-               "type" : "int96",
-               "internalType" : "int96",
-               "name" : "interestRate"
-            },
-            {
-               "type" : "uint256",
-               "indexed" : false,
                "name" : "timestamp",
+               "type" : "uint256",
                "internalType" : "uint256"
             }
          ],
-         "name" : "AssetStatus"
-      },
-      {
-         "inputs" : [
-            {
-               "internalType" : "address",
-               "name" : "underlying",
-               "type" : "address",
-               "indexed" : true
-            },
-            {
-               "internalType" : "address",
-               "name" : "account",
-               "indexed" : true,
-               "type" : "address"
-            },
-            {
-               "internalType" : "uint256",
-               "name" : "amount",
-               "indexed" : false,
-               "type" : "uint256"
-            }
-         ],
-         "name" : "Borrow",
          "type" : "event",
          "anonymous" : false
       },
       {
-         "name" : "DelegateAverageLiquidity",
+         "type" : "event",
+         "anonymous" : false,
+         "name" : "Borrow",
          "inputs" : [
             {
+               "type" : "address",
+               "internalType" : "address",
+               "indexed" : true,
+               "name" : "underlying"
+            },
+            {
+               "indexed" : true,
+               "name" : "account",
+               "internalType" : "address",
+               "type" : "address"
+            },
+            {
+               "internalType" : "uint256",
+               "type" : "uint256",
+               "name" : "amount",
+               "indexed" : false
+            }
+         ]
+      },
+      {
+         "inputs" : [
+            {
+               "type" : "address",
                "internalType" : "address",
                "name" : "account",
-               "type" : "address",
                "indexed" : true
             },
             {
+               "internalType" : "address",
                "type" : "address",
                "indexed" : true,
-               "name" : "delegate",
-               "internalType" : "address"
+               "name" : "delegate"
             }
          ],
+         "name" : "DelegateAverageLiquidity",
          "anonymous" : false,
          "type" : "event"
       },
       {
-         "type" : "event",
          "anonymous" : false,
+         "type" : "event",
          "inputs" : [
             {
                "indexed" : true,
-               "type" : "address",
+               "name" : "underlying",
                "internalType" : "address",
-               "name" : "underlying"
+               "type" : "address"
             },
             {
                "internalType" : "address",
-               "name" : "account",
                "type" : "address",
+               "name" : "account",
                "indexed" : true
             },
             {
-               "type" : "uint256",
                "indexed" : false,
-               "internalType" : "uint256",
-               "name" : "amount"
+               "name" : "amount",
+               "type" : "uint256",
+               "internalType" : "uint256"
             }
          ],
          "name" : "Deposit"
@@ -163,99 +163,100 @@
          "type" : "event",
          "inputs" : [
             {
-               "internalType" : "address",
-               "name" : "underlying",
                "type" : "address",
-               "indexed" : true
+               "internalType" : "address",
+               "indexed" : true,
+               "name" : "underlying"
             },
             {
-               "type" : "address",
                "indexed" : true,
                "name" : "account",
-               "internalType" : "address"
+               "internalType" : "address",
+               "type" : "address"
             }
          ],
          "name" : "EnterMarket"
       },
       {
-         "anonymous" : false,
-         "type" : "event",
-         "name" : "ExitMarket",
          "inputs" : [
             {
-               "indexed" : true,
-               "type" : "address",
                "internalType" : "address",
-               "name" : "underlying"
+               "type" : "address",
+               "name" : "underlying",
+               "indexed" : true
             },
             {
-               "type" : "address",
+               "name" : "account",
                "indexed" : true,
-               "internalType" : "address",
-               "name" : "account"
+               "type" : "address",
+               "internalType" : "address"
             }
-         ]
-      },
-      {
-         "type" : "event",
+         ],
+         "name" : "ExitMarket",
          "anonymous" : false,
-         "name" : "Genesis",
-         "inputs" : []
+         "type" : "event"
       },
       {
-         "name" : "GovConvertReserves",
+         "inputs" : [],
+         "name" : "Genesis",
+         "anonymous" : false,
+         "type" : "event"
+      },
+      {
          "inputs" : [
             {
-               "indexed" : true,
                "type" : "address",
                "internalType" : "address",
-               "name" : "underlying"
+               "name" : "underlying",
+               "indexed" : true
             },
             {
+               "internalType" : "address",
                "type" : "address",
                "indexed" : true,
-               "internalType" : "address",
                "name" : "recipient"
             },
             {
-               "type" : "uint256",
-               "indexed" : false,
                "name" : "amount",
-               "internalType" : "uint256"
+               "indexed" : false,
+               "internalType" : "uint256",
+               "type" : "uint256"
             }
          ],
-         "type" : "event",
-         "anonymous" : false
+         "name" : "GovConvertReserves",
+         "anonymous" : false,
+         "type" : "event"
       },
       {
-         "anonymous" : false,
          "type" : "event",
+         "anonymous" : false,
+         "name" : "GovSetAssetConfig",
          "inputs" : [
             {
                "type" : "address",
-               "indexed" : true,
                "internalType" : "address",
+               "indexed" : true,
                "name" : "underlying"
             },
             {
-               "type" : "tuple",
-               "indexed" : false,
-               "name" : "newConfig",
                "internalType" : "struct Storage.AssetConfig",
+               "type" : "tuple",
+               "name" : "newConfig",
+               "indexed" : false,
                "components" : [
                   {
+                     "type" : "address",
                      "internalType" : "address",
-                     "name" : "eTokenAddress",
-                     "type" : "address"
+                     "name" : "eTokenAddress"
                   },
                   {
+                     "type" : "bool",
                      "internalType" : "bool",
-                     "name" : "borrowIsolated",
-                     "type" : "bool"
+                     "name" : "borrowIsolated"
                   },
                   {
-                     "internalType" : "uint32",
                      "name" : "collateralFactor",
+                     "internalType" : "uint32",
                      "type" : "uint32"
                   },
                   {
@@ -264,698 +265,716 @@
                      "name" : "borrowFactor"
                   },
                   {
-                     "type" : "uint24",
                      "name" : "twapWindow",
-                     "internalType" : "uint24"
+                     "internalType" : "uint24",
+                     "type" : "uint24"
                   }
                ]
-            }
-         ],
-         "name" : "GovSetAssetConfig"
-      },
-      {
-         "type" : "event",
-         "anonymous" : false,
-         "name" : "GovSetChainlinkPriceFeed",
-         "inputs" : [
-            {
-               "name" : "underlying",
-               "internalType" : "address",
-               "type" : "address",
-               "indexed" : true
-            },
-            {
-               "internalType" : "address",
-               "name" : "chainlinkAggregator",
-               "indexed" : false,
-               "type" : "address"
             }
          ]
       },
       {
-         "name" : "GovSetIRM",
          "inputs" : [
             {
                "type" : "address",
-               "indexed" : true,
                "internalType" : "address",
+               "indexed" : true,
+               "name" : "underlying"
+            },
+            {
+               "type" : "address",
+               "internalType" : "address",
+               "name" : "chainlinkAggregator",
+               "indexed" : false
+            }
+         ],
+         "name" : "GovSetChainlinkPriceFeed",
+         "anonymous" : false,
+         "type" : "event"
+      },
+      {
+         "inputs" : [
+            {
+               "type" : "address",
+               "internalType" : "address",
+               "indexed" : true,
                "name" : "underlying"
             },
             {
                "indexed" : false,
-               "type" : "uint256",
+               "name" : "interestRateModel",
                "internalType" : "uint256",
-               "name" : "interestRateModel"
+               "type" : "uint256"
             },
             {
-               "internalType" : "bytes",
-               "name" : "resetParams",
                "indexed" : false,
-               "type" : "bytes"
+               "name" : "resetParams",
+               "type" : "bytes",
+               "internalType" : "bytes"
             }
          ],
-         "type" : "event",
-         "anonymous" : false
+         "name" : "GovSetIRM",
+         "anonymous" : false,
+         "type" : "event"
       },
       {
-         "anonymous" : false,
-         "type" : "event",
-         "name" : "GovSetPricingConfig",
          "inputs" : [
             {
+               "internalType" : "address",
                "type" : "address",
-               "indexed" : true,
                "name" : "underlying",
-               "internalType" : "address"
+               "indexed" : true
             },
             {
                "name" : "newPricingType",
-               "internalType" : "uint16",
+               "indexed" : false,
                "type" : "uint16",
-               "indexed" : false
+               "internalType" : "uint16"
             },
             {
-               "internalType" : "uint32",
                "name" : "newPricingParameter",
                "indexed" : false,
+               "internalType" : "uint32",
                "type" : "uint32"
             }
-         ]
+         ],
+         "name" : "GovSetPricingConfig",
+         "anonymous" : false,
+         "type" : "event"
       },
       {
          "anonymous" : false,
          "type" : "event",
          "inputs" : [
             {
-               "indexed" : true,
+               "internalType" : "address",
                "type" : "address",
                "name" : "underlying",
-               "internalType" : "address"
+               "indexed" : true
             },
             {
-               "indexed" : false,
                "type" : "uint32",
+               "internalType" : "uint32",
                "name" : "newReserveFee",
-               "internalType" : "uint32"
+               "indexed" : false
             }
          ],
          "name" : "GovSetReserveFee"
       },
       {
-         "name" : "InstallerInstallModule",
+         "anonymous" : false,
+         "type" : "event",
          "inputs" : [
             {
+               "type" : "uint256",
                "internalType" : "uint256",
-               "name" : "moduleId",
                "indexed" : true,
-               "type" : "uint256"
+               "name" : "moduleId"
             },
             {
                "name" : "moduleImpl",
-               "internalType" : "address",
-               "indexed" : true,
-               "type" : "address"
-            },
-            {
-               "type" : "bytes32",
-               "indexed" : false,
-               "internalType" : "bytes32",
-               "name" : "moduleGitCommit"
-            }
-         ],
-         "anonymous" : false,
-         "type" : "event"
-      },
-      {
-         "name" : "InstallerSetGovernorAdmin",
-         "inputs" : [
-            {
-               "internalType" : "address",
-               "name" : "newGovernorAdmin",
-               "type" : "address",
-               "indexed" : true
-            }
-         ],
-         "anonymous" : false,
-         "type" : "event"
-      },
-      {
-         "anonymous" : false,
-         "type" : "event",
-         "name" : "InstallerSetUpgradeAdmin",
-         "inputs" : [
-            {
-               "name" : "newUpgradeAdmin",
-               "internalType" : "address",
-               "type" : "address",
-               "indexed" : true
-            }
-         ]
-      },
-      {
-         "type" : "event",
-         "anonymous" : false,
-         "inputs" : [
-            {
                "indexed" : true,
                "type" : "address",
-               "name" : "liquidator",
                "internalType" : "address"
             },
             {
+               "internalType" : "bytes32",
+               "type" : "bytes32",
+               "indexed" : false,
+               "name" : "moduleGitCommit"
+            }
+         ],
+         "name" : "InstallerInstallModule"
+      },
+      {
+         "inputs" : [
+            {
+               "type" : "address",
                "internalType" : "address",
-               "name" : "violator",
                "indexed" : true,
+               "name" : "newGovernorAdmin"
+            }
+         ],
+         "name" : "InstallerSetGovernorAdmin",
+         "anonymous" : false,
+         "type" : "event"
+      },
+      {
+         "anonymous" : false,
+         "type" : "event",
+         "inputs" : [
+            {
+               "name" : "newUpgradeAdmin",
+               "indexed" : true,
+               "internalType" : "address",
                "type" : "address"
+            }
+         ],
+         "name" : "InstallerSetUpgradeAdmin"
+      },
+      {
+         "anonymous" : false,
+         "type" : "event",
+         "inputs" : [
+            {
+               "indexed" : true,
+               "name" : "liquidator",
+               "type" : "address",
+               "internalType" : "address"
             },
             {
+               "type" : "address",
                "internalType" : "address",
+               "indexed" : true,
+               "name" : "violator"
+            },
+            {
                "name" : "underlying",
                "indexed" : true,
-               "type" : "address"
+               "type" : "address",
+               "internalType" : "address"
             },
             {
-               "name" : "collateral",
+               "type" : "address",
                "internalType" : "address",
-               "indexed" : false,
-               "type" : "address"
+               "name" : "collateral",
+               "indexed" : false
             },
             {
                "internalType" : "uint256",
+               "type" : "uint256",
                "name" : "repay",
-               "type" : "uint256",
                "indexed" : false
             },
             {
                "type" : "uint256",
-               "indexed" : false,
                "internalType" : "uint256",
-               "name" : "yield"
+               "name" : "yield",
+               "indexed" : false
             },
             {
+               "indexed" : false,
                "name" : "healthScore",
-               "internalType" : "uint256",
                "type" : "uint256",
-               "indexed" : false
+               "internalType" : "uint256"
             },
             {
-               "type" : "uint256",
-               "indexed" : false,
                "name" : "baseDiscount",
+               "indexed" : false,
+               "type" : "uint256",
                "internalType" : "uint256"
             },
             {
                "type" : "uint256",
-               "indexed" : false,
                "internalType" : "uint256",
-               "name" : "discount"
+               "name" : "discount",
+               "indexed" : false
             }
          ],
          "name" : "Liquidation"
       },
       {
+         "type" : "event",
+         "anonymous" : false,
          "name" : "MarketActivated",
          "inputs" : [
             {
-               "indexed" : true,
                "type" : "address",
                "internalType" : "address",
-               "name" : "underlying"
-            },
-            {
-               "internalType" : "address",
-               "name" : "eToken",
-               "indexed" : true,
-               "type" : "address"
+               "name" : "underlying",
+               "indexed" : true
             },
             {
                "type" : "address",
-               "indexed" : true,
                "internalType" : "address",
-               "name" : "dToken"
+               "indexed" : true,
+               "name" : "eToken"
+            },
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "name" : "dToken",
+               "indexed" : true
+            }
+         ]
+      },
+      {
+         "name" : "PTokenActivated",
+         "inputs" : [
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "name" : "underlying",
+               "indexed" : true
+            },
+            {
+               "type" : "address",
+               "internalType" : "address",
+               "indexed" : true,
+               "name" : "pToken"
             }
          ],
          "type" : "event",
          "anonymous" : false
       },
       {
-         "anonymous" : false,
          "type" : "event",
-         "name" : "PTokenActivated",
-         "inputs" : [
-            {
-               "name" : "underlying",
-               "internalType" : "address",
-               "indexed" : true,
-               "type" : "address"
-            },
-            {
-               "type" : "address",
-               "indexed" : true,
-               "internalType" : "address",
-               "name" : "pToken"
-            }
-         ]
-      },
-      {
+         "anonymous" : false,
          "name" : "PTokenUnWrap",
          "inputs" : [
             {
                "name" : "underlying",
-               "internalType" : "address",
-               "indexed" : true,
-               "type" : "address"
-            },
-            {
-               "name" : "account",
-               "internalType" : "address",
-               "indexed" : true,
-               "type" : "address"
-            },
-            {
-               "indexed" : false,
-               "type" : "uint256",
-               "internalType" : "uint256",
-               "name" : "amount"
-            }
-         ],
-         "anonymous" : false,
-         "type" : "event"
-      },
-      {
-         "inputs" : [
-            {
                "indexed" : true,
                "type" : "address",
+               "internalType" : "address"
+            },
+            {
+               "indexed" : true,
+               "name" : "account",
+               "type" : "address",
+               "internalType" : "address"
+            },
+            {
+               "type" : "uint256",
+               "internalType" : "uint256",
+               "indexed" : false,
+               "name" : "amount"
+            }
+         ]
+      },
+      {
+         "type" : "event",
+         "anonymous" : false,
+         "name" : "PTokenWrap",
+         "inputs" : [
+            {
                "internalType" : "address",
+               "type" : "address",
+               "indexed" : true,
                "name" : "underlying"
             },
             {
                "internalType" : "address",
-               "name" : "account",
                "type" : "address",
+               "name" : "account",
                "indexed" : true
             },
             {
                "indexed" : false,
-               "type" : "uint256",
-               "internalType" : "uint256",
-               "name" : "amount"
-            }
-         ],
-         "name" : "PTokenWrap",
-         "anonymous" : false,
-         "type" : "event"
-      },
-      {
-         "name" : "ProxyCreated",
-         "inputs" : [
-            {
-               "type" : "address",
-               "indexed" : true,
-               "name" : "proxy",
-               "internalType" : "address"
-            },
-            {
-               "name" : "moduleId",
-               "internalType" : "uint256",
-               "type" : "uint256",
-               "indexed" : false
-            }
-         ],
-         "type" : "event",
-         "anonymous" : false
-      },
-      {
-         "anonymous" : false,
-         "type" : "event",
-         "name" : "Repay",
-         "inputs" : [
-            {
-               "type" : "address",
-               "indexed" : true,
-               "name" : "underlying",
-               "internalType" : "address"
-            },
-            {
-               "indexed" : true,
-               "type" : "address",
-               "name" : "account",
-               "internalType" : "address"
-            },
-            {
-               "indexed" : false,
-               "type" : "uint256",
-               "name" : "amount",
-               "internalType" : "uint256"
-            }
-         ]
-      },
-      {
-         "name" : "RequestBorrow",
-         "inputs" : [
-            {
-               "type" : "address",
-               "indexed" : true,
-               "name" : "account",
-               "internalType" : "address"
-            },
-            {
-               "type" : "uint256",
-               "indexed" : false,
-               "name" : "amount",
-               "internalType" : "uint256"
-            }
-         ],
-         "type" : "event",
-         "anonymous" : false
-      },
-      {
-         "name" : "RequestBurn",
-         "inputs" : [
-            {
-               "internalType" : "address",
-               "name" : "account",
-               "indexed" : true,
-               "type" : "address"
-            },
-            {
-               "internalType" : "uint256",
-               "name" : "amount",
-               "type" : "uint256",
-               "indexed" : false
-            }
-         ],
-         "anonymous" : false,
-         "type" : "event"
-      },
-      {
-         "anonymous" : false,
-         "type" : "event",
-         "inputs" : [
-            {
-               "internalType" : "address",
-               "name" : "account",
-               "indexed" : true,
-               "type" : "address"
-            },
-            {
                "name" : "amount",
                "internalType" : "uint256",
-               "type" : "uint256",
-               "indexed" : false
-            }
-         ],
-         "name" : "RequestDeposit"
-      },
-      {
-         "name" : "RequestDonate",
-         "inputs" : [
-            {
-               "name" : "account",
-               "internalType" : "address",
-               "type" : "address",
-               "indexed" : true
-            },
-            {
-               "indexed" : false,
-               "type" : "uint256",
-               "internalType" : "uint256",
-               "name" : "amount"
-            }
-         ],
-         "type" : "event",
-         "anonymous" : false
-      },
-      {
-         "inputs" : [
-            {
-               "name" : "liquidator",
-               "internalType" : "address",
-               "indexed" : true,
-               "type" : "address"
-            },
-            {
-               "type" : "address",
-               "indexed" : true,
-               "name" : "violator",
-               "internalType" : "address"
-            },
-            {
-               "name" : "underlying",
-               "internalType" : "address",
-               "type" : "address",
-               "indexed" : true
-            },
-            {
-               "indexed" : false,
-               "type" : "address",
-               "internalType" : "address",
-               "name" : "collateral"
-            },
-            {
-               "internalType" : "uint256",
-               "name" : "repay",
-               "type" : "uint256",
-               "indexed" : false
-            },
-            {
-               "internalType" : "uint256",
-               "name" : "minYield",
-               "type" : "uint256",
-               "indexed" : false
-            }
-         ],
-         "name" : "RequestLiquidate",
-         "type" : "event",
-         "anonymous" : false
-      },
-      {
-         "anonymous" : false,
-         "type" : "event",
-         "name" : "RequestMint",
-         "inputs" : [
-            {
-               "type" : "address",
-               "indexed" : true,
-               "name" : "account",
-               "internalType" : "address"
-            },
-            {
-               "type" : "uint256",
-               "indexed" : false,
-               "name" : "amount",
-               "internalType" : "uint256"
-            }
-         ]
-      },
-      {
-         "anonymous" : false,
-         "type" : "event",
-         "name" : "RequestRepay",
-         "inputs" : [
-            {
-               "indexed" : true,
-               "type" : "address",
-               "internalType" : "address",
-               "name" : "account"
-            },
-            {
-               "name" : "amount",
-               "internalType" : "uint256",
-               "type" : "uint256",
-               "indexed" : false
-            }
-         ]
-      },
-      {
-         "name" : "RequestSwap",
-         "inputs" : [
-            {
-               "indexed" : true,
-               "type" : "address",
-               "name" : "accountIn",
-               "internalType" : "address"
-            },
-            {
-               "internalType" : "address",
-               "name" : "accountOut",
-               "type" : "address",
-               "indexed" : true
-            },
-            {
-               "type" : "address",
-               "indexed" : true,
-               "internalType" : "address",
-               "name" : "underlyingIn"
-            },
-            {
-               "name" : "underlyingOut",
-               "internalType" : "address",
-               "type" : "address",
-               "indexed" : false
-            },
-            {
-               "type" : "uint256",
-               "indexed" : false,
-               "name" : "amount",
-               "internalType" : "uint256"
-            },
-            {
-               "name" : "swapType",
-               "internalType" : "uint256",
-               "type" : "uint256",
-               "indexed" : false
-            }
-         ],
-         "anonymous" : false,
-         "type" : "event"
-      },
-      {
-         "inputs" : [
-            {
-               "name" : "accountIn",
-               "internalType" : "address",
-               "type" : "address",
-               "indexed" : true
-            },
-            {
-               "name" : "accountOut",
-               "internalType" : "address",
-               "indexed" : true,
-               "type" : "address"
-            },
-            {
-               "name" : "underlyingIn",
-               "internalType" : "address",
-               "type" : "address",
-               "indexed" : true
-            },
-            {
-               "name" : "underlyingOut",
-               "internalType" : "address",
-               "indexed" : false,
-               "type" : "address"
-            },
-            {
-               "indexed" : false,
-               "type" : "uint256",
-               "name" : "amountIn",
-               "internalType" : "uint256"
-            },
-            {
-               "type" : "uint256",
-               "indexed" : false,
-               "name" : "amountOut",
-               "internalType" : "uint256"
-            },
-            {
-               "type" : "uint256",
-               "indexed" : false,
-               "internalType" : "uint256",
-               "name" : "mode"
-            },
-            {
-               "name" : "swapHandler",
-               "internalType" : "address",
-               "indexed" : false,
-               "type" : "address"
-            }
-         ],
-         "name" : "RequestSwapHub",
-         "anonymous" : false,
-         "type" : "event"
-      },
-      {
-         "anonymous" : false,
-         "type" : "event",
-         "name" : "RequestSwapHubRepay",
-         "inputs" : [
-            {
-               "indexed" : true,
-               "type" : "address",
-               "name" : "accountIn",
-               "internalType" : "address"
-            },
-            {
-               "internalType" : "address",
-               "name" : "accountOut",
-               "indexed" : true,
-               "type" : "address"
-            },
-            {
-               "indexed" : true,
-               "type" : "address",
-               "internalType" : "address",
-               "name" : "underlyingIn"
-            },
-            {
-               "internalType" : "address",
-               "name" : "underlyingOut",
-               "indexed" : false,
-               "type" : "address"
-            },
-            {
-               "name" : "targetDebt",
-               "internalType" : "uint256",
-               "type" : "uint256",
-               "indexed" : false
-            },
-            {
-               "name" : "swapHandler",
-               "internalType" : "address",
-               "type" : "address",
-               "indexed" : false
-            }
-         ]
-      },
-      {
-         "anonymous" : false,
-         "type" : "event",
-         "name" : "RequestTransferDToken",
-         "inputs" : [
-            {
-               "type" : "address",
-               "indexed" : true,
-               "internalType" : "address",
-               "name" : "from"
-            },
-            {
-               "indexed" : true,
-               "type" : "address",
-               "internalType" : "address",
-               "name" : "to"
-            },
-            {
-               "internalType" : "uint256",
-               "name" : "amount",
-               "indexed" : false,
                "type" : "uint256"
             }
          ]
       },
       {
+         "anonymous" : false,
+         "type" : "event",
+         "inputs" : [
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "name" : "proxy",
+               "indexed" : true
+            },
+            {
+               "indexed" : false,
+               "name" : "moduleId",
+               "internalType" : "uint256",
+               "type" : "uint256"
+            }
+         ],
+         "name" : "ProxyCreated"
+      },
+      {
+         "type" : "event",
+         "anonymous" : false,
+         "name" : "Repay",
+         "inputs" : [
+            {
+               "name" : "underlying",
+               "indexed" : true,
+               "internalType" : "address",
+               "type" : "address"
+            },
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "name" : "account",
+               "indexed" : true
+            },
+            {
+               "indexed" : false,
+               "name" : "amount",
+               "internalType" : "uint256",
+               "type" : "uint256"
+            }
+         ]
+      },
+      {
+         "type" : "event",
+         "anonymous" : false,
+         "name" : "RequestBorrow",
+         "inputs" : [
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "indexed" : true,
+               "name" : "account"
+            },
+            {
+               "internalType" : "uint256",
+               "type" : "uint256",
+               "name" : "amount",
+               "indexed" : false
+            }
+         ]
+      },
+      {
+         "anonymous" : false,
+         "type" : "event",
          "inputs" : [
             {
                "indexed" : true,
+               "name" : "account",
                "type" : "address",
-               "name" : "from",
                "internalType" : "address"
             },
             {
+               "name" : "amount",
+               "indexed" : false,
+               "type" : "uint256",
+               "internalType" : "uint256"
+            }
+         ],
+         "name" : "RequestBurn"
+      },
+      {
+         "name" : "RequestDeposit",
+         "inputs" : [
+            {
+               "name" : "account",
                "indexed" : true,
                "type" : "address",
+               "internalType" : "address"
+            },
+            {
+               "indexed" : false,
+               "name" : "amount",
+               "type" : "uint256",
+               "internalType" : "uint256"
+            }
+         ],
+         "type" : "event",
+         "anonymous" : false
+      },
+      {
+         "anonymous" : false,
+         "type" : "event",
+         "inputs" : [
+            {
+               "indexed" : true,
+               "name" : "account",
+               "type" : "address",
+               "internalType" : "address"
+            },
+            {
+               "indexed" : false,
+               "name" : "amount",
+               "internalType" : "uint256",
+               "type" : "uint256"
+            }
+         ],
+         "name" : "RequestDonate"
+      },
+      {
+         "anonymous" : false,
+         "type" : "event",
+         "inputs" : [
+            {
+               "type" : "address",
                "internalType" : "address",
-               "name" : "to"
+               "name" : "liquidator",
+               "indexed" : true
+            },
+            {
+               "name" : "violator",
+               "indexed" : true,
+               "type" : "address",
+               "internalType" : "address"
+            },
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "indexed" : true,
+               "name" : "underlying"
+            },
+            {
+               "type" : "address",
+               "internalType" : "address",
+               "indexed" : false,
+               "name" : "collateral"
+            },
+            {
+               "internalType" : "uint256",
+               "type" : "uint256",
+               "name" : "repay",
+               "indexed" : false
+            },
+            {
+               "internalType" : "uint256",
+               "type" : "uint256",
+               "indexed" : false,
+               "name" : "minYield"
+            }
+         ],
+         "name" : "RequestLiquidate"
+      },
+      {
+         "name" : "RequestMint",
+         "inputs" : [
+            {
+               "type" : "address",
+               "internalType" : "address",
+               "indexed" : true,
+               "name" : "account"
+            },
+            {
+               "indexed" : false,
+               "name" : "amount",
+               "type" : "uint256",
+               "internalType" : "uint256"
+            }
+         ],
+         "type" : "event",
+         "anonymous" : false
+      },
+      {
+         "name" : "RequestRepay",
+         "inputs" : [
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "name" : "account",
+               "indexed" : true
             },
             {
                "type" : "uint256",
-               "indexed" : false,
                "internalType" : "uint256",
+               "name" : "amount",
+               "indexed" : false
+            }
+         ],
+         "type" : "event",
+         "anonymous" : false
+      },
+      {
+         "inputs" : [
+            {
+               "name" : "accountIn",
+               "indexed" : true,
+               "type" : "address",
+               "internalType" : "address"
+            },
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "indexed" : true,
+               "name" : "accountOut"
+            },
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "name" : "underlyingIn",
+               "indexed" : true
+            },
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "indexed" : false,
+               "name" : "underlyingOut"
+            },
+            {
+               "name" : "amount",
+               "indexed" : false,
+               "type" : "uint256",
+               "internalType" : "uint256"
+            },
+            {
+               "internalType" : "uint256",
+               "type" : "uint256",
+               "name" : "swapType",
+               "indexed" : false
+            }
+         ],
+         "name" : "RequestSwap",
+         "anonymous" : false,
+         "type" : "event"
+      },
+      {
+         "name" : "RequestSwapHub",
+         "inputs" : [
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "indexed" : true,
+               "name" : "accountIn"
+            },
+            {
+               "type" : "address",
+               "internalType" : "address",
+               "name" : "accountOut",
+               "indexed" : true
+            },
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "indexed" : true,
+               "name" : "underlyingIn"
+            },
+            {
+               "indexed" : false,
+               "name" : "underlyingOut",
+               "type" : "address",
+               "internalType" : "address"
+            },
+            {
+               "internalType" : "uint256",
+               "type" : "uint256",
+               "indexed" : false,
+               "name" : "amountIn"
+            },
+            {
+               "name" : "amountOut",
+               "indexed" : false,
+               "type" : "uint256",
+               "internalType" : "uint256"
+            },
+            {
+               "internalType" : "uint256",
+               "type" : "uint256",
+               "name" : "mode",
+               "indexed" : false
+            },
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "name" : "swapHandler",
+               "indexed" : false
+            }
+         ],
+         "type" : "event",
+         "anonymous" : false
+      },
+      {
+         "name" : "RequestSwapHubRepay",
+         "inputs" : [
+            {
+               "name" : "accountIn",
+               "indexed" : true,
+               "internalType" : "address",
+               "type" : "address"
+            },
+            {
+               "type" : "address",
+               "internalType" : "address",
+               "name" : "accountOut",
+               "indexed" : true
+            },
+            {
+               "indexed" : true,
+               "name" : "underlyingIn",
+               "type" : "address",
+               "internalType" : "address"
+            },
+            {
+               "type" : "address",
+               "internalType" : "address",
+               "name" : "underlyingOut",
+               "indexed" : false
+            },
+            {
+               "indexed" : false,
+               "name" : "targetDebt",
+               "type" : "uint256",
+               "internalType" : "uint256"
+            },
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "indexed" : false,
+               "name" : "swapHandler"
+            }
+         ],
+         "type" : "event",
+         "anonymous" : false
+      },
+      {
+         "type" : "event",
+         "anonymous" : false,
+         "name" : "RequestTransferDToken",
+         "inputs" : [
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "name" : "from",
+               "indexed" : true
+            },
+            {
+               "indexed" : true,
+               "name" : "to",
+               "type" : "address",
+               "internalType" : "address"
+            },
+            {
+               "type" : "uint256",
+               "internalType" : "uint256",
+               "indexed" : false,
+               "name" : "amount"
+            }
+         ]
+      },
+      {
+         "type" : "event",
+         "anonymous" : false,
+         "name" : "RequestTransferEToken",
+         "inputs" : [
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "name" : "from",
+               "indexed" : true
+            },
+            {
+               "type" : "address",
+               "internalType" : "address",
+               "name" : "to",
+               "indexed" : true
+            },
+            {
+               "name" : "amount",
+               "indexed" : false,
+               "type" : "uint256",
+               "internalType" : "uint256"
+            }
+         ]
+      },
+      {
+         "inputs" : [
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "name" : "account",
+               "indexed" : true
+            },
+            {
+               "type" : "uint256",
+               "internalType" : "uint256",
+               "indexed" : false,
                "name" : "amount"
             }
          ],
-         "name" : "RequestTransferEToken",
+         "name" : "RequestWithdraw",
          "anonymous" : false,
          "type" : "event"
       },
@@ -963,162 +982,183 @@
          "inputs" : [
             {
                "type" : "address",
-               "indexed" : true,
-               "name" : "account",
-               "internalType" : "address"
-            },
-            {
-               "internalType" : "uint256",
-               "name" : "amount",
-               "type" : "uint256",
-               "indexed" : false
-            }
-         ],
-         "name" : "RequestWithdraw",
-         "type" : "event",
-         "anonymous" : false
-      },
-      {
-         "anonymous" : false,
-         "type" : "event",
-         "inputs" : [
-            {
-               "type" : "address",
-               "indexed" : true,
-               "name" : "account",
-               "internalType" : "address"
-            }
-         ],
-         "name" : "TrackAverageLiquidity"
-      },
-      {
-         "inputs" : [
-            {
-               "name" : "account",
                "internalType" : "address",
-               "type" : "address",
+               "name" : "account",
                "indexed" : true
             }
          ],
+         "name" : "TrackAverageLiquidity",
+         "anonymous" : false,
+         "type" : "event"
+      },
+      {
+         "inputs" : [
+            {
+               "name" : "account",
+               "indexed" : true,
+               "type" : "address",
+               "internalType" : "address"
+            }
+         ],
          "name" : "UnTrackAverageLiquidity",
+         "anonymous" : false,
+         "type" : "event"
+      },
+      {
+         "name" : "Withdraw",
+         "inputs" : [
+            {
+               "type" : "address",
+               "internalType" : "address",
+               "name" : "underlying",
+               "indexed" : true
+            },
+            {
+               "indexed" : true,
+               "name" : "account",
+               "type" : "address",
+               "internalType" : "address"
+            },
+            {
+               "name" : "amount",
+               "indexed" : false,
+               "internalType" : "uint256",
+               "type" : "uint256"
+            }
+         ],
          "type" : "event",
          "anonymous" : false
       },
       {
-         "type" : "event",
-         "anonymous" : false,
          "inputs" : [
             {
-               "indexed" : true,
-               "type" : "address",
-               "internalType" : "address",
-               "name" : "underlying"
-            },
-            {
-               "indexed" : true,
-               "type" : "address",
-               "name" : "account",
-               "internalType" : "address"
-            },
-            {
-               "type" : "uint256",
-               "indexed" : false,
-               "name" : "amount",
-               "internalType" : "uint256"
-            }
-         ],
-         "name" : "Withdraw"
-      },
-      {
-         "type" : "function",
-         "inputs" : [
-            {
+               "internalType" : "struct Exec.EulerBatchItem[]",
+               "type" : "tuple[]",
                "name" : "items",
                "components" : [
                   {
+                     "type" : "bool",
                      "internalType" : "bool",
+                     "name" : "allowError"
+                  },
+                  {
+                     "type" : "address",
+                     "internalType" : "address",
+                     "name" : "proxyAddr"
+                  },
+                  {
+                     "internalType" : "bytes",
+                     "type" : "bytes",
+                     "name" : "data"
+                  }
+               ]
+            },
+            {
+               "type" : "address[]",
+               "internalType" : "address[]",
+               "name" : "deferLiquidityChecks"
+            }
+         ],
+         "outputs" : [],
+         "name" : "batchDispatch",
+         "stateMutability" : "nonpayable",
+         "type" : "function"
+      },
+      {
+         "inputs" : [
+            {
+               "components" : [
+                  {
                      "name" : "allowError",
+                     "internalType" : "bool",
                      "type" : "bool"
                   },
                   {
                      "name" : "proxyAddr",
-                     "internalType" : "address",
-                     "type" : "address"
+                     "type" : "address",
+                     "internalType" : "address"
                   },
                   {
-                     "name" : "data",
+                     "type" : "bytes",
                      "internalType" : "bytes",
-                     "type" : "bytes"
+                     "name" : "data"
                   }
                ],
+               "name" : "items",
                "internalType" : "struct Exec.EulerBatchItem[]",
                "type" : "tuple[]"
             },
             {
                "internalType" : "address[]",
-               "name" : "deferLiquidityChecks",
-               "type" : "address[]"
+               "type" : "address[]",
+               "name" : "deferLiquidityChecks"
             }
          ],
-         "name" : "batchDispatch",
+         "outputs" : [],
+         "name" : "batchDispatchSimulate",
          "stateMutability" : "nonpayable",
-         "outputs" : []
+         "type" : "function"
       },
       {
-         "type" : "function",
-         "stateMutability" : "nonpayable",
          "outputs" : [],
          "inputs" : [
             {
-               "type" : "tuple[]",
-               "internalType" : "struct Exec.EulerBatchItem[]",
-               "components" : [
-                  {
-                     "type" : "bool",
-                     "name" : "allowError",
-                     "internalType" : "bool"
-                  },
-                  {
-                     "name" : "proxyAddr",
-                     "internalType" : "address",
-                     "type" : "address"
-                  },
-                  {
-                     "internalType" : "bytes",
-                     "name" : "data",
-                     "type" : "bytes"
-                  }
-               ],
-               "name" : "items"
-            },
-            {
-               "name" : "deferLiquidityChecks",
-               "internalType" : "address[]",
-               "type" : "address[]"
-            }
-         ],
-         "name" : "batchDispatchSimulate"
-      },
-      {
-         "inputs" : [
-            {
-               "name" : "account",
                "internalType" : "address",
-               "type" : "address"
+               "type" : "address",
+               "name" : "account"
             },
             {
-               "type" : "bytes",
+               "name" : "data",
                "internalType" : "bytes",
-               "name" : "data"
+               "type" : "bytes"
             }
          ],
          "name" : "deferLiquidityCheck",
          "stateMutability" : "nonpayable",
-         "outputs" : [],
          "type" : "function"
       },
       {
-         "type" : "function",
+         "outputs" : [
+            {
+               "internalType" : "struct IRiskManager.AssetLiquidity[]",
+               "type" : "tuple[]",
+               "components" : [
+                  {
+                     "name" : "underlying",
+                     "internalType" : "address",
+                     "type" : "address"
+                  },
+                  {
+                     "internalType" : "struct IRiskManager.LiquidityStatus",
+                     "type" : "tuple",
+                     "name" : "status",
+                     "components" : [
+                        {
+                           "name" : "collateralValue",
+                           "internalType" : "uint256",
+                           "type" : "uint256"
+                        },
+                        {
+                           "name" : "liabilityValue",
+                           "type" : "uint256",
+                           "internalType" : "uint256"
+                        },
+                        {
+                           "type" : "uint256",
+                           "internalType" : "uint256",
+                           "name" : "numBorrows"
+                        },
+                        {
+                           "internalType" : "bool",
+                           "type" : "bool",
+                           "name" : "borrowIsolated"
+                        }
+                     ]
+                  }
+               ],
+               "name" : "assets"
+            }
+         ],
          "inputs" : [
             {
                "type" : "address",
@@ -1128,168 +1168,127 @@
          ],
          "name" : "detailedLiquidity",
          "stateMutability" : "view",
-         "outputs" : [
-            {
-               "type" : "tuple[]",
-               "components" : [
-                  {
-                     "type" : "address",
-                     "name" : "underlying",
-                     "internalType" : "address"
-                  },
-                  {
-                     "components" : [
-                        {
-                           "type" : "uint256",
-                           "internalType" : "uint256",
-                           "name" : "collateralValue"
-                        },
-                        {
-                           "type" : "uint256",
-                           "name" : "liabilityValue",
-                           "internalType" : "uint256"
-                        },
-                        {
-                           "name" : "numBorrows",
-                           "internalType" : "uint256",
-                           "type" : "uint256"
-                        },
-                        {
-                           "type" : "bool",
-                           "internalType" : "bool",
-                           "name" : "borrowIsolated"
-                        }
-                     ],
-                     "internalType" : "struct IRiskManager.LiquidityStatus",
-                     "name" : "status",
-                     "type" : "tuple"
-                  }
-               ],
-               "internalType" : "struct IRiskManager.AssetLiquidity[]",
-               "name" : "assets"
-            }
-         ]
-      },
-      {
-         "name" : "doStaticCall",
-         "inputs" : [
-            {
-               "internalType" : "address",
-               "name" : "contractAddress",
-               "type" : "address"
-            },
-            {
-               "internalType" : "bytes",
-               "name" : "payload",
-               "type" : "bytes"
-            }
-         ],
-         "outputs" : [
-            {
-               "name" : "",
-               "internalType" : "bytes",
-               "type" : "bytes"
-            }
-         ],
-         "stateMutability" : "view",
          "type" : "function"
       },
       {
+         "stateMutability" : "view",
          "type" : "function",
-         "stateMutability" : "nonpayable",
          "outputs" : [
             {
-               "internalType" : "uint256",
                "name" : "",
-               "type" : "uint256"
+               "internalType" : "bytes",
+               "type" : "bytes"
             }
          ],
-         "inputs" : [
-            {
-               "internalType" : "address",
-               "name" : "account",
-               "type" : "address"
-            }
-         ],
-         "name" : "getAverageLiquidity"
-      },
-      {
-         "type" : "function",
          "inputs" : [
             {
                "type" : "address",
                "internalType" : "address",
+               "name" : "contractAddress"
+            },
+            {
+               "type" : "bytes",
+               "internalType" : "bytes",
+               "name" : "payload"
+            }
+         ],
+         "name" : "doStaticCall"
+      },
+      {
+         "inputs" : [
+            {
+               "internalType" : "address",
+               "type" : "address",
                "name" : "account"
+            }
+         ],
+         "outputs" : [
+            {
+               "name" : "",
+               "internalType" : "uint256",
+               "type" : "uint256"
+            }
+         ],
+         "name" : "getAverageLiquidity",
+         "stateMutability" : "nonpayable",
+         "type" : "function"
+      },
+      {
+         "inputs" : [
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "name" : "account"
+            }
+         ],
+         "outputs" : [
+            {
+               "internalType" : "address",
+               "type" : "address",
+               "name" : ""
             }
          ],
          "name" : "getAverageLiquidityDelegateAccount",
          "stateMutability" : "view",
-         "outputs" : [
-            {
-               "type" : "address",
-               "name" : "",
-               "internalType" : "address"
-            }
-         ]
-      },
-      {
-         "stateMutability" : "nonpayable",
-         "outputs" : [
-            {
-               "type" : "uint256",
-               "name" : "",
-               "internalType" : "uint256"
-            }
-         ],
-         "inputs" : [
-            {
-               "internalType" : "address",
-               "name" : "account",
-               "type" : "address"
-            }
-         ],
-         "name" : "getAverageLiquidityWithDelegate",
-         "type" : "function"
-      },
-      {
-         "inputs" : [
-            {
-               "type" : "address",
-               "name" : "underlying",
-               "internalType" : "address"
-            }
-         ],
-         "name" : "getPrice",
-         "stateMutability" : "view",
-         "outputs" : [
-            {
-               "internalType" : "uint256",
-               "name" : "twap",
-               "type" : "uint256"
-            },
-            {
-               "name" : "twapPeriod",
-               "internalType" : "uint256",
-               "type" : "uint256"
-            }
-         ],
          "type" : "function"
       },
       {
          "type" : "function",
-         "inputs" : [
-            {
-               "name" : "underlying",
-               "internalType" : "address",
-               "type" : "address"
-            }
-         ],
-         "name" : "getPriceFull",
-         "stateMutability" : "view",
+         "stateMutability" : "nonpayable",
+         "name" : "getAverageLiquidityWithDelegate",
          "outputs" : [
             {
                "internalType" : "uint256",
+               "type" : "uint256",
+               "name" : ""
+            }
+         ],
+         "inputs" : [
+            {
+               "name" : "account",
+               "type" : "address",
+               "internalType" : "address"
+            }
+         ]
+      },
+      {
+         "type" : "function",
+         "stateMutability" : "view",
+         "name" : "getPrice",
+         "outputs" : [
+            {
+               "type" : "uint256",
+               "internalType" : "uint256",
+               "name" : "twap"
+            },
+            {
+               "internalType" : "uint256",
+               "type" : "uint256",
+               "name" : "twapPeriod"
+            }
+         ],
+         "inputs" : [
+            {
+               "name" : "underlying",
+               "type" : "address",
+               "internalType" : "address"
+            }
+         ]
+      },
+      {
+         "stateMutability" : "view",
+         "type" : "function",
+         "inputs" : [
+            {
+               "type" : "address",
+               "internalType" : "address",
+               "name" : "underlying"
+            }
+         ],
+         "outputs" : [
+            {
                "name" : "twap",
+               "internalType" : "uint256",
                "type" : "uint256"
             },
             {
@@ -1298,38 +1297,42 @@
                "type" : "uint256"
             },
             {
-               "type" : "uint256",
                "name" : "currPrice",
+               "type" : "uint256",
                "internalType" : "uint256"
             }
-         ]
+         ],
+         "name" : "getPriceFull"
       },
       {
-         "name" : "liquidity",
+         "stateMutability" : "view",
+         "type" : "function",
          "inputs" : [
             {
+               "internalType" : "address",
                "type" : "address",
-               "name" : "account",
-               "internalType" : "address"
+               "name" : "account"
             }
          ],
          "outputs" : [
             {
+               "type" : "tuple",
+               "internalType" : "struct IRiskManager.LiquidityStatus",
                "components" : [
-                  {
-                     "name" : "collateralValue",
-                     "internalType" : "uint256",
-                     "type" : "uint256"
-                  },
                   {
                      "type" : "uint256",
                      "internalType" : "uint256",
+                     "name" : "collateralValue"
+                  },
+                  {
+                     "internalType" : "uint256",
+                     "type" : "uint256",
                      "name" : "liabilityValue"
                   },
                   {
-                     "type" : "uint256",
                      "name" : "numBorrows",
-                     "internalType" : "uint256"
+                     "internalType" : "uint256",
+                     "type" : "uint256"
                   },
                   {
                      "name" : "borrowIsolated",
@@ -1337,43 +1340,59 @@
                      "type" : "bool"
                   }
                ],
-               "internalType" : "struct IRiskManager.LiquidityStatus",
-               "name" : "status",
-               "type" : "tuple"
+               "name" : "status"
             }
          ],
-         "stateMutability" : "view",
-         "type" : "function"
+         "name" : "liquidity"
       },
       {
-         "type" : "function",
          "stateMutability" : "view",
+         "type" : "function",
+         "inputs" : [],
          "outputs" : [
             {
                "name" : "",
-               "internalType" : "bytes32",
-               "type" : "bytes32"
+               "type" : "bytes32",
+               "internalType" : "bytes32"
             }
          ],
-         "inputs" : [],
          "name" : "moduleGitCommit"
       },
       {
-         "type" : "function",
-         "inputs" : [],
          "name" : "moduleId",
-         "stateMutability" : "view",
          "outputs" : [
             {
+               "internalType" : "uint256",
                "type" : "uint256",
-               "name" : "",
-               "internalType" : "uint256"
+               "name" : ""
             }
-         ]
+         ],
+         "inputs" : [],
+         "type" : "function",
+         "stateMutability" : "view"
       },
       {
-         "type" : "function",
+         "outputs" : [],
+         "inputs" : [
+            {
+               "name" : "underlying",
+               "type" : "address",
+               "internalType" : "address"
+            },
+            {
+               "name" : "amount",
+               "internalType" : "uint256",
+               "type" : "uint256"
+            }
+         ],
          "name" : "pTokenUnWrap",
+         "stateMutability" : "nonpayable",
+         "type" : "function"
+      },
+      {
+         "stateMutability" : "nonpayable",
+         "type" : "function",
+         "outputs" : [],
          "inputs" : [
             {
                "type" : "address",
@@ -1381,75 +1400,57 @@
                "name" : "underlying"
             },
             {
-               "internalType" : "uint256",
                "name" : "amount",
-               "type" : "uint256"
-            }
-         ],
-         "outputs" : [],
-         "stateMutability" : "nonpayable"
-      },
-      {
-         "name" : "pTokenWrap",
-         "inputs" : [
-            {
-               "internalType" : "address",
-               "name" : "underlying",
-               "type" : "address"
-            },
-            {
-               "internalType" : "uint256",
-               "name" : "amount",
-               "type" : "uint256"
-            }
-         ],
-         "outputs" : [],
-         "stateMutability" : "nonpayable",
-         "type" : "function"
-      },
-      {
-         "outputs" : [],
-         "stateMutability" : "nonpayable",
-         "name" : "trackAverageLiquidity",
-         "inputs" : [
-            {
                "type" : "uint256",
+               "internalType" : "uint256"
+            }
+         ],
+         "name" : "pTokenWrap"
+      },
+      {
+         "stateMutability" : "nonpayable",
+         "type" : "function",
+         "outputs" : [],
+         "inputs" : [
+            {
+               "name" : "subAccountId",
                "internalType" : "uint256",
-               "name" : "subAccountId"
+               "type" : "uint256"
             },
             {
                "type" : "address",
-               "name" : "delegate",
-               "internalType" : "address"
+               "internalType" : "address",
+               "name" : "delegate"
             },
             {
                "name" : "onlyDelegate",
-               "internalType" : "bool",
-               "type" : "bool"
+               "type" : "bool",
+               "internalType" : "bool"
             }
          ],
-         "type" : "function"
+         "name" : "trackAverageLiquidity"
       },
       {
-         "name" : "unTrackAverageLiquidity",
+         "outputs" : [],
          "inputs" : [
             {
+               "name" : "subAccountId",
                "type" : "uint256",
-               "internalType" : "uint256",
-               "name" : "subAccountId"
+               "internalType" : "uint256"
             }
          ],
-         "outputs" : [],
+         "name" : "unTrackAverageLiquidity",
          "stateMutability" : "nonpayable",
          "type" : "function"
       },
       {
+         "stateMutability" : "nonpayable",
          "type" : "function",
          "inputs" : [
             {
+               "name" : "token",
                "type" : "address",
-               "internalType" : "address",
-               "name" : "token"
+               "internalType" : "address"
             },
             {
                "type" : "uint256",
@@ -1457,47 +1458,49 @@
                "name" : "value"
             },
             {
-               "type" : "uint256",
                "name" : "deadline",
+               "type" : "uint256",
                "internalType" : "uint256"
             },
             {
-               "type" : "uint8",
                "name" : "v",
+               "type" : "uint8",
                "internalType" : "uint8"
             },
             {
-               "type" : "bytes32",
                "internalType" : "bytes32",
+               "type" : "bytes32",
                "name" : "r"
             },
             {
+               "internalType" : "bytes32",
                "type" : "bytes32",
-               "name" : "s",
-               "internalType" : "bytes32"
+               "name" : "s"
             }
          ],
-         "name" : "usePermit",
-         "stateMutability" : "nonpayable",
-         "outputs" : []
+         "outputs" : [],
+         "name" : "usePermit"
       },
       {
          "type" : "function",
+         "stateMutability" : "nonpayable",
+         "name" : "usePermitAllowed",
+         "outputs" : [],
          "inputs" : [
             {
-               "type" : "address",
                "name" : "token",
+               "type" : "address",
                "internalType" : "address"
             },
             {
-               "type" : "uint256",
                "internalType" : "uint256",
+               "type" : "uint256",
                "name" : "nonce"
             },
             {
-               "type" : "uint256",
                "name" : "expiry",
-               "internalType" : "uint256"
+               "internalType" : "uint256",
+               "type" : "uint256"
             },
             {
                "name" : "allowed",
@@ -1506,39 +1509,33 @@
             },
             {
                "name" : "v",
-               "internalType" : "uint8",
-               "type" : "uint8"
+               "type" : "uint8",
+               "internalType" : "uint8"
             },
             {
-               "type" : "bytes32",
                "name" : "r",
+               "type" : "bytes32",
                "internalType" : "bytes32"
             },
             {
+               "name" : "s",
                "type" : "bytes32",
-               "internalType" : "bytes32",
-               "name" : "s"
+               "internalType" : "bytes32"
             }
-         ],
-         "name" : "usePermitAllowed",
-         "stateMutability" : "nonpayable",
-         "outputs" : []
+         ]
       },
       {
-         "type" : "function",
          "outputs" : [],
-         "stateMutability" : "nonpayable",
-         "name" : "usePermitPacked",
          "inputs" : [
             {
+               "internalType" : "address",
                "type" : "address",
-               "name" : "token",
-               "internalType" : "address"
+               "name" : "token"
             },
             {
-               "internalType" : "uint256",
                "name" : "value",
-               "type" : "uint256"
+               "type" : "uint256",
+               "internalType" : "uint256"
             },
             {
                "type" : "uint256",
@@ -1547,10 +1544,13 @@
             },
             {
                "internalType" : "bytes",
-               "name" : "signature",
-               "type" : "bytes"
+               "type" : "bytes",
+               "name" : "signature"
             }
-         ]
+         ],
+         "name" : "usePermitPacked",
+         "stateMutability" : "nonpayable",
+         "type" : "function"
       }
    ]
 }

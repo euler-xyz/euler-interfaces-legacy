@@ -4,10 +4,7 @@
 
 import { Contract, Signer, utils } from "ethers";
 import type { Provider } from "@ethersproject/providers";
-import type {
-  Liquidation,
-  LiquidationInterface,
-} from "../../modules/Liquidation";
+import type { SwapHub, SwapHubInterface } from "../../modules/SwapHub";
 
 const _abi = [
   {
@@ -22,79 +19,79 @@ const _abi = [
     type: "constructor",
   },
   {
-    type: "event",
-    anonymous: false,
     name: "AssetStatus",
     inputs: [
       {
+        type: "address",
+        internalType: "address",
         name: "underlying",
         indexed: true,
-        internalType: "address",
-        type: "address",
       },
       {
+        type: "uint256",
+        internalType: "uint256",
         indexed: false,
         name: "totalBalances",
-        type: "uint256",
-        internalType: "uint256",
       },
       {
-        name: "totalBorrows",
         indexed: false,
+        name: "totalBorrows",
         internalType: "uint256",
         type: "uint256",
       },
       {
+        name: "reserveBalance",
+        indexed: false,
         type: "uint96",
         internalType: "uint96",
-        indexed: false,
-        name: "reserveBalance",
       },
       {
-        name: "poolSize",
-        indexed: false,
         internalType: "uint256",
         type: "uint256",
+        indexed: false,
+        name: "poolSize",
       },
       {
+        internalType: "uint256",
+        type: "uint256",
         name: "interestAccumulator",
         indexed: false,
-        internalType: "uint256",
-        type: "uint256",
       },
       {
-        indexed: false,
         name: "interestRate",
+        indexed: false,
         type: "int96",
         internalType: "int96",
       },
       {
         internalType: "uint256",
         type: "uint256",
-        name: "timestamp",
         indexed: false,
+        name: "timestamp",
       },
     ],
+    type: "event",
+    anonymous: false,
   },
   {
     inputs: [
       {
-        internalType: "address",
         type: "address",
-        indexed: true,
+        internalType: "address",
         name: "underlying",
-      },
-      {
-        name: "account",
         indexed: true,
-        type: "address",
-        internalType: "address",
       },
       {
-        type: "uint256",
-        internalType: "uint256",
+        internalType: "address",
+        type: "address",
+        indexed: true,
+        name: "account",
+      },
+      {
         indexed: false,
         name: "amount",
+        internalType: "uint256",
+        type: "uint256",
       },
     ],
     name: "Borrow",
@@ -102,13 +99,12 @@ const _abi = [
     type: "event",
   },
   {
-    name: "DelegateAverageLiquidity",
     inputs: [
       {
-        indexed: true,
         name: "account",
-        internalType: "address",
+        indexed: true,
         type: "address",
+        internalType: "address",
       },
       {
         name: "delegate",
@@ -117,98 +113,99 @@ const _abi = [
         type: "address",
       },
     ],
-    type: "event",
+    name: "DelegateAverageLiquidity",
     anonymous: false,
+    type: "event",
   },
   {
-    type: "event",
-    anonymous: false,
     name: "Deposit",
     inputs: [
       {
         type: "address",
         internalType: "address",
-        name: "underlying",
         indexed: true,
+        name: "underlying",
       },
       {
-        name: "account",
-        indexed: true,
         internalType: "address",
         type: "address",
+        indexed: true,
+        name: "account",
       },
       {
-        name: "amount",
-        indexed: false,
         internalType: "uint256",
         type: "uint256",
+        name: "amount",
+        indexed: false,
       },
     ],
+    type: "event",
+    anonymous: false,
   },
   {
-    anonymous: false,
     type: "event",
-    inputs: [
-      {
-        internalType: "address",
-        type: "address",
-        indexed: true,
-        name: "underlying",
-      },
-      {
-        name: "account",
-        indexed: true,
-        internalType: "address",
-        type: "address",
-      },
-    ],
+    anonymous: false,
     name: "EnterMarket",
-  },
-  {
-    type: "event",
-    anonymous: false,
-    name: "ExitMarket",
     inputs: [
       {
-        internalType: "address",
         type: "address",
+        internalType: "address",
         name: "underlying",
         indexed: true,
       },
       {
-        name: "account",
         indexed: true,
-        internalType: "address",
+        name: "account",
         type: "address",
+        internalType: "address",
       },
     ],
   },
   {
+    inputs: [
+      {
+        name: "underlying",
+        indexed: true,
+        type: "address",
+        internalType: "address",
+      },
+      {
+        type: "address",
+        internalType: "address",
+        name: "account",
+        indexed: true,
+      },
+    ],
+    name: "ExitMarket",
     anonymous: false,
     type: "event",
-    inputs: [],
+  },
+  {
     name: "Genesis",
+    inputs: [],
+    type: "event",
+    anonymous: false,
   },
   {
     name: "GovConvertReserves",
     inputs: [
       {
-        internalType: "address",
-        type: "address",
         name: "underlying",
         indexed: true,
+        internalType: "address",
+        type: "address",
       },
       {
         internalType: "address",
         type: "address",
-        name: "recipient",
         indexed: true,
+        name: "recipient",
       },
       {
-        name: "amount",
         indexed: false,
-        type: "uint256",
+        name: "amount",
         internalType: "uint256",
+        type: "uint256",
       },
     ],
     type: "event",
@@ -217,14 +214,13 @@ const _abi = [
   {
     inputs: [
       {
-        indexed: true,
-        name: "underlying",
         type: "address",
         internalType: "address",
+        indexed: true,
+        name: "underlying",
       },
       {
-        type: "tuple",
-        internalType: "struct Storage.AssetConfig",
+        name: "newConfig",
         components: [
           {
             name: "eTokenAddress",
@@ -237,14 +233,14 @@ const _abi = [
             name: "borrowIsolated",
           },
           {
-            internalType: "uint32",
-            type: "uint32",
             name: "collateralFactor",
+            type: "uint32",
+            internalType: "uint32",
           },
           {
             name: "borrowFactor",
-            type: "uint32",
             internalType: "uint32",
+            type: "uint32",
           },
           {
             type: "uint24",
@@ -252,8 +248,9 @@ const _abi = [
             name: "twapWindow",
           },
         ],
-        name: "newConfig",
         indexed: false,
+        internalType: "struct Storage.AssetConfig",
+        type: "tuple",
       },
     ],
     name: "GovSetAssetConfig",
@@ -261,15 +258,12 @@ const _abi = [
     type: "event",
   },
   {
-    type: "event",
-    anonymous: false,
-    name: "GovSetChainlinkPriceFeed",
     inputs: [
       {
-        type: "address",
-        internalType: "address",
         name: "underlying",
         indexed: true,
+        type: "address",
+        internalType: "address",
       },
       {
         name: "chainlinkAggregator",
@@ -278,83 +272,86 @@ const _abi = [
         internalType: "address",
       },
     ],
+    name: "GovSetChainlinkPriceFeed",
+    anonymous: false,
+    type: "event",
   },
   {
-    type: "event",
-    anonymous: false,
     name: "GovSetIRM",
     inputs: [
       {
-        name: "underlying",
-        indexed: true,
         type: "address",
         internalType: "address",
+        name: "underlying",
+        indexed: true,
       },
       {
-        internalType: "uint256",
-        type: "uint256",
         name: "interestRateModel",
         indexed: false,
+        internalType: "uint256",
+        type: "uint256",
       },
       {
-        indexed: false,
         name: "resetParams",
+        indexed: false,
         internalType: "bytes",
         type: "bytes",
       },
     ],
+    type: "event",
+    anonymous: false,
   },
   {
+    type: "event",
+    anonymous: false,
+    name: "GovSetPricingConfig",
     inputs: [
       {
         type: "address",
         internalType: "address",
-        indexed: true,
         name: "underlying",
+        indexed: true,
       },
       {
-        indexed: false,
-        name: "newPricingType",
-        internalType: "uint16",
         type: "uint16",
+        internalType: "uint16",
+        name: "newPricingType",
+        indexed: false,
       },
       {
-        name: "newPricingParameter",
         indexed: false,
-        type: "uint32",
+        name: "newPricingParameter",
         internalType: "uint32",
+        type: "uint32",
       },
     ],
-    name: "GovSetPricingConfig",
-    anonymous: false,
-    type: "event",
   },
   {
-    type: "event",
-    anonymous: false,
     name: "GovSetReserveFee",
     inputs: [
       {
         internalType: "address",
         type: "address",
-        indexed: true,
         name: "underlying",
+        indexed: true,
       },
       {
-        indexed: false,
-        name: "newReserveFee",
         internalType: "uint32",
         type: "uint32",
+        name: "newReserveFee",
+        indexed: false,
       },
     ],
+    type: "event",
+    anonymous: false,
   },
   {
     anonymous: false,
     type: "event",
     inputs: [
       {
-        type: "uint256",
         internalType: "uint256",
+        type: "uint256",
         name: "moduleId",
         indexed: true,
       },
@@ -365,120 +362,120 @@ const _abi = [
         name: "moduleImpl",
       },
       {
-        name: "moduleGitCommit",
-        indexed: false,
         type: "bytes32",
         internalType: "bytes32",
+        name: "moduleGitCommit",
+        indexed: false,
       },
     ],
     name: "InstallerInstallModule",
   },
   {
+    name: "InstallerSetGovernorAdmin",
     inputs: [
       {
+        internalType: "address",
+        type: "address",
         name: "newGovernorAdmin",
         indexed: true,
-        type: "address",
-        internalType: "address",
       },
     ],
-    name: "InstallerSetGovernorAdmin",
-    anonymous: false,
     type: "event",
+    anonymous: false,
   },
   {
     name: "InstallerSetUpgradeAdmin",
     inputs: [
       {
-        internalType: "address",
-        type: "address",
         name: "newUpgradeAdmin",
         indexed: true,
+        internalType: "address",
+        type: "address",
       },
     ],
     type: "event",
     anonymous: false,
   },
   {
-    name: "Liquidation",
+    anonymous: false,
+    type: "event",
     inputs: [
       {
-        type: "address",
         internalType: "address",
+        type: "address",
         indexed: true,
         name: "liquidator",
       },
       {
+        internalType: "address",
+        type: "address",
         indexed: true,
         name: "violator",
-        type: "address",
-        internalType: "address",
       },
       {
-        name: "underlying",
+        type: "address",
+        internalType: "address",
         indexed: true,
-        type: "address",
-        internalType: "address",
+        name: "underlying",
       },
       {
+        internalType: "address",
+        type: "address",
         name: "collateral",
         indexed: false,
-        internalType: "address",
-        type: "address",
       },
       {
+        type: "uint256",
+        internalType: "uint256",
         indexed: false,
         name: "repay",
-        type: "uint256",
-        internalType: "uint256",
       },
       {
-        indexed: false,
+        internalType: "uint256",
+        type: "uint256",
         name: "yield",
-        internalType: "uint256",
-        type: "uint256",
+        indexed: false,
       },
       {
-        internalType: "uint256",
         type: "uint256",
+        internalType: "uint256",
+        indexed: false,
         name: "healthScore",
-        indexed: false,
       },
       {
+        indexed: false,
         name: "baseDiscount",
-        indexed: false,
-        internalType: "uint256",
         type: "uint256",
+        internalType: "uint256",
       },
       {
+        name: "discount",
+        indexed: false,
         internalType: "uint256",
         type: "uint256",
-        indexed: false,
-        name: "discount",
       },
     ],
-    type: "event",
-    anonymous: false,
+    name: "Liquidation",
   },
   {
     inputs: [
       {
-        indexed: true,
+        internalType: "address",
+        type: "address",
         name: "underlying",
-        internalType: "address",
-        type: "address",
+        indexed: true,
       },
       {
-        internalType: "address",
         type: "address",
+        internalType: "address",
+        indexed: true,
         name: "eToken",
-        indexed: true,
       },
       {
         internalType: "address",
         type: "address",
-        name: "dToken",
         indexed: true,
+        name: "dToken",
       },
     ],
     name: "MarketActivated",
@@ -486,8 +483,7 @@ const _abi = [
     type: "event",
   },
   {
-    anonymous: false,
-    type: "event",
+    name: "PTokenActivated",
     inputs: [
       {
         indexed: true,
@@ -498,61 +494,62 @@ const _abi = [
       {
         indexed: true,
         name: "pToken",
-        internalType: "address",
         type: "address",
+        internalType: "address",
       },
     ],
-    name: "PTokenActivated",
+    type: "event",
+    anonymous: false,
   },
   {
-    name: "PTokenUnWrap",
     inputs: [
       {
         name: "underlying",
         indexed: true,
-        type: "address",
         internalType: "address",
+        type: "address",
       },
       {
-        type: "address",
-        internalType: "address",
         indexed: true,
         name: "account",
+        type: "address",
+        internalType: "address",
       },
       {
-        type: "uint256",
         internalType: "uint256",
+        type: "uint256",
         name: "amount",
         indexed: false,
       },
     ],
-    type: "event",
+    name: "PTokenUnWrap",
     anonymous: false,
+    type: "event",
   },
   {
-    type: "event",
-    anonymous: false,
     name: "PTokenWrap",
     inputs: [
       {
+        internalType: "address",
+        type: "address",
+        indexed: true,
         name: "underlying",
-        indexed: true,
-        type: "address",
-        internalType: "address",
       },
       {
-        internalType: "address",
-        type: "address",
+        indexed: true,
         name: "account",
-        indexed: true,
+        internalType: "address",
+        type: "address",
       },
       {
-        internalType: "uint256",
-        type: "uint256",
         indexed: false,
         name: "amount",
+        type: "uint256",
+        internalType: "uint256",
       },
     ],
+    type: "event",
+    anonymous: false,
   },
   {
     name: "ProxyCreated",
@@ -564,10 +561,10 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint256",
-        type: "uint256",
         indexed: false,
         name: "moduleId",
+        internalType: "uint256",
+        type: "uint256",
       },
     ],
     type: "event",
@@ -579,181 +576,181 @@ const _abi = [
     name: "Repay",
     inputs: [
       {
-        internalType: "address",
-        type: "address",
         indexed: true,
         name: "underlying",
-      },
-      {
-        name: "account",
-        indexed: true,
         internalType: "address",
         type: "address",
       },
       {
-        type: "uint256",
+        internalType: "address",
+        type: "address",
+        name: "account",
+        indexed: true,
+      },
+      {
         internalType: "uint256",
+        type: "uint256",
         indexed: false,
         name: "amount",
       },
     ],
   },
   {
-    anonymous: false,
     type: "event",
-    inputs: [
-      {
-        internalType: "address",
-        type: "address",
-        name: "account",
-        indexed: true,
-      },
-      {
-        indexed: false,
-        name: "amount",
-        internalType: "uint256",
-        type: "uint256",
-      },
-    ],
+    anonymous: false,
     name: "RequestBorrow",
-  },
-  {
-    anonymous: false,
-    type: "event",
     inputs: [
       {
-        name: "account",
         indexed: true,
+        name: "account",
         internalType: "address",
         type: "address",
       },
       {
-        type: "uint256",
-        internalType: "uint256",
         name: "amount",
         indexed: false,
+        type: "uint256",
+        internalType: "uint256",
+      },
+    ],
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        type: "address",
+        indexed: true,
+        name: "account",
+      },
+      {
+        name: "amount",
+        indexed: false,
+        internalType: "uint256",
+        type: "uint256",
       },
     ],
     name: "RequestBurn",
+    anonymous: false,
+    type: "event",
   },
   {
+    anonymous: false,
+    type: "event",
+    inputs: [
+      {
+        type: "address",
+        internalType: "address",
+        name: "account",
+        indexed: true,
+      },
+      {
+        internalType: "uint256",
+        type: "uint256",
+        indexed: false,
+        name: "amount",
+      },
+    ],
     name: "RequestDeposit",
-    inputs: [
-      {
-        internalType: "address",
-        type: "address",
-        indexed: true,
-        name: "account",
-      },
-      {
-        name: "amount",
-        indexed: false,
-        internalType: "uint256",
-        type: "uint256",
-      },
-    ],
-    type: "event",
-    anonymous: false,
   },
   {
-    anonymous: false,
     type: "event",
+    anonymous: false,
+    name: "RequestDonate",
     inputs: [
       {
-        type: "address",
         internalType: "address",
-        indexed: true,
+        type: "address",
         name: "account",
+        indexed: true,
       },
       {
+        indexed: false,
+        name: "amount",
         internalType: "uint256",
         type: "uint256",
-        name: "amount",
-        indexed: false,
       },
     ],
-    name: "RequestDonate",
   },
   {
     name: "RequestLiquidate",
     inputs: [
       {
-        type: "address",
-        internalType: "address",
         indexed: true,
         name: "liquidator",
+        type: "address",
+        internalType: "address",
       },
       {
-        indexed: true,
-        name: "violator",
         internalType: "address",
         type: "address",
+        name: "violator",
+        indexed: true,
       },
       {
+        internalType: "address",
+        type: "address",
         name: "underlying",
         indexed: true,
-        type: "address",
-        internalType: "address",
       },
       {
-        type: "address",
-        internalType: "address",
-        name: "collateral",
         indexed: false,
+        name: "collateral",
+        internalType: "address",
+        type: "address",
       },
       {
         internalType: "uint256",
         type: "uint256",
-        name: "repay",
         indexed: false,
+        name: "repay",
       },
       {
+        type: "uint256",
+        internalType: "uint256",
         name: "minYield",
         indexed: false,
-        internalType: "uint256",
-        type: "uint256",
       },
     ],
     type: "event",
     anonymous: false,
   },
   {
+    anonymous: false,
+    type: "event",
     inputs: [
       {
-        type: "address",
-        internalType: "address",
-        indexed: true,
         name: "account",
+        indexed: true,
+        internalType: "address",
+        type: "address",
       },
       {
-        name: "amount",
-        indexed: false,
         type: "uint256",
         internalType: "uint256",
+        indexed: false,
+        name: "amount",
       },
     ],
     name: "RequestMint",
-    anonymous: false,
-    type: "event",
   },
   {
+    type: "event",
+    anonymous: false,
     name: "RequestRepay",
     inputs: [
       {
-        internalType: "address",
         type: "address",
+        internalType: "address",
         name: "account",
         indexed: true,
       },
       {
-        name: "amount",
-        indexed: false,
         internalType: "uint256",
         type: "uint256",
+        name: "amount",
+        indexed: false,
       },
     ],
-    type: "event",
-    anonymous: false,
   },
   {
     type: "event",
@@ -761,22 +758,22 @@ const _abi = [
     name: "RequestSwap",
     inputs: [
       {
+        internalType: "address",
+        type: "address",
         name: "accountIn",
         indexed: true,
-        internalType: "address",
-        type: "address",
       },
       {
+        internalType: "address",
+        type: "address",
+        indexed: true,
         name: "accountOut",
-        indexed: true,
-        type: "address",
-        internalType: "address",
       },
       {
-        name: "underlyingIn",
-        indexed: true,
-        internalType: "address",
         type: "address",
+        internalType: "address",
+        indexed: true,
+        name: "underlyingIn",
       },
       {
         internalType: "address",
@@ -785,39 +782,40 @@ const _abi = [
         name: "underlyingOut",
       },
       {
-        type: "uint256",
         internalType: "uint256",
+        type: "uint256",
         indexed: false,
         name: "amount",
       },
       {
-        indexed: false,
         name: "swapType",
-        internalType: "uint256",
+        indexed: false,
         type: "uint256",
+        internalType: "uint256",
       },
     ],
   },
   {
-    name: "RequestSwapHub",
+    anonymous: false,
+    type: "event",
     inputs: [
       {
-        internalType: "address",
-        type: "address",
         name: "accountIn",
         indexed: true,
-      },
-      {
-        name: "accountOut",
-        indexed: true,
         type: "address",
         internalType: "address",
+      },
+      {
+        internalType: "address",
+        type: "address",
+        name: "accountOut",
+        indexed: true,
       },
       {
         name: "underlyingIn",
         indexed: true,
-        type: "address",
         internalType: "address",
+        type: "address",
       },
       {
         internalType: "address",
@@ -826,49 +824,45 @@ const _abi = [
         indexed: false,
       },
       {
-        internalType: "uint256",
-        type: "uint256",
-        indexed: false,
         name: "amountIn",
+        indexed: false,
+        internalType: "uint256",
+        type: "uint256",
       },
       {
-        type: "uint256",
-        internalType: "uint256",
-        indexed: false,
         name: "amountOut",
-      },
-      {
+        indexed: false,
         type: "uint256",
         internalType: "uint256",
-        indexed: false,
-        name: "mode",
       },
       {
-        name: "swapHandler",
+        name: "mode",
         indexed: false,
+        type: "uint256",
+        internalType: "uint256",
+      },
+      {
+        indexed: false,
+        name: "swapHandler",
         internalType: "address",
         type: "address",
       },
     ],
-    type: "event",
-    anonymous: false,
+    name: "RequestSwapHub",
   },
   {
-    type: "event",
-    anonymous: false,
-    name: "RequestSwapHubRepay",
     inputs: [
       {
-        type: "address",
-        internalType: "address",
-        indexed: true,
         name: "accountIn",
+        indexed: true,
+        internalType: "address",
+        type: "address",
       },
       {
         internalType: "address",
         type: "address",
-        indexed: true,
         name: "accountOut",
+        indexed: true,
       },
       {
         name: "underlyingIn",
@@ -879,22 +873,25 @@ const _abi = [
       {
         indexed: false,
         name: "underlyingOut",
-        internalType: "address",
         type: "address",
+        internalType: "address",
       },
       {
-        internalType: "uint256",
-        type: "uint256",
         name: "targetDebt",
         indexed: false,
+        type: "uint256",
+        internalType: "uint256",
       },
       {
-        internalType: "address",
-        type: "address",
         name: "swapHandler",
         indexed: false,
+        internalType: "address",
+        type: "address",
       },
     ],
+    name: "RequestSwapHubRepay",
+    anonymous: false,
+    type: "event",
   },
   {
     type: "event",
@@ -902,14 +899,14 @@ const _abi = [
     name: "RequestTransferDToken",
     inputs: [
       {
-        type: "address",
         internalType: "address",
+        type: "address",
         name: "from",
         indexed: true,
       },
       {
-        internalType: "address",
         type: "address",
+        internalType: "address",
         indexed: true,
         name: "to",
       },
@@ -925,58 +922,45 @@ const _abi = [
     name: "RequestTransferEToken",
     inputs: [
       {
-        name: "from",
         indexed: true,
+        name: "from",
         internalType: "address",
         type: "address",
       },
       {
         name: "to",
         indexed: true,
-        internalType: "address",
         type: "address",
+        internalType: "address",
       },
       {
+        internalType: "uint256",
+        type: "uint256",
         indexed: false,
         name: "amount",
-        type: "uint256",
-        internalType: "uint256",
       },
     ],
     type: "event",
     anonymous: false,
   },
   {
-    type: "event",
-    anonymous: false,
     name: "RequestWithdraw",
     inputs: [
       {
-        indexed: true,
         name: "account",
-        type: "address",
+        indexed: true,
         internalType: "address",
+        type: "address",
       },
       {
-        internalType: "uint256",
         type: "uint256",
-        name: "amount",
+        internalType: "uint256",
         indexed: false,
+        name: "amount",
       },
     ],
-  },
-  {
     type: "event",
     anonymous: false,
-    name: "TrackAverageLiquidity",
-    inputs: [
-      {
-        name: "account",
-        indexed: true,
-        internalType: "address",
-        type: "address",
-      },
-    ],
   },
   {
     inputs: [
@@ -985,238 +969,222 @@ const _abi = [
         type: "address",
         indexed: true,
         name: "account",
+      },
+    ],
+    name: "TrackAverageLiquidity",
+    anonymous: false,
+    type: "event",
+  },
+  {
+    anonymous: false,
+    type: "event",
+    inputs: [
+      {
+        type: "address",
+        internalType: "address",
+        name: "account",
+        indexed: true,
       },
     ],
     name: "UnTrackAverageLiquidity",
-    anonymous: false,
-    type: "event",
   },
   {
-    anonymous: false,
     type: "event",
-    inputs: [
-      {
-        indexed: true,
-        name: "underlying",
-        internalType: "address",
-        type: "address",
-      },
-      {
-        type: "address",
-        internalType: "address",
-        name: "account",
-        indexed: true,
-      },
-      {
-        type: "uint256",
-        internalType: "uint256",
-        name: "amount",
-        indexed: false,
-      },
-    ],
+    anonymous: false,
     name: "Withdraw",
-  },
-  {
-    inputs: [],
-    outputs: [
-      {
-        name: "",
-        internalType: "uint256",
-        type: "uint256",
-      },
-    ],
-    name: "DISCOUNT_BOOSTER_SLOPE",
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    name: "MAXIMUM_BOOSTER_DISCOUNT",
-    outputs: [
-      {
-        name: "",
-        type: "uint256",
-        internalType: "uint256",
-      },
-    ],
-    inputs: [],
-  },
-  {
-    name: "MAXIMUM_DISCOUNT",
-    outputs: [
-      {
-        type: "uint256",
-        internalType: "uint256",
-        name: "",
-      },
-    ],
-    inputs: [],
-    type: "function",
-    stateMutability: "view",
-  },
-  {
-    inputs: [],
-    outputs: [
-      {
-        internalType: "uint256",
-        type: "uint256",
-        name: "",
-      },
-    ],
-    name: "TARGET_HEALTH",
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    stateMutability: "view",
-    type: "function",
-    inputs: [],
-    outputs: [
-      {
-        internalType: "uint256",
-        type: "uint256",
-        name: "",
-      },
-    ],
-    name: "UNDERLYING_RESERVES_FEE",
-  },
-  {
-    name: "checkLiquidation",
     inputs: [
       {
-        name: "liquidator",
-        type: "address",
-        internalType: "address",
-      },
-      {
-        name: "violator",
-        internalType: "address",
-        type: "address",
-      },
-      {
         name: "underlying",
-        internalType: "address",
-        type: "address",
-      },
-      {
-        name: "collateral",
+        indexed: true,
         type: "address",
         internalType: "address",
       },
-    ],
-    outputs: [
       {
-        internalType: "struct Liquidation.LiquidationOpportunity",
-        type: "tuple",
-        components: [
-          {
-            name: "repay",
-            internalType: "uint256",
-            type: "uint256",
-          },
-          {
-            type: "uint256",
-            internalType: "uint256",
-            name: "yield",
-          },
-          {
-            name: "healthScore",
-            type: "uint256",
-            internalType: "uint256",
-          },
-          {
-            name: "baseDiscount",
-            internalType: "uint256",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            type: "uint256",
-            name: "discount",
-          },
-          {
-            type: "uint256",
-            internalType: "uint256",
-            name: "conversionRate",
-          },
-        ],
-        name: "liqOpp",
-      },
-    ],
-    type: "function",
-    stateMutability: "nonpayable",
-  },
-  {
-    name: "liquidate",
-    outputs: [],
-    inputs: [
-      {
-        type: "address",
-        internalType: "address",
-        name: "violator",
-      },
-      {
-        type: "address",
-        internalType: "address",
-        name: "underlying",
-      },
-      {
+        indexed: true,
+        name: "account",
         internalType: "address",
         type: "address",
-        name: "collateral",
       },
       {
         internalType: "uint256",
         type: "uint256",
-        name: "repay",
-      },
-      {
-        type: "uint256",
-        internalType: "uint256",
-        name: "minYield",
+        indexed: false,
+        name: "amount",
       },
     ],
-    type: "function",
-    stateMutability: "nonpayable",
   },
   {
+    type: "function",
+    stateMutability: "view",
     name: "moduleGitCommit",
+    inputs: [],
     outputs: [
       {
-        internalType: "bytes32",
-        type: "bytes32",
         name: "",
+        type: "bytes32",
+        internalType: "bytes32",
       },
     ],
-    inputs: [],
-    type: "function",
-    stateMutability: "view",
   },
   {
-    type: "function",
-    stateMutability: "view",
     name: "moduleId",
     outputs: [
       {
+        name: "",
         type: "uint256",
         internalType: "uint256",
-        name: "",
       },
     ],
     inputs: [],
+    type: "function",
+    stateMutability: "view",
+  },
+  {
+    outputs: [],
+    inputs: [
+      {
+        name: "subAccountIdIn",
+        type: "uint256",
+        internalType: "uint256",
+      },
+      {
+        name: "subAccountIdOut",
+        internalType: "uint256",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        type: "address",
+        name: "swapHandler",
+      },
+      {
+        components: [
+          {
+            type: "address",
+            internalType: "address",
+            name: "underlyingIn",
+          },
+          {
+            type: "address",
+            internalType: "address",
+            name: "underlyingOut",
+          },
+          {
+            name: "mode",
+            type: "uint256",
+            internalType: "uint256",
+          },
+          {
+            name: "amountIn",
+            internalType: "uint256",
+            type: "uint256",
+          },
+          {
+            name: "amountOut",
+            internalType: "uint256",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            type: "uint256",
+            name: "exactOutTolerance",
+          },
+          {
+            type: "bytes",
+            internalType: "bytes",
+            name: "payload",
+          },
+        ],
+        name: "params",
+        internalType: "struct ISwapHandler.SwapParams",
+        type: "tuple",
+      },
+    ],
+    name: "swap",
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    outputs: [],
+    inputs: [
+      {
+        name: "subAccountIdIn",
+        internalType: "uint256",
+        type: "uint256",
+      },
+      {
+        type: "uint256",
+        internalType: "uint256",
+        name: "subAccountIdOut",
+      },
+      {
+        type: "address",
+        internalType: "address",
+        name: "swapHandler",
+      },
+      {
+        components: [
+          {
+            name: "underlyingIn",
+            type: "address",
+            internalType: "address",
+          },
+          {
+            name: "underlyingOut",
+            type: "address",
+            internalType: "address",
+          },
+          {
+            type: "uint256",
+            internalType: "uint256",
+            name: "mode",
+          },
+          {
+            type: "uint256",
+            internalType: "uint256",
+            name: "amountIn",
+          },
+          {
+            name: "amountOut",
+            type: "uint256",
+            internalType: "uint256",
+          },
+          {
+            type: "uint256",
+            internalType: "uint256",
+            name: "exactOutTolerance",
+          },
+          {
+            name: "payload",
+            type: "bytes",
+            internalType: "bytes",
+          },
+        ],
+        name: "params",
+        internalType: "struct ISwapHandler.SwapParams",
+        type: "tuple",
+      },
+      {
+        name: "targetDebt",
+        internalType: "uint256",
+        type: "uint256",
+      },
+    ],
+    name: "swapAndRepay",
+    stateMutability: "nonpayable",
+    type: "function",
   },
 ];
 
-export class Liquidation__factory {
+export class SwapHub__factory {
   static readonly abi = _abi;
-  static createInterface(): LiquidationInterface {
-    return new utils.Interface(_abi) as LiquidationInterface;
+  static createInterface(): SwapHubInterface {
+    return new utils.Interface(_abi) as SwapHubInterface;
   }
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
-  ): Liquidation {
-    return new Contract(address, _abi, signerOrProvider) as Liquidation;
+  ): SwapHub {
+    return new Contract(address, _abi, signerOrProvider) as SwapHub;
   }
 }

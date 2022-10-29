@@ -750,10 +750,10 @@ library EulerAddrsMainnet {
     IEulerSwap public constant swap = IEulerSwap(0x7123C8cBBD76c5C7fCC9f7150f23179bec0bA341);
 }
 
-library EulerAddrsRopsten {
-    IEuler public constant euler = IEuler(0xfC3DD73e918b931be7DEfd0cc616508391bcc001);
-    IEulerMarkets public constant markets = IEulerMarkets(0x60Ec84902908f5c8420331300055A63E6284F522);
-    IEulerLiquidation public constant liquidation = IEulerLiquidation(0xf9773f2D869Bdbe0B6aC6D6fD7df82b82C998DC7);
-    IEulerExec public constant exec = IEulerExec(0xF7B8611008Ed073Ef348FE130671688BBb20409d);
-    IEulerSwap public constant swap = IEulerSwap(0x86ea9f57d81Bf0C69Ff71114522fB3f29230DbA6);
+library EulerAddrsGoerli {
+    IEuler public constant euler = IEuler(0x931172BB95549d0f29e10ae2D079ABA3C63318B3);
+    IEulerMarkets public constant markets = IEulerMarkets(0x3EbC39b84B1F856fAFE9803A9e1Eae7Da016Da36);
+    IEulerLiquidation public constant liquidation = IEulerLiquidation(0x66326c072283feE63E1C3feF9BD024F8697EC1BB);
+    IEulerExec public constant exec = IEulerExec(0x4b62EB6797526491eEf6eF36D3B9960E5d66C394);
+    // swap module not available on Goerli
 }

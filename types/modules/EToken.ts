@@ -49,6 +49,16 @@ export declare namespace Storage {
     borrowFactor: number;
     twapWindow: number;
   };
+
+  export type OverrideConfigStruct = {
+    enabled: boolean;
+    collateralFactor: BigNumberish;
+  };
+
+  export type OverrideConfigStructOutput = [boolean, number] & {
+    enabled: boolean;
+    collateralFactor: number;
+  };
 }
 
 export interface ETokenInterface extends utils.Interface {
@@ -288,6 +298,7 @@ export interface ETokenInterface extends utils.Interface {
     "GovSetAssetConfig(address,tuple)": EventFragment;
     "GovSetChainlinkPriceFeed(address,address)": EventFragment;
     "GovSetIRM(address,uint256,bytes)": EventFragment;
+    "GovSetOverride(address,address,tuple)": EventFragment;
     "GovSetPricingConfig(address,uint16,uint32)": EventFragment;
     "GovSetReserveFee(address,uint32)": EventFragment;
     "InstallerInstallModule(uint256,address,bytes32)": EventFragment;
@@ -331,6 +342,7 @@ export interface ETokenInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "GovSetAssetConfig"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetChainlinkPriceFeed"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetIRM"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "GovSetOverride"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetPricingConfig"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetReserveFee"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "InstallerInstallModule"): EventFragment;
@@ -511,6 +523,18 @@ export type GovSetIRMEvent = TypedEvent<
 >;
 
 export type GovSetIRMEventFilter = TypedEventFilter<GovSetIRMEvent>;
+
+export interface GovSetOverrideEventObject {
+  liability: string;
+  collateral: string;
+  newOverride: Storage.OverrideConfigStructOutput;
+}
+export type GovSetOverrideEvent = TypedEvent<
+  [string, string, Storage.OverrideConfigStructOutput],
+  GovSetOverrideEventObject
+>;
+
+export type GovSetOverrideEventFilter = TypedEventFilter<GovSetOverrideEvent>;
 
 export interface GovSetPricingConfigEventObject {
   underlying: string;
@@ -1371,6 +1395,17 @@ export interface EToken extends BaseContract {
       interestRateModel?: null,
       resetParams?: null
     ): GovSetIRMEventFilter;
+
+    "GovSetOverride(address,address,tuple)"(
+      liability?: string | null,
+      collateral?: string | null,
+      newOverride?: null
+    ): GovSetOverrideEventFilter;
+    GovSetOverride(
+      liability?: string | null,
+      collateral?: string | null,
+      newOverride?: null
+    ): GovSetOverrideEventFilter;
 
     "GovSetPricingConfig(address,uint16,uint32)"(
       underlying?: PromiseOrValue<string> | null,

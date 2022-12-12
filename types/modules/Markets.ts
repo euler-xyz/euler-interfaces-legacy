@@ -49,6 +49,16 @@ export declare namespace Storage {
     borrowFactor: number;
     twapWindow: number;
   };
+
+  export type OverrideConfigStruct = {
+    enabled: boolean;
+    collateralFactor: BigNumberish;
+  };
+
+  export type OverrideConfigStructOutput = [boolean, number] & {
+    enabled: boolean;
+    collateralFactor: number;
+  };
 }
 
 export interface MarketsInterface extends utils.Interface {
@@ -62,6 +72,9 @@ export interface MarketsInterface extends utils.Interface {
     "exitMarket(uint256,address)": FunctionFragment;
     "getChainlinkPriceFeedConfig(address)": FunctionFragment;
     "getEnteredMarkets(address)": FunctionFragment;
+    "getOverride(address,address)": FunctionFragment;
+    "getOverrideCollaterals(address)": FunctionFragment;
+    "getOverrideLiabilities(address)": FunctionFragment;
     "getPricingConfig(address)": FunctionFragment;
     "interestAccumulator(address)": FunctionFragment;
     "interestRate(address)": FunctionFragment;
@@ -87,6 +100,9 @@ export interface MarketsInterface extends utils.Interface {
       | "exitMarket"
       | "getChainlinkPriceFeedConfig"
       | "getEnteredMarkets"
+      | "getOverride"
+      | "getOverrideCollaterals"
+      | "getOverrideLiabilities"
       | "getPricingConfig"
       | "interestAccumulator"
       | "interestRate"
@@ -136,6 +152,18 @@ export interface MarketsInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "getEnteredMarkets",
     values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getOverride",
+    values: [string, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getOverrideCollaterals",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getOverrideLiabilities",
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "getPricingConfig",
@@ -217,6 +245,18 @@ export interface MarketsInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "getOverride",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getOverrideCollaterals",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getOverrideLiabilities",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getPricingConfig",
     data: BytesLike
   ): Result;
@@ -271,6 +311,7 @@ export interface MarketsInterface extends utils.Interface {
     "GovSetAssetConfig(address,tuple)": EventFragment;
     "GovSetChainlinkPriceFeed(address,address)": EventFragment;
     "GovSetIRM(address,uint256,bytes)": EventFragment;
+    "GovSetOverride(address,address,tuple)": EventFragment;
     "GovSetPricingConfig(address,uint16,uint32)": EventFragment;
     "GovSetReserveFee(address,uint32)": EventFragment;
     "InstallerInstallModule(uint256,address,bytes32)": EventFragment;
@@ -312,6 +353,7 @@ export interface MarketsInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "GovSetAssetConfig"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetChainlinkPriceFeed"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetIRM"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "GovSetOverride"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetPricingConfig"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovSetReserveFee"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "InstallerInstallModule"): EventFragment;
@@ -479,6 +521,18 @@ export type GovSetIRMEvent = TypedEvent<
 >;
 
 export type GovSetIRMEventFilter = TypedEventFilter<GovSetIRMEvent>;
+
+export interface GovSetOverrideEventObject {
+  liability: string;
+  collateral: string;
+  newOverride: Storage.OverrideConfigStructOutput;
+}
+export type GovSetOverrideEvent = TypedEvent<
+  [string, string, Storage.OverrideConfigStructOutput],
+  GovSetOverrideEventObject
+>;
+
+export type GovSetOverrideEventFilter = TypedEventFilter<GovSetOverrideEvent>;
 
 export interface GovSetPricingConfigEventObject {
   underlying: string;
@@ -913,6 +967,22 @@ export interface Markets extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string[]]>;
 
+    getOverride(
+      liability: string,
+      collateral: string,
+      overrides?: CallOverrides
+    ): Promise<[Storage.OverrideConfigStructOutput]>;
+
+    getOverrideCollaterals(
+      liability: string,
+      overrides?: CallOverrides
+    ): Promise<[string[]]>;
+
+    getOverrideLiabilities(
+      collateral: string,
+      overrides?: CallOverrides
+    ): Promise<[string[]]>;
+
     getPricingConfig(
       underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -1025,6 +1095,22 @@ export interface Markets extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string[]>;
 
+  getOverride(
+    liability: string,
+    collateral: string,
+    overrides?: CallOverrides
+  ): Promise<Storage.OverrideConfigStructOutput>;
+
+  getOverrideCollaterals(
+    liability: string,
+    overrides?: CallOverrides
+  ): Promise<string[]>;
+
+  getOverrideLiabilities(
+    collateral: string,
+    overrides?: CallOverrides
+  ): Promise<string[]>;
+
   getPricingConfig(
     underlying: PromiseOrValue<string>,
     overrides?: CallOverrides
@@ -1130,6 +1216,22 @@ export interface Markets extends BaseContract {
 
     getEnteredMarkets(
       account: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<string[]>;
+
+    getOverride(
+      liability: string,
+      collateral: string,
+      overrides?: CallOverrides
+    ): Promise<Storage.OverrideConfigStructOutput>;
+
+    getOverrideCollaterals(
+      liability: string,
+      overrides?: CallOverrides
+    ): Promise<string[]>;
+
+    getOverrideLiabilities(
+      collateral: string,
       overrides?: CallOverrides
     ): Promise<string[]>;
 
@@ -1307,6 +1409,17 @@ export interface Markets extends BaseContract {
       interestRateModel?: null,
       resetParams?: null
     ): GovSetIRMEventFilter;
+
+    "GovSetOverride(address,address,tuple)"(
+      liability?: string | null,
+      collateral?: string | null,
+      newOverride?: null
+    ): GovSetOverrideEventFilter;
+    GovSetOverride(
+      liability?: string | null,
+      collateral?: string | null,
+      newOverride?: null
+    ): GovSetOverrideEventFilter;
 
     "GovSetPricingConfig(address,uint16,uint32)"(
       underlying?: PromiseOrValue<string> | null,
@@ -1669,6 +1782,22 @@ export interface Markets extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getOverride(
+      liability: string,
+      collateral: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getOverrideCollaterals(
+      liability: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getOverrideLiabilities(
+      collateral: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getPricingConfig(
       underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -1769,6 +1898,22 @@ export interface Markets extends BaseContract {
 
     getEnteredMarkets(
       account: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getOverride(
+      liability: string,
+      collateral: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getOverrideCollaterals(
+      liability: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getOverrideLiabilities(
+      collateral: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

@@ -18,6 +18,14 @@
          }
       }
    },
+   "staking": {
+      "rewardsDistribution": "0xA9839D52E964d0ed0d6D546c27D2248Fac610c43",
+      "stakingRewards": {
+         "0xEb91861f8A4e1C12333F42DCE8fB0Ecdc28dA716": "0xE5aFE81e63f0A52a3a03B922b30f73B8ce74D570",
+         "0x4d19F33948b99800B6113Ff3e83beC9b537C85d2": "0x7882F919e3acCa984babd70529100F937d90F860",
+         "0x1b808F49ADD4b8C6b5117d9681cF7312Fcf0dC1D": "0x229443bf7F1297192394B7127427DB172a5bDe9E"
+      }
+   },
    "swapHandler1Inch": "0x32673dAA164F4a290AE1f75DDc6aea5A2d343065",
    "swapHandlerUniAutoRouter": "0xD1679029Ae81DA676d9b5850feb6C8EE68f9d04E",
    "swapHandlerUniswapV3": "0x7527E082300fb8D189B3c07dB3BEcc990B5037E7",

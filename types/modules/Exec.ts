@@ -24,16 +24,15 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "../common";
 
 export declare namespace Storage {
   export type AssetConfigStruct = {
-    eTokenAddress: PromiseOrValue<string>;
-    borrowIsolated: PromiseOrValue<boolean>;
-    collateralFactor: PromiseOrValue<BigNumberish>;
-    borrowFactor: PromiseOrValue<BigNumberish>;
-    twapWindow: PromiseOrValue<BigNumberish>;
+    eTokenAddress: string;
+    borrowIsolated: boolean;
+    collateralFactor: BigNumberish;
+    borrowFactor: BigNumberish;
+    twapWindow: BigNumberish;
   };
 
   export type AssetConfigStructOutput = [
@@ -53,9 +52,9 @@ export declare namespace Storage {
 
 export declare namespace Exec {
   export type EulerBatchItemStruct = {
-    allowError: PromiseOrValue<boolean>;
-    proxyAddr: PromiseOrValue<string>;
-    data: PromiseOrValue<BytesLike>;
+    allowError: boolean;
+    proxyAddr: string;
+    data: BytesLike;
   };
 
   export type EulerBatchItemStructOutput = [boolean, string, string] & {
@@ -67,10 +66,10 @@ export declare namespace Exec {
 
 export declare namespace IRiskManager {
   export type LiquidityStatusStruct = {
-    collateralValue: PromiseOrValue<BigNumberish>;
-    liabilityValue: PromiseOrValue<BigNumberish>;
-    numBorrows: PromiseOrValue<BigNumberish>;
-    borrowIsolated: PromiseOrValue<boolean>;
+    collateralValue: BigNumberish;
+    liabilityValue: BigNumberish;
+    numBorrows: BigNumberish;
+    borrowIsolated: boolean;
   };
 
   export type LiquidityStatusStructOutput = [
@@ -86,7 +85,7 @@ export declare namespace IRiskManager {
   };
 
   export type AssetLiquidityStruct = {
-    underlying: PromiseOrValue<string>;
+    underlying: string;
     status: IRiskManager.LiquidityStatusStruct;
   };
 
@@ -146,48 +145,42 @@ export interface ExecInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "batchDispatch",
-    values: [Exec.EulerBatchItemStruct[], PromiseOrValue<string>[]]
+    values: [Exec.EulerBatchItemStruct[], string[]]
   ): string;
   encodeFunctionData(
     functionFragment: "batchDispatchSimulate",
-    values: [Exec.EulerBatchItemStruct[], PromiseOrValue<string>[]]
+    values: [Exec.EulerBatchItemStruct[], string[]]
   ): string;
   encodeFunctionData(
     functionFragment: "deferLiquidityCheck",
-    values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>]
+    values: [string, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "detailedLiquidity",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "doStaticCall",
-    values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>]
+    values: [string, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "getAverageLiquidity",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "getAverageLiquidityDelegateAccount",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "getAverageLiquidityWithDelegate",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
-  encodeFunctionData(
-    functionFragment: "getPrice",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "getPrice", values: [string]): string;
   encodeFunctionData(
     functionFragment: "getPriceFull",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
-  encodeFunctionData(
-    functionFragment: "liquidity",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "liquidity", values: [string]): string;
   encodeFunctionData(
     functionFragment: "moduleGitCommit",
     values?: undefined
@@ -195,55 +188,46 @@ export interface ExecInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "moduleId", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "pTokenUnWrap",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "pTokenWrap",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "trackAverageLiquidity",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<boolean>
-    ]
+    values: [BigNumberish, string, boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "unTrackAverageLiquidity",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "usePermit",
     values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>
+      string,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BytesLike,
+      BytesLike
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "usePermitAllowed",
     values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<boolean>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>
+      string,
+      BigNumberish,
+      BigNumberish,
+      boolean,
+      BigNumberish,
+      BytesLike,
+      BytesLike
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "usePermitPacked",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>
-    ]
+    values: [string, BigNumberish, BigNumberish, BytesLike]
   ): string;
 
   decodeFunctionResult(
@@ -921,24 +905,24 @@ export interface Exec extends BaseContract {
   functions: {
     batchDispatch(
       items: Exec.EulerBatchItemStruct[],
-      deferLiquidityChecks: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      deferLiquidityChecks: string[],
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     batchDispatchSimulate(
       items: Exec.EulerBatchItemStruct[],
-      deferLiquidityChecks: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      deferLiquidityChecks: string[],
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     deferLiquidityCheck(
-      account: PromiseOrValue<string>,
-      data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      account: string,
+      data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     detailedLiquidity(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<
       [IRiskManager.AssetLiquidityStructOutput[]] & {
@@ -947,35 +931,35 @@ export interface Exec extends BaseContract {
     >;
 
     doStaticCall(
-      contractAddress: PromiseOrValue<string>,
-      payload: PromiseOrValue<BytesLike>,
+      contractAddress: string,
+      payload: BytesLike,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
     getAverageLiquidity(
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     getAverageLiquidityDelegateAccount(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
     getAverageLiquidityWithDelegate(
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     getPrice(
-      underlying: PromiseOrValue<string>,
+      underlying: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & { twap: BigNumber; twapPeriod: BigNumber }
     >;
 
     getPriceFull(
-      underlying: PromiseOrValue<string>,
+      underlying: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
@@ -986,7 +970,7 @@ export interface Exec extends BaseContract {
     >;
 
     liquidity(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<
       [IRiskManager.LiquidityStatusStructOutput] & {
@@ -999,112 +983,112 @@ export interface Exec extends BaseContract {
     moduleId(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     pTokenUnWrap(
-      underlying: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      underlying: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     pTokenWrap(
-      underlying: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      underlying: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     trackAverageLiquidity(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      delegate: PromiseOrValue<string>,
-      onlyDelegate: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      delegate: string,
+      onlyDelegate: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     unTrackAverageLiquidity(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     usePermit(
-      token: PromiseOrValue<string>,
-      value: PromiseOrValue<BigNumberish>,
-      deadline: PromiseOrValue<BigNumberish>,
-      v: PromiseOrValue<BigNumberish>,
-      r: PromiseOrValue<BytesLike>,
-      s: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      token: string,
+      value: BigNumberish,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     usePermitAllowed(
-      token: PromiseOrValue<string>,
-      nonce: PromiseOrValue<BigNumberish>,
-      expiry: PromiseOrValue<BigNumberish>,
-      allowed: PromiseOrValue<boolean>,
-      v: PromiseOrValue<BigNumberish>,
-      r: PromiseOrValue<BytesLike>,
-      s: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      token: string,
+      nonce: BigNumberish,
+      expiry: BigNumberish,
+      allowed: boolean,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     usePermitPacked(
-      token: PromiseOrValue<string>,
-      value: PromiseOrValue<BigNumberish>,
-      deadline: PromiseOrValue<BigNumberish>,
-      signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      token: string,
+      value: BigNumberish,
+      deadline: BigNumberish,
+      signature: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
   batchDispatch(
     items: Exec.EulerBatchItemStruct[],
-    deferLiquidityChecks: PromiseOrValue<string>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    deferLiquidityChecks: string[],
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   batchDispatchSimulate(
     items: Exec.EulerBatchItemStruct[],
-    deferLiquidityChecks: PromiseOrValue<string>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    deferLiquidityChecks: string[],
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   deferLiquidityCheck(
-    account: PromiseOrValue<string>,
-    data: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    account: string,
+    data: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   detailedLiquidity(
-    account: PromiseOrValue<string>,
+    account: string,
     overrides?: CallOverrides
   ): Promise<IRiskManager.AssetLiquidityStructOutput[]>;
 
   doStaticCall(
-    contractAddress: PromiseOrValue<string>,
-    payload: PromiseOrValue<BytesLike>,
+    contractAddress: string,
+    payload: BytesLike,
     overrides?: CallOverrides
   ): Promise<string>;
 
   getAverageLiquidity(
-    account: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    account: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   getAverageLiquidityDelegateAccount(
-    account: PromiseOrValue<string>,
+    account: string,
     overrides?: CallOverrides
   ): Promise<string>;
 
   getAverageLiquidityWithDelegate(
-    account: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    account: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   getPrice(
-    underlying: PromiseOrValue<string>,
+    underlying: string,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber] & { twap: BigNumber; twapPeriod: BigNumber }
   >;
 
   getPriceFull(
-    underlying: PromiseOrValue<string>,
+    underlying: string,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber] & {
@@ -1115,7 +1099,7 @@ export interface Exec extends BaseContract {
   >;
 
   liquidity(
-    account: PromiseOrValue<string>,
+    account: string,
     overrides?: CallOverrides
   ): Promise<IRiskManager.LiquidityStatusStructOutput>;
 
@@ -1124,112 +1108,112 @@ export interface Exec extends BaseContract {
   moduleId(overrides?: CallOverrides): Promise<BigNumber>;
 
   pTokenUnWrap(
-    underlying: PromiseOrValue<string>,
-    amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    underlying: string,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   pTokenWrap(
-    underlying: PromiseOrValue<string>,
-    amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    underlying: string,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   trackAverageLiquidity(
-    subAccountId: PromiseOrValue<BigNumberish>,
-    delegate: PromiseOrValue<string>,
-    onlyDelegate: PromiseOrValue<boolean>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    subAccountId: BigNumberish,
+    delegate: string,
+    onlyDelegate: boolean,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   unTrackAverageLiquidity(
-    subAccountId: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    subAccountId: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   usePermit(
-    token: PromiseOrValue<string>,
-    value: PromiseOrValue<BigNumberish>,
-    deadline: PromiseOrValue<BigNumberish>,
-    v: PromiseOrValue<BigNumberish>,
-    r: PromiseOrValue<BytesLike>,
-    s: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    token: string,
+    value: BigNumberish,
+    deadline: BigNumberish,
+    v: BigNumberish,
+    r: BytesLike,
+    s: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   usePermitAllowed(
-    token: PromiseOrValue<string>,
-    nonce: PromiseOrValue<BigNumberish>,
-    expiry: PromiseOrValue<BigNumberish>,
-    allowed: PromiseOrValue<boolean>,
-    v: PromiseOrValue<BigNumberish>,
-    r: PromiseOrValue<BytesLike>,
-    s: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    token: string,
+    nonce: BigNumberish,
+    expiry: BigNumberish,
+    allowed: boolean,
+    v: BigNumberish,
+    r: BytesLike,
+    s: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   usePermitPacked(
-    token: PromiseOrValue<string>,
-    value: PromiseOrValue<BigNumberish>,
-    deadline: PromiseOrValue<BigNumberish>,
-    signature: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    token: string,
+    value: BigNumberish,
+    deadline: BigNumberish,
+    signature: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     batchDispatch(
       items: Exec.EulerBatchItemStruct[],
-      deferLiquidityChecks: PromiseOrValue<string>[],
+      deferLiquidityChecks: string[],
       overrides?: CallOverrides
     ): Promise<void>;
 
     batchDispatchSimulate(
       items: Exec.EulerBatchItemStruct[],
-      deferLiquidityChecks: PromiseOrValue<string>[],
+      deferLiquidityChecks: string[],
       overrides?: CallOverrides
     ): Promise<void>;
 
     deferLiquidityCheck(
-      account: PromiseOrValue<string>,
-      data: PromiseOrValue<BytesLike>,
+      account: string,
+      data: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
     detailedLiquidity(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<IRiskManager.AssetLiquidityStructOutput[]>;
 
     doStaticCall(
-      contractAddress: PromiseOrValue<string>,
-      payload: PromiseOrValue<BytesLike>,
+      contractAddress: string,
+      payload: BytesLike,
       overrides?: CallOverrides
     ): Promise<string>;
 
     getAverageLiquidity(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getAverageLiquidityDelegateAccount(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<string>;
 
     getAverageLiquidityWithDelegate(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getPrice(
-      underlying: PromiseOrValue<string>,
+      underlying: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & { twap: BigNumber; twapPeriod: BigNumber }
     >;
 
     getPriceFull(
-      underlying: PromiseOrValue<string>,
+      underlying: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
@@ -1240,7 +1224,7 @@ export interface Exec extends BaseContract {
     >;
 
     liquidity(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<IRiskManager.LiquidityStatusStructOutput>;
 
@@ -1249,62 +1233,62 @@ export interface Exec extends BaseContract {
     moduleId(overrides?: CallOverrides): Promise<BigNumber>;
 
     pTokenUnWrap(
-      underlying: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
+      underlying: string,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     pTokenWrap(
-      underlying: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
+      underlying: string,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     trackAverageLiquidity(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      delegate: PromiseOrValue<string>,
-      onlyDelegate: PromiseOrValue<boolean>,
+      subAccountId: BigNumberish,
+      delegate: string,
+      onlyDelegate: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
 
     unTrackAverageLiquidity(
-      subAccountId: PromiseOrValue<BigNumberish>,
+      subAccountId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     usePermit(
-      token: PromiseOrValue<string>,
-      value: PromiseOrValue<BigNumberish>,
-      deadline: PromiseOrValue<BigNumberish>,
-      v: PromiseOrValue<BigNumberish>,
-      r: PromiseOrValue<BytesLike>,
-      s: PromiseOrValue<BytesLike>,
+      token: string,
+      value: BigNumberish,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
     usePermitAllowed(
-      token: PromiseOrValue<string>,
-      nonce: PromiseOrValue<BigNumberish>,
-      expiry: PromiseOrValue<BigNumberish>,
-      allowed: PromiseOrValue<boolean>,
-      v: PromiseOrValue<BigNumberish>,
-      r: PromiseOrValue<BytesLike>,
-      s: PromiseOrValue<BytesLike>,
+      token: string,
+      nonce: BigNumberish,
+      expiry: BigNumberish,
+      allowed: boolean,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
     usePermitPacked(
-      token: PromiseOrValue<string>,
-      value: PromiseOrValue<BigNumberish>,
-      deadline: PromiseOrValue<BigNumberish>,
-      signature: PromiseOrValue<BytesLike>,
+      token: string,
+      value: BigNumberish,
+      deadline: BigNumberish,
+      signature: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
   };
 
   filters: {
     "AssetStatus(address,uint256,uint256,uint96,uint256,uint256,int96,uint256)"(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       totalBalances?: null,
       totalBorrows?: null,
       reserveBalance?: null,
@@ -1314,7 +1298,7 @@ export interface Exec extends BaseContract {
       timestamp?: null
     ): AssetStatusEventFilter;
     AssetStatus(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       totalBalances?: null,
       totalBorrows?: null,
       reserveBalance?: null,
@@ -1325,146 +1309,146 @@ export interface Exec extends BaseContract {
     ): AssetStatusEventFilter;
 
     "Borrow(address,address,uint256)"(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): BorrowEventFilter;
     Borrow(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): BorrowEventFilter;
 
     "DelegateAverageLiquidity(address,address)"(
-      account?: PromiseOrValue<string> | null,
-      delegate?: PromiseOrValue<string> | null
+      account?: string | null,
+      delegate?: string | null
     ): DelegateAverageLiquidityEventFilter;
     DelegateAverageLiquidity(
-      account?: PromiseOrValue<string> | null,
-      delegate?: PromiseOrValue<string> | null
+      account?: string | null,
+      delegate?: string | null
     ): DelegateAverageLiquidityEventFilter;
 
     "Deposit(address,address,uint256)"(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): DepositEventFilter;
     Deposit(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): DepositEventFilter;
 
     "EnterMarket(address,address)"(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null
+      underlying?: string | null,
+      account?: string | null
     ): EnterMarketEventFilter;
     EnterMarket(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null
+      underlying?: string | null,
+      account?: string | null
     ): EnterMarketEventFilter;
 
     "ExitMarket(address,address)"(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null
+      underlying?: string | null,
+      account?: string | null
     ): ExitMarketEventFilter;
     ExitMarket(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null
+      underlying?: string | null,
+      account?: string | null
     ): ExitMarketEventFilter;
 
     "Genesis()"(): GenesisEventFilter;
     Genesis(): GenesisEventFilter;
 
     "GovConvertReserves(address,address,uint256)"(
-      underlying?: PromiseOrValue<string> | null,
-      recipient?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      recipient?: string | null,
       amount?: null
     ): GovConvertReservesEventFilter;
     GovConvertReserves(
-      underlying?: PromiseOrValue<string> | null,
-      recipient?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      recipient?: string | null,
       amount?: null
     ): GovConvertReservesEventFilter;
 
     "GovSetAssetConfig(address,tuple)"(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       newConfig?: null
     ): GovSetAssetConfigEventFilter;
     GovSetAssetConfig(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       newConfig?: null
     ): GovSetAssetConfigEventFilter;
 
     "GovSetChainlinkPriceFeed(address,address)"(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       chainlinkAggregator?: null
     ): GovSetChainlinkPriceFeedEventFilter;
     GovSetChainlinkPriceFeed(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       chainlinkAggregator?: null
     ): GovSetChainlinkPriceFeedEventFilter;
 
     "GovSetIRM(address,uint256,bytes)"(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       interestRateModel?: null,
       resetParams?: null
     ): GovSetIRMEventFilter;
     GovSetIRM(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       interestRateModel?: null,
       resetParams?: null
     ): GovSetIRMEventFilter;
 
     "GovSetPricingConfig(address,uint16,uint32)"(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       newPricingType?: null,
       newPricingParameter?: null
     ): GovSetPricingConfigEventFilter;
     GovSetPricingConfig(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       newPricingType?: null,
       newPricingParameter?: null
     ): GovSetPricingConfigEventFilter;
 
     "GovSetReserveFee(address,uint32)"(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       newReserveFee?: null
     ): GovSetReserveFeeEventFilter;
     GovSetReserveFee(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       newReserveFee?: null
     ): GovSetReserveFeeEventFilter;
 
     "InstallerInstallModule(uint256,address,bytes32)"(
-      moduleId?: PromiseOrValue<BigNumberish> | null,
-      moduleImpl?: PromiseOrValue<string> | null,
+      moduleId?: BigNumberish | null,
+      moduleImpl?: string | null,
       moduleGitCommit?: null
     ): InstallerInstallModuleEventFilter;
     InstallerInstallModule(
-      moduleId?: PromiseOrValue<BigNumberish> | null,
-      moduleImpl?: PromiseOrValue<string> | null,
+      moduleId?: BigNumberish | null,
+      moduleImpl?: string | null,
       moduleGitCommit?: null
     ): InstallerInstallModuleEventFilter;
 
     "InstallerSetGovernorAdmin(address)"(
-      newGovernorAdmin?: PromiseOrValue<string> | null
+      newGovernorAdmin?: string | null
     ): InstallerSetGovernorAdminEventFilter;
     InstallerSetGovernorAdmin(
-      newGovernorAdmin?: PromiseOrValue<string> | null
+      newGovernorAdmin?: string | null
     ): InstallerSetGovernorAdminEventFilter;
 
     "InstallerSetUpgradeAdmin(address)"(
-      newUpgradeAdmin?: PromiseOrValue<string> | null
+      newUpgradeAdmin?: string | null
     ): InstallerSetUpgradeAdminEventFilter;
     InstallerSetUpgradeAdmin(
-      newUpgradeAdmin?: PromiseOrValue<string> | null
+      newUpgradeAdmin?: string | null
     ): InstallerSetUpgradeAdminEventFilter;
 
     "Liquidation(address,address,address,address,uint256,uint256,uint256,uint256,uint256)"(
-      liquidator?: PromiseOrValue<string> | null,
-      violator?: PromiseOrValue<string> | null,
-      underlying?: PromiseOrValue<string> | null,
+      liquidator?: string | null,
+      violator?: string | null,
+      underlying?: string | null,
       collateral?: null,
       repay?: null,
       _yield?: null,
@@ -1473,9 +1457,9 @@ export interface Exec extends BaseContract {
       discount?: null
     ): LiquidationEventFilter;
     Liquidation(
-      liquidator?: PromiseOrValue<string> | null,
-      violator?: PromiseOrValue<string> | null,
-      underlying?: PromiseOrValue<string> | null,
+      liquidator?: string | null,
+      violator?: string | null,
+      underlying?: string | null,
       collateral?: null,
       repay?: null,
       _yield?: null,
@@ -1485,159 +1469,153 @@ export interface Exec extends BaseContract {
     ): LiquidationEventFilter;
 
     "MarketActivated(address,address,address)"(
-      underlying?: PromiseOrValue<string> | null,
-      eToken?: PromiseOrValue<string> | null,
-      dToken?: PromiseOrValue<string> | null
+      underlying?: string | null,
+      eToken?: string | null,
+      dToken?: string | null
     ): MarketActivatedEventFilter;
     MarketActivated(
-      underlying?: PromiseOrValue<string> | null,
-      eToken?: PromiseOrValue<string> | null,
-      dToken?: PromiseOrValue<string> | null
+      underlying?: string | null,
+      eToken?: string | null,
+      dToken?: string | null
     ): MarketActivatedEventFilter;
 
     "PTokenActivated(address,address)"(
-      underlying?: PromiseOrValue<string> | null,
-      pToken?: PromiseOrValue<string> | null
+      underlying?: string | null,
+      pToken?: string | null
     ): PTokenActivatedEventFilter;
     PTokenActivated(
-      underlying?: PromiseOrValue<string> | null,
-      pToken?: PromiseOrValue<string> | null
+      underlying?: string | null,
+      pToken?: string | null
     ): PTokenActivatedEventFilter;
 
     "PTokenUnWrap(address,address,uint256)"(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): PTokenUnWrapEventFilter;
     PTokenUnWrap(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): PTokenUnWrapEventFilter;
 
     "PTokenWrap(address,address,uint256)"(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): PTokenWrapEventFilter;
     PTokenWrap(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): PTokenWrapEventFilter;
 
     "ProxyCreated(address,uint256)"(
-      proxy?: PromiseOrValue<string> | null,
+      proxy?: string | null,
       moduleId?: null
     ): ProxyCreatedEventFilter;
     ProxyCreated(
-      proxy?: PromiseOrValue<string> | null,
+      proxy?: string | null,
       moduleId?: null
     ): ProxyCreatedEventFilter;
 
     "Repay(address,address,uint256)"(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): RepayEventFilter;
     Repay(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): RepayEventFilter;
 
     "RequestBorrow(address,uint256)"(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestBorrowEventFilter;
     RequestBorrow(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestBorrowEventFilter;
 
     "RequestBurn(address,uint256)"(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestBurnEventFilter;
-    RequestBurn(
-      account?: PromiseOrValue<string> | null,
-      amount?: null
-    ): RequestBurnEventFilter;
+    RequestBurn(account?: string | null, amount?: null): RequestBurnEventFilter;
 
     "RequestDeposit(address,uint256)"(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestDepositEventFilter;
     RequestDeposit(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestDepositEventFilter;
 
     "RequestDonate(address,uint256)"(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestDonateEventFilter;
     RequestDonate(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestDonateEventFilter;
 
     "RequestLiquidate(address,address,address,address,uint256,uint256)"(
-      liquidator?: PromiseOrValue<string> | null,
-      violator?: PromiseOrValue<string> | null,
-      underlying?: PromiseOrValue<string> | null,
+      liquidator?: string | null,
+      violator?: string | null,
+      underlying?: string | null,
       collateral?: null,
       repay?: null,
       minYield?: null
     ): RequestLiquidateEventFilter;
     RequestLiquidate(
-      liquidator?: PromiseOrValue<string> | null,
-      violator?: PromiseOrValue<string> | null,
-      underlying?: PromiseOrValue<string> | null,
+      liquidator?: string | null,
+      violator?: string | null,
+      underlying?: string | null,
       collateral?: null,
       repay?: null,
       minYield?: null
     ): RequestLiquidateEventFilter;
 
     "RequestMint(address,uint256)"(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestMintEventFilter;
-    RequestMint(
-      account?: PromiseOrValue<string> | null,
-      amount?: null
-    ): RequestMintEventFilter;
+    RequestMint(account?: string | null, amount?: null): RequestMintEventFilter;
 
     "RequestRepay(address,uint256)"(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestRepayEventFilter;
     RequestRepay(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestRepayEventFilter;
 
     "RequestSwap(address,address,address,address,uint256,uint256)"(
-      accountIn?: PromiseOrValue<string> | null,
-      accountOut?: PromiseOrValue<string> | null,
-      underlyingIn?: PromiseOrValue<string> | null,
+      accountIn?: string | null,
+      accountOut?: string | null,
+      underlyingIn?: string | null,
       underlyingOut?: null,
       amount?: null,
       swapType?: null
     ): RequestSwapEventFilter;
     RequestSwap(
-      accountIn?: PromiseOrValue<string> | null,
-      accountOut?: PromiseOrValue<string> | null,
-      underlyingIn?: PromiseOrValue<string> | null,
+      accountIn?: string | null,
+      accountOut?: string | null,
+      underlyingIn?: string | null,
       underlyingOut?: null,
       amount?: null,
       swapType?: null
     ): RequestSwapEventFilter;
 
     "RequestSwapHub(address,address,address,address,uint256,uint256,uint256,address)"(
-      accountIn?: PromiseOrValue<string> | null,
-      accountOut?: PromiseOrValue<string> | null,
-      underlyingIn?: PromiseOrValue<string> | null,
+      accountIn?: string | null,
+      accountOut?: string | null,
+      underlyingIn?: string | null,
       underlyingOut?: null,
       amountIn?: null,
       amountOut?: null,
@@ -1645,9 +1623,9 @@ export interface Exec extends BaseContract {
       swapHandler?: null
     ): RequestSwapHubEventFilter;
     RequestSwapHub(
-      accountIn?: PromiseOrValue<string> | null,
-      accountOut?: PromiseOrValue<string> | null,
-      underlyingIn?: PromiseOrValue<string> | null,
+      accountIn?: string | null,
+      accountOut?: string | null,
+      underlyingIn?: string | null,
       underlyingOut?: null,
       amountIn?: null,
       amountOut?: null,
@@ -1656,75 +1634,75 @@ export interface Exec extends BaseContract {
     ): RequestSwapHubEventFilter;
 
     "RequestSwapHubRepay(address,address,address,address,uint256,address)"(
-      accountIn?: PromiseOrValue<string> | null,
-      accountOut?: PromiseOrValue<string> | null,
-      underlyingIn?: PromiseOrValue<string> | null,
+      accountIn?: string | null,
+      accountOut?: string | null,
+      underlyingIn?: string | null,
       underlyingOut?: null,
       targetDebt?: null,
       swapHandler?: null
     ): RequestSwapHubRepayEventFilter;
     RequestSwapHubRepay(
-      accountIn?: PromiseOrValue<string> | null,
-      accountOut?: PromiseOrValue<string> | null,
-      underlyingIn?: PromiseOrValue<string> | null,
+      accountIn?: string | null,
+      accountOut?: string | null,
+      underlyingIn?: string | null,
       underlyingOut?: null,
       targetDebt?: null,
       swapHandler?: null
     ): RequestSwapHubRepayEventFilter;
 
     "RequestTransferDToken(address,address,uint256)"(
-      from?: PromiseOrValue<string> | null,
-      to?: PromiseOrValue<string> | null,
+      from?: string | null,
+      to?: string | null,
       amount?: null
     ): RequestTransferDTokenEventFilter;
     RequestTransferDToken(
-      from?: PromiseOrValue<string> | null,
-      to?: PromiseOrValue<string> | null,
+      from?: string | null,
+      to?: string | null,
       amount?: null
     ): RequestTransferDTokenEventFilter;
 
     "RequestTransferEToken(address,address,uint256)"(
-      from?: PromiseOrValue<string> | null,
-      to?: PromiseOrValue<string> | null,
+      from?: string | null,
+      to?: string | null,
       amount?: null
     ): RequestTransferETokenEventFilter;
     RequestTransferEToken(
-      from?: PromiseOrValue<string> | null,
-      to?: PromiseOrValue<string> | null,
+      from?: string | null,
+      to?: string | null,
       amount?: null
     ): RequestTransferETokenEventFilter;
 
     "RequestWithdraw(address,uint256)"(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestWithdrawEventFilter;
     RequestWithdraw(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestWithdrawEventFilter;
 
     "TrackAverageLiquidity(address)"(
-      account?: PromiseOrValue<string> | null
+      account?: string | null
     ): TrackAverageLiquidityEventFilter;
     TrackAverageLiquidity(
-      account?: PromiseOrValue<string> | null
+      account?: string | null
     ): TrackAverageLiquidityEventFilter;
 
     "UnTrackAverageLiquidity(address)"(
-      account?: PromiseOrValue<string> | null
+      account?: string | null
     ): UnTrackAverageLiquidityEventFilter;
     UnTrackAverageLiquidity(
-      account?: PromiseOrValue<string> | null
+      account?: string | null
     ): UnTrackAverageLiquidityEventFilter;
 
     "Withdraw(address,address,uint256)"(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): WithdrawEventFilter;
     Withdraw(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): WithdrawEventFilter;
   };
@@ -1732,178 +1710,172 @@ export interface Exec extends BaseContract {
   estimateGas: {
     batchDispatch(
       items: Exec.EulerBatchItemStruct[],
-      deferLiquidityChecks: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      deferLiquidityChecks: string[],
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     batchDispatchSimulate(
       items: Exec.EulerBatchItemStruct[],
-      deferLiquidityChecks: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      deferLiquidityChecks: string[],
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     deferLiquidityCheck(
-      account: PromiseOrValue<string>,
-      data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      account: string,
+      data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     detailedLiquidity(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     doStaticCall(
-      contractAddress: PromiseOrValue<string>,
-      payload: PromiseOrValue<BytesLike>,
+      contractAddress: string,
+      payload: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getAverageLiquidity(
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     getAverageLiquidityDelegateAccount(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getAverageLiquidityWithDelegate(
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    getPrice(
-      underlying: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getPrice(underlying: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     getPriceFull(
-      underlying: PromiseOrValue<string>,
+      underlying: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    liquidity(
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    liquidity(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     moduleGitCommit(overrides?: CallOverrides): Promise<BigNumber>;
 
     moduleId(overrides?: CallOverrides): Promise<BigNumber>;
 
     pTokenUnWrap(
-      underlying: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      underlying: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     pTokenWrap(
-      underlying: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      underlying: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     trackAverageLiquidity(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      delegate: PromiseOrValue<string>,
-      onlyDelegate: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      delegate: string,
+      onlyDelegate: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     unTrackAverageLiquidity(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     usePermit(
-      token: PromiseOrValue<string>,
-      value: PromiseOrValue<BigNumberish>,
-      deadline: PromiseOrValue<BigNumberish>,
-      v: PromiseOrValue<BigNumberish>,
-      r: PromiseOrValue<BytesLike>,
-      s: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      token: string,
+      value: BigNumberish,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     usePermitAllowed(
-      token: PromiseOrValue<string>,
-      nonce: PromiseOrValue<BigNumberish>,
-      expiry: PromiseOrValue<BigNumberish>,
-      allowed: PromiseOrValue<boolean>,
-      v: PromiseOrValue<BigNumberish>,
-      r: PromiseOrValue<BytesLike>,
-      s: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      token: string,
+      nonce: BigNumberish,
+      expiry: BigNumberish,
+      allowed: boolean,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     usePermitPacked(
-      token: PromiseOrValue<string>,
-      value: PromiseOrValue<BigNumberish>,
-      deadline: PromiseOrValue<BigNumberish>,
-      signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      token: string,
+      value: BigNumberish,
+      deadline: BigNumberish,
+      signature: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     batchDispatch(
       items: Exec.EulerBatchItemStruct[],
-      deferLiquidityChecks: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      deferLiquidityChecks: string[],
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     batchDispatchSimulate(
       items: Exec.EulerBatchItemStruct[],
-      deferLiquidityChecks: PromiseOrValue<string>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      deferLiquidityChecks: string[],
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     deferLiquidityCheck(
-      account: PromiseOrValue<string>,
-      data: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      account: string,
+      data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     detailedLiquidity(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     doStaticCall(
-      contractAddress: PromiseOrValue<string>,
-      payload: PromiseOrValue<BytesLike>,
+      contractAddress: string,
+      payload: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getAverageLiquidity(
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     getAverageLiquidityDelegateAccount(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getAverageLiquidityWithDelegate(
-      account: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     getPrice(
-      underlying: PromiseOrValue<string>,
+      underlying: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getPriceFull(
-      underlying: PromiseOrValue<string>,
+      underlying: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     liquidity(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1912,56 +1884,56 @@ export interface Exec extends BaseContract {
     moduleId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     pTokenUnWrap(
-      underlying: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      underlying: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     pTokenWrap(
-      underlying: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      underlying: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     trackAverageLiquidity(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      delegate: PromiseOrValue<string>,
-      onlyDelegate: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      delegate: string,
+      onlyDelegate: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     unTrackAverageLiquidity(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     usePermit(
-      token: PromiseOrValue<string>,
-      value: PromiseOrValue<BigNumberish>,
-      deadline: PromiseOrValue<BigNumberish>,
-      v: PromiseOrValue<BigNumberish>,
-      r: PromiseOrValue<BytesLike>,
-      s: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      token: string,
+      value: BigNumberish,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     usePermitAllowed(
-      token: PromiseOrValue<string>,
-      nonce: PromiseOrValue<BigNumberish>,
-      expiry: PromiseOrValue<BigNumberish>,
-      allowed: PromiseOrValue<boolean>,
-      v: PromiseOrValue<BigNumberish>,
-      r: PromiseOrValue<BytesLike>,
-      s: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      token: string,
+      nonce: BigNumberish,
+      expiry: BigNumberish,
+      allowed: boolean,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     usePermitPacked(
-      token: PromiseOrValue<string>,
-      value: PromiseOrValue<BigNumberish>,
-      deadline: PromiseOrValue<BigNumberish>,
-      signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      token: string,
+      value: BigNumberish,
+      deadline: BigNumberish,
+      signature: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

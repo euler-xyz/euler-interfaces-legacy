@@ -18,13 +18,14 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "../common";
 
 export declare namespace EulerGeneralView {
   export type QueryStruct = {
-    eulerContract: string;
-    account: string;
-    markets: string[];
+    eulerContract: PromiseOrValue<string>;
+    account: PromiseOrValue<string>;
+    markets: PromiseOrValue<string>[];
   };
 
   export type QueryStructOutput = [string, string, string[]] & {
@@ -34,32 +35,32 @@ export declare namespace EulerGeneralView {
   };
 
   export type ResponseMarketStruct = {
-    underlying: string;
-    name: string;
-    symbol: string;
-    decimals: BigNumberish;
-    eTokenAddr: string;
-    dTokenAddr: string;
-    pTokenAddr: string;
+    underlying: PromiseOrValue<string>;
+    name: PromiseOrValue<string>;
+    symbol: PromiseOrValue<string>;
+    decimals: PromiseOrValue<BigNumberish>;
+    eTokenAddr: PromiseOrValue<string>;
+    dTokenAddr: PromiseOrValue<string>;
+    pTokenAddr: PromiseOrValue<string>;
     config: Storage.AssetConfigStruct;
-    poolSize: BigNumberish;
-    totalBalances: BigNumberish;
-    totalBorrows: BigNumberish;
-    reserveBalance: BigNumberish;
-    reserveFee: BigNumberish;
-    borrowAPY: BigNumberish;
-    supplyAPY: BigNumberish;
-    twap: BigNumberish;
-    twapPeriod: BigNumberish;
-    currPrice: BigNumberish;
-    pricingType: BigNumberish;
-    pricingParameters: BigNumberish;
-    pricingForwarded: string;
-    underlyingBalance: BigNumberish;
-    eulerAllowance: BigNumberish;
-    eTokenBalance: BigNumberish;
-    eTokenBalanceUnderlying: BigNumberish;
-    dTokenBalance: BigNumberish;
+    poolSize: PromiseOrValue<BigNumberish>;
+    totalBalances: PromiseOrValue<BigNumberish>;
+    totalBorrows: PromiseOrValue<BigNumberish>;
+    reserveBalance: PromiseOrValue<BigNumberish>;
+    reserveFee: PromiseOrValue<BigNumberish>;
+    borrowAPY: PromiseOrValue<BigNumberish>;
+    supplyAPY: PromiseOrValue<BigNumberish>;
+    twap: PromiseOrValue<BigNumberish>;
+    twapPeriod: PromiseOrValue<BigNumberish>;
+    currPrice: PromiseOrValue<BigNumberish>;
+    pricingType: PromiseOrValue<BigNumberish>;
+    pricingParameters: PromiseOrValue<BigNumberish>;
+    pricingForwarded: PromiseOrValue<string>;
+    underlyingBalance: PromiseOrValue<BigNumberish>;
+    eulerAllowance: PromiseOrValue<BigNumberish>;
+    eTokenBalance: PromiseOrValue<BigNumberish>;
+    eTokenBalanceUnderlying: PromiseOrValue<BigNumberish>;
+    dTokenBalance: PromiseOrValue<BigNumberish>;
     liquidityStatus: IRiskManager.LiquidityStatusStruct;
   };
 
@@ -122,10 +123,10 @@ export declare namespace EulerGeneralView {
   };
 
   export type ResponseStruct = {
-    timestamp: BigNumberish;
-    blockNumber: BigNumberish;
+    timestamp: PromiseOrValue<BigNumberish>;
+    blockNumber: PromiseOrValue<BigNumberish>;
     markets: EulerGeneralView.ResponseMarketStruct[];
-    enteredMarkets: string[];
+    enteredMarkets: PromiseOrValue<string>[];
   };
 
   export type ResponseStructOutput = [
@@ -148,7 +149,10 @@ export declare namespace EulerGeneralView {
     IRiskManager.AssetLiquidityStructOutput[]
   ] & { markets: IRiskManager.AssetLiquidityStructOutput[] };
 
-  export type QueryIRMStruct = { eulerContract: string; underlying: string };
+  export type QueryIRMStruct = {
+    eulerContract: PromiseOrValue<string>;
+    underlying: PromiseOrValue<string>;
+  };
 
   export type QueryIRMStructOutput = [string, string] & {
     eulerContract: string;
@@ -156,13 +160,13 @@ export declare namespace EulerGeneralView {
   };
 
   export type ResponseIRMStruct = {
-    kink: BigNumberish;
-    baseAPY: BigNumberish;
-    kinkAPY: BigNumberish;
-    maxAPY: BigNumberish;
-    baseSupplyAPY: BigNumberish;
-    kinkSupplyAPY: BigNumberish;
-    maxSupplyAPY: BigNumberish;
+    kink: PromiseOrValue<BigNumberish>;
+    baseAPY: PromiseOrValue<BigNumberish>;
+    kinkAPY: PromiseOrValue<BigNumberish>;
+    maxAPY: PromiseOrValue<BigNumberish>;
+    baseSupplyAPY: PromiseOrValue<BigNumberish>;
+    kinkSupplyAPY: PromiseOrValue<BigNumberish>;
+    maxSupplyAPY: PromiseOrValue<BigNumberish>;
   };
 
   export type ResponseIRMStructOutput = [
@@ -186,11 +190,11 @@ export declare namespace EulerGeneralView {
 
 export declare namespace Storage {
   export type AssetConfigStruct = {
-    eTokenAddress: string;
-    borrowIsolated: boolean;
-    collateralFactor: BigNumberish;
-    borrowFactor: BigNumberish;
-    twapWindow: BigNumberish;
+    eTokenAddress: PromiseOrValue<string>;
+    borrowIsolated: PromiseOrValue<boolean>;
+    collateralFactor: PromiseOrValue<BigNumberish>;
+    borrowFactor: PromiseOrValue<BigNumberish>;
+    twapWindow: PromiseOrValue<BigNumberish>;
   };
 
   export type AssetConfigStructOutput = [
@@ -210,10 +214,10 @@ export declare namespace Storage {
 
 export declare namespace IRiskManager {
   export type LiquidityStatusStruct = {
-    collateralValue: BigNumberish;
-    liabilityValue: BigNumberish;
-    numBorrows: BigNumberish;
-    borrowIsolated: boolean;
+    collateralValue: PromiseOrValue<BigNumberish>;
+    liabilityValue: PromiseOrValue<BigNumberish>;
+    numBorrows: PromiseOrValue<BigNumberish>;
+    borrowIsolated: PromiseOrValue<boolean>;
   };
 
   export type LiquidityStatusStructOutput = [
@@ -229,7 +233,7 @@ export declare namespace IRiskManager {
   };
 
   export type AssetLiquidityStruct = {
-    underlying: string;
+    underlying: PromiseOrValue<string>;
     status: IRiskManager.LiquidityStatusStruct;
   };
 
@@ -261,7 +265,12 @@ export interface EulerGeneralViewInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "computeAPYs",
-    values: [BigNumberish, BigNumberish, BigNumberish, BigNumberish]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "doQuery",
@@ -269,7 +278,7 @@ export interface EulerGeneralViewInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "doQueryAccountLiquidity",
-    values: [string, string[]]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>[]]
   ): string;
   encodeFunctionData(
     functionFragment: "doQueryBatch",
@@ -334,10 +343,10 @@ export interface EulerGeneralView extends BaseContract {
 
   functions: {
     computeAPYs(
-      borrowSPY: BigNumberish,
-      totalBorrows: BigNumberish,
-      totalBalancesUnderlying: BigNumberish,
-      reserveFee: BigNumberish,
+      borrowSPY: PromiseOrValue<BigNumberish>,
+      totalBorrows: PromiseOrValue<BigNumberish>,
+      totalBalancesUnderlying: PromiseOrValue<BigNumberish>,
+      reserveFee: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & { borrowAPY: BigNumber; supplyAPY: BigNumber }
@@ -353,8 +362,8 @@ export interface EulerGeneralView extends BaseContract {
     >;
 
     doQueryAccountLiquidity(
-      eulerContract: string,
-      addrs: string[],
+      eulerContract: PromiseOrValue<string>,
+      addrs: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<
       [EulerGeneralView.ResponseAccountLiquidityStructOutput[]] & {
@@ -384,10 +393,10 @@ export interface EulerGeneralView extends BaseContract {
   };
 
   computeAPYs(
-    borrowSPY: BigNumberish,
-    totalBorrows: BigNumberish,
-    totalBalancesUnderlying: BigNumberish,
-    reserveFee: BigNumberish,
+    borrowSPY: PromiseOrValue<BigNumberish>,
+    totalBorrows: PromiseOrValue<BigNumberish>,
+    totalBalancesUnderlying: PromiseOrValue<BigNumberish>,
+    reserveFee: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber] & { borrowAPY: BigNumber; supplyAPY: BigNumber }
@@ -399,8 +408,8 @@ export interface EulerGeneralView extends BaseContract {
   ): Promise<EulerGeneralView.ResponseStructOutput>;
 
   doQueryAccountLiquidity(
-    eulerContract: string,
-    addrs: string[],
+    eulerContract: PromiseOrValue<string>,
+    addrs: PromiseOrValue<string>[],
     overrides?: CallOverrides
   ): Promise<EulerGeneralView.ResponseAccountLiquidityStructOutput[]>;
 
@@ -418,10 +427,10 @@ export interface EulerGeneralView extends BaseContract {
 
   callStatic: {
     computeAPYs(
-      borrowSPY: BigNumberish,
-      totalBorrows: BigNumberish,
-      totalBalancesUnderlying: BigNumberish,
-      reserveFee: BigNumberish,
+      borrowSPY: PromiseOrValue<BigNumberish>,
+      totalBorrows: PromiseOrValue<BigNumberish>,
+      totalBalancesUnderlying: PromiseOrValue<BigNumberish>,
+      reserveFee: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & { borrowAPY: BigNumber; supplyAPY: BigNumber }
@@ -433,8 +442,8 @@ export interface EulerGeneralView extends BaseContract {
     ): Promise<EulerGeneralView.ResponseStructOutput>;
 
     doQueryAccountLiquidity(
-      eulerContract: string,
-      addrs: string[],
+      eulerContract: PromiseOrValue<string>,
+      addrs: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<EulerGeneralView.ResponseAccountLiquidityStructOutput[]>;
 
@@ -455,10 +464,10 @@ export interface EulerGeneralView extends BaseContract {
 
   estimateGas: {
     computeAPYs(
-      borrowSPY: BigNumberish,
-      totalBorrows: BigNumberish,
-      totalBalancesUnderlying: BigNumberish,
-      reserveFee: BigNumberish,
+      borrowSPY: PromiseOrValue<BigNumberish>,
+      totalBorrows: PromiseOrValue<BigNumberish>,
+      totalBalancesUnderlying: PromiseOrValue<BigNumberish>,
+      reserveFee: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -468,8 +477,8 @@ export interface EulerGeneralView extends BaseContract {
     ): Promise<BigNumber>;
 
     doQueryAccountLiquidity(
-      eulerContract: string,
-      addrs: string[],
+      eulerContract: PromiseOrValue<string>,
+      addrs: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -488,10 +497,10 @@ export interface EulerGeneralView extends BaseContract {
 
   populateTransaction: {
     computeAPYs(
-      borrowSPY: BigNumberish,
-      totalBorrows: BigNumberish,
-      totalBalancesUnderlying: BigNumberish,
-      reserveFee: BigNumberish,
+      borrowSPY: PromiseOrValue<BigNumberish>,
+      totalBorrows: PromiseOrValue<BigNumberish>,
+      totalBalancesUnderlying: PromiseOrValue<BigNumberish>,
+      reserveFee: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -501,8 +510,8 @@ export interface EulerGeneralView extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     doQueryAccountLiquidity(
-      eulerContract: string,
-      addrs: string[],
+      eulerContract: PromiseOrValue<string>,
+      addrs: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

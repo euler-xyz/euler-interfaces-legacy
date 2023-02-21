@@ -24,10 +24,14 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "../common";
 
 export declare namespace EulStakes {
-  export type StakeOpStruct = { underlying: string; amount: BigNumberish };
+  export type StakeOpStruct = {
+    underlying: PromiseOrValue<string>;
+    amount: PromiseOrValue<BigNumberish>;
+  };
 
   export type StakeOpStructOutput = [string, BigNumber] & {
     underlying: string;
@@ -63,22 +67,26 @@ export interface EulStakesInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "stakeGift",
-    values: [string, string, BigNumberish]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "stakePermit",
     values: [
       EulStakes.StakeOpStruct[],
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BytesLike,
-      BytesLike
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "staked",
-    values: [string, string]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
 
   decodeFunctionResult(functionFragment: "eul", data: BytesLike): Result;
@@ -144,29 +152,29 @@ export interface EulStakes extends BaseContract {
 
     stake(
       ops: EulStakes.StakeOpStruct[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     stakeGift(
-      beneficiary: string,
-      underlying: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      beneficiary: PromiseOrValue<string>,
+      underlying: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     stakePermit(
       ops: EulStakes.StakeOpStruct[],
-      value: BigNumberish,
-      deadline: BigNumberish,
-      v: BigNumberish,
-      r: BytesLike,
-      s: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      value: PromiseOrValue<BigNumberish>,
+      deadline: PromiseOrValue<BigNumberish>,
+      v: PromiseOrValue<BigNumberish>,
+      r: PromiseOrValue<BytesLike>,
+      s: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     staked(
-      account: string,
-      underlying: string,
+      account: PromiseOrValue<string>,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
   };
@@ -177,29 +185,29 @@ export interface EulStakes extends BaseContract {
 
   stake(
     ops: EulStakes.StakeOpStruct[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   stakeGift(
-    beneficiary: string,
-    underlying: string,
-    amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    beneficiary: PromiseOrValue<string>,
+    underlying: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   stakePermit(
     ops: EulStakes.StakeOpStruct[],
-    value: BigNumberish,
-    deadline: BigNumberish,
-    v: BigNumberish,
-    r: BytesLike,
-    s: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    value: PromiseOrValue<BigNumberish>,
+    deadline: PromiseOrValue<BigNumberish>,
+    v: PromiseOrValue<BigNumberish>,
+    r: PromiseOrValue<BytesLike>,
+    s: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   staked(
-    account: string,
-    underlying: string,
+    account: PromiseOrValue<string>,
+    underlying: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -214,39 +222,39 @@ export interface EulStakes extends BaseContract {
     ): Promise<void>;
 
     stakeGift(
-      beneficiary: string,
-      underlying: string,
-      amount: BigNumberish,
+      beneficiary: PromiseOrValue<string>,
+      underlying: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     stakePermit(
       ops: EulStakes.StakeOpStruct[],
-      value: BigNumberish,
-      deadline: BigNumberish,
-      v: BigNumberish,
-      r: BytesLike,
-      s: BytesLike,
+      value: PromiseOrValue<BigNumberish>,
+      deadline: PromiseOrValue<BigNumberish>,
+      v: PromiseOrValue<BigNumberish>,
+      r: PromiseOrValue<BytesLike>,
+      s: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     staked(
-      account: string,
-      underlying: string,
+      account: PromiseOrValue<string>,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
 
   filters: {
     "Stake(address,address,address,uint256)"(
-      who?: string | null,
-      underlying?: string | null,
+      who?: PromiseOrValue<string> | null,
+      underlying?: PromiseOrValue<string> | null,
       sender?: null,
       newAmount?: null
     ): StakeEventFilter;
     Stake(
-      who?: string | null,
-      underlying?: string | null,
+      who?: PromiseOrValue<string> | null,
+      underlying?: PromiseOrValue<string> | null,
       sender?: null,
       newAmount?: null
     ): StakeEventFilter;
@@ -259,29 +267,29 @@ export interface EulStakes extends BaseContract {
 
     stake(
       ops: EulStakes.StakeOpStruct[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     stakeGift(
-      beneficiary: string,
-      underlying: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      beneficiary: PromiseOrValue<string>,
+      underlying: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     stakePermit(
       ops: EulStakes.StakeOpStruct[],
-      value: BigNumberish,
-      deadline: BigNumberish,
-      v: BigNumberish,
-      r: BytesLike,
-      s: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      value: PromiseOrValue<BigNumberish>,
+      deadline: PromiseOrValue<BigNumberish>,
+      v: PromiseOrValue<BigNumberish>,
+      r: PromiseOrValue<BytesLike>,
+      s: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     staked(
-      account: string,
-      underlying: string,
+      account: PromiseOrValue<string>,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -293,29 +301,29 @@ export interface EulStakes extends BaseContract {
 
     stake(
       ops: EulStakes.StakeOpStruct[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     stakeGift(
-      beneficiary: string,
-      underlying: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      beneficiary: PromiseOrValue<string>,
+      underlying: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     stakePermit(
       ops: EulStakes.StakeOpStruct[],
-      value: BigNumberish,
-      deadline: BigNumberish,
-      v: BigNumberish,
-      r: BytesLike,
-      s: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      value: PromiseOrValue<BigNumberish>,
+      deadline: PromiseOrValue<BigNumberish>,
+      v: PromiseOrValue<BigNumberish>,
+      r: PromiseOrValue<BytesLike>,
+      s: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     staked(
-      account: string,
-      underlying: string,
+      account: PromiseOrValue<string>,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

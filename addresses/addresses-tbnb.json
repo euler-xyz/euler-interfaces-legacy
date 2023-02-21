@@ -1,0 +1,37 @@
+{
+  "eul": {
+    "name": "Euler",
+    "address": "0x427Dc179e9Aabbf890322c88B5b7eCB449D7a224",
+    "chainId": 97,
+    "symbol": "EUL",
+    "decimals": 18,
+    "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/14280.png",
+    "extensions": {
+      "permit": {
+        "type": "EIP2612",
+        "domain": {
+          "name": "Euler",
+          "version": "1",
+          "chainId": 97,
+          "verifyingContract": "0x427Dc179e9Aabbf890322c88B5b7eCB449D7a224"
+        }
+      }
+    }
+  },
+  "uniswapV3Factory": "0xe1c9f61F8934A9Ac2a84a47cde5662b141D5e940",
+  "invariantChecker": "0xeF41850794021D5C95504Ea2b748E6819A79d776",
+  "flashLoanNativeTest": "0x4aC1d1ba6325F3b0B210De5Ea0e7F8c54A7676B1",
+  "flashLoanAdaptorTest": "0x98A9728262558BbBbD18921Be51b0Ee0CD7d21B6",
+  "flashLoanAdaptorTest2": "0x0c813db988F760a6df9d6fa93fDe00e8F0d8d742",
+  "simpleUniswapPeriphery": "0xdE76ccBae10010116fCA4dc92A6AacA5918c0FDb",
+  "euler": "0x107c312Cd380e4d981809278a91f920C16d9d137",
+  "eulerSimpleLens": "0x7Dbd4D9eb53456360725DAC1FB6Dc0E86DEdf6CF",
+  "eulerGeneralView": "0x9150646E7229282A9fA1527Eb1bA356eB0F228E9",
+  "installer": "0x3E3c31700AB692416D08462F895A5b212Ae66cC1",
+  "markets": "0xbd60ad653F3B6b210f28E4D906C998626371579D",
+  "liquidation": "0x7a19E978A9bE334A8b26b4c7bE6CE6Ce04481152",
+  "governance": "0xac1e53ac6e6444DC1842BafFdD7E1D7CcFaf886a",
+  "exec": "0x0Cfd331692F44aa6C488f35FA71fFFBf5Ffe3719",
+  "swap": "0x22093cC59D9BA0c7380B8a88AF0578E9ad735d80",
+  "swapHub": "0xC7BF6Cc3FaAF6c0217DB4ECad3339d7f7d461B7a"
+}

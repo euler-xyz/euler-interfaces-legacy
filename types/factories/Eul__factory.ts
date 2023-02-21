@@ -10,6 +10,7 @@ import {
   Overrides,
 } from "ethers";
 import type { Provider, TransactionRequest } from "@ethersproject/providers";
+import type { PromiseOrValue } from "../common";
 import type { Eul, EulInterface } from "../Eul";
 
 const _abi = [
@@ -951,12 +952,12 @@ export class Eul__factory extends ContractFactory {
   }
 
   override deploy(
-    name: string,
-    symbol: string,
-    totalSupply_: BigNumberish,
-    mintingRestrictedBefore_: BigNumberish,
-    treasury_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    name: PromiseOrValue<string>,
+    symbol: PromiseOrValue<string>,
+    totalSupply_: PromiseOrValue<BigNumberish>,
+    mintingRestrictedBefore_: PromiseOrValue<BigNumberish>,
+    treasury_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<Eul> {
     return super.deploy(
       name,
@@ -968,12 +969,12 @@ export class Eul__factory extends ContractFactory {
     ) as Promise<Eul>;
   }
   override getDeployTransaction(
-    name: string,
-    symbol: string,
-    totalSupply_: BigNumberish,
-    mintingRestrictedBefore_: BigNumberish,
-    treasury_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    name: PromiseOrValue<string>,
+    symbol: PromiseOrValue<string>,
+    totalSupply_: PromiseOrValue<BigNumberish>,
+    mintingRestrictedBefore_: PromiseOrValue<BigNumberish>,
+    treasury_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): TransactionRequest {
     return super.getDeployTransaction(
       name,

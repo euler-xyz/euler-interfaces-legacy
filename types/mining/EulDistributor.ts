@@ -24,6 +24,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "../common";
 
 export interface EulDistributorInterface extends utils.Interface {
@@ -56,11 +57,17 @@ export interface EulDistributorInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "claim",
-    values: [string, string, BigNumberish, BytesLike[], string]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>[],
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "claimed",
-    values: [string, string]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "currRoot", values?: undefined): string;
   encodeFunctionData(functionFragment: "eul", values?: undefined): string;
@@ -70,11 +77,11 @@ export interface EulDistributorInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "prevRoot", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "updateRoot",
-    values: [BytesLike]
+    values: [PromiseOrValue<BytesLike>]
   ): string;
 
   decodeFunctionResult(functionFragment: "claim", data: BytesLike): Result;
@@ -133,17 +140,17 @@ export interface EulDistributor extends BaseContract {
 
   functions: {
     claim(
-      account: string,
-      token: string,
-      claimable: BigNumberish,
-      proof: BytesLike[],
-      stake: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      account: PromiseOrValue<string>,
+      token: PromiseOrValue<string>,
+      claimable: PromiseOrValue<BigNumberish>,
+      proof: PromiseOrValue<BytesLike>[],
+      stake: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     claimed(
-      arg0: string,
-      arg1: string,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
@@ -160,28 +167,28 @@ export interface EulDistributor extends BaseContract {
     prevRoot(overrides?: CallOverrides): Promise<[string]>;
 
     transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     updateRoot(
-      newRoot: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      newRoot: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
 
   claim(
-    account: string,
-    token: string,
-    claimable: BigNumberish,
-    proof: BytesLike[],
-    stake: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    account: PromiseOrValue<string>,
+    token: PromiseOrValue<string>,
+    claimable: PromiseOrValue<BigNumberish>,
+    proof: PromiseOrValue<BytesLike>[],
+    stake: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   claimed(
-    arg0: string,
-    arg1: string,
+    arg0: PromiseOrValue<string>,
+    arg1: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -198,28 +205,28 @@ export interface EulDistributor extends BaseContract {
   prevRoot(overrides?: CallOverrides): Promise<string>;
 
   transferOwnership(
-    newOwner: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    newOwner: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   updateRoot(
-    newRoot: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    newRoot: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     claim(
-      account: string,
-      token: string,
-      claimable: BigNumberish,
-      proof: BytesLike[],
-      stake: string,
+      account: PromiseOrValue<string>,
+      token: PromiseOrValue<string>,
+      claimable: PromiseOrValue<BigNumberish>,
+      proof: PromiseOrValue<BytesLike>[],
+      stake: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     claimed(
-      arg0: string,
-      arg1: string,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -236,31 +243,38 @@ export interface EulDistributor extends BaseContract {
     prevRoot(overrides?: CallOverrides): Promise<string>;
 
     transferOwnership(
-      newOwner: string,
+      newOwner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    updateRoot(newRoot: BytesLike, overrides?: CallOverrides): Promise<void>;
+    updateRoot(
+      newRoot: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {
-    "OwnerChanged(address)"(newOwner?: string | null): OwnerChangedEventFilter;
-    OwnerChanged(newOwner?: string | null): OwnerChangedEventFilter;
+    "OwnerChanged(address)"(
+      newOwner?: PromiseOrValue<string> | null
+    ): OwnerChangedEventFilter;
+    OwnerChanged(
+      newOwner?: PromiseOrValue<string> | null
+    ): OwnerChangedEventFilter;
   };
 
   estimateGas: {
     claim(
-      account: string,
-      token: string,
-      claimable: BigNumberish,
-      proof: BytesLike[],
-      stake: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      account: PromiseOrValue<string>,
+      token: PromiseOrValue<string>,
+      claimable: PromiseOrValue<BigNumberish>,
+      proof: PromiseOrValue<BytesLike>[],
+      stake: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     claimed(
-      arg0: string,
-      arg1: string,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -277,29 +291,29 @@ export interface EulDistributor extends BaseContract {
     prevRoot(overrides?: CallOverrides): Promise<BigNumber>;
 
     transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     updateRoot(
-      newRoot: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      newRoot: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     claim(
-      account: string,
-      token: string,
-      claimable: BigNumberish,
-      proof: BytesLike[],
-      stake: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      account: PromiseOrValue<string>,
+      token: PromiseOrValue<string>,
+      claimable: PromiseOrValue<BigNumberish>,
+      proof: PromiseOrValue<BytesLike>[],
+      stake: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     claimed(
-      arg0: string,
-      arg1: string,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -316,13 +330,13 @@ export interface EulDistributor extends BaseContract {
     prevRoot(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     updateRoot(
-      newRoot: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      newRoot: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

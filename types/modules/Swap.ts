@@ -24,15 +24,16 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "../common";
 
 export declare namespace Storage {
   export type AssetConfigStruct = {
-    eTokenAddress: string;
-    borrowIsolated: boolean;
-    collateralFactor: BigNumberish;
-    borrowFactor: BigNumberish;
-    twapWindow: BigNumberish;
+    eTokenAddress: PromiseOrValue<string>;
+    borrowIsolated: PromiseOrValue<boolean>;
+    collateralFactor: PromiseOrValue<BigNumberish>;
+    borrowFactor: PromiseOrValue<BigNumberish>;
+    twapWindow: PromiseOrValue<BigNumberish>;
   };
 
   export type AssetConfigStructOutput = [
@@ -52,13 +53,13 @@ export declare namespace Storage {
 
 export declare namespace Swap {
   export type Swap1InchParamsStruct = {
-    subAccountIdIn: BigNumberish;
-    subAccountIdOut: BigNumberish;
-    underlyingIn: string;
-    underlyingOut: string;
-    amount: BigNumberish;
-    amountOutMinimum: BigNumberish;
-    payload: BytesLike;
+    subAccountIdIn: PromiseOrValue<BigNumberish>;
+    subAccountIdOut: PromiseOrValue<BigNumberish>;
+    underlyingIn: PromiseOrValue<string>;
+    underlyingOut: PromiseOrValue<string>;
+    amount: PromiseOrValue<BigNumberish>;
+    amountOutMinimum: PromiseOrValue<BigNumberish>;
+    payload: PromiseOrValue<BytesLike>;
   };
 
   export type Swap1InchParamsStructOutput = [
@@ -80,12 +81,12 @@ export declare namespace Swap {
   };
 
   export type SwapUniExactOutputParamsStruct = {
-    subAccountIdIn: BigNumberish;
-    subAccountIdOut: BigNumberish;
-    amountOut: BigNumberish;
-    amountInMaximum: BigNumberish;
-    deadline: BigNumberish;
-    path: BytesLike;
+    subAccountIdIn: PromiseOrValue<BigNumberish>;
+    subAccountIdOut: PromiseOrValue<BigNumberish>;
+    amountOut: PromiseOrValue<BigNumberish>;
+    amountInMaximum: PromiseOrValue<BigNumberish>;
+    deadline: PromiseOrValue<BigNumberish>;
+    path: PromiseOrValue<BytesLike>;
   };
 
   export type SwapUniExactOutputParamsStructOutput = [
@@ -105,15 +106,15 @@ export declare namespace Swap {
   };
 
   export type SwapUniExactOutputSingleParamsStruct = {
-    subAccountIdIn: BigNumberish;
-    subAccountIdOut: BigNumberish;
-    underlyingIn: string;
-    underlyingOut: string;
-    amountOut: BigNumberish;
-    amountInMaximum: BigNumberish;
-    deadline: BigNumberish;
-    fee: BigNumberish;
-    sqrtPriceLimitX96: BigNumberish;
+    subAccountIdIn: PromiseOrValue<BigNumberish>;
+    subAccountIdOut: PromiseOrValue<BigNumberish>;
+    underlyingIn: PromiseOrValue<string>;
+    underlyingOut: PromiseOrValue<string>;
+    amountOut: PromiseOrValue<BigNumberish>;
+    amountInMaximum: PromiseOrValue<BigNumberish>;
+    deadline: PromiseOrValue<BigNumberish>;
+    fee: PromiseOrValue<BigNumberish>;
+    sqrtPriceLimitX96: PromiseOrValue<BigNumberish>;
   };
 
   export type SwapUniExactOutputSingleParamsStructOutput = [
@@ -139,12 +140,12 @@ export declare namespace Swap {
   };
 
   export type SwapUniExactInputParamsStruct = {
-    subAccountIdIn: BigNumberish;
-    subAccountIdOut: BigNumberish;
-    amountIn: BigNumberish;
-    amountOutMinimum: BigNumberish;
-    deadline: BigNumberish;
-    path: BytesLike;
+    subAccountIdIn: PromiseOrValue<BigNumberish>;
+    subAccountIdOut: PromiseOrValue<BigNumberish>;
+    amountIn: PromiseOrValue<BigNumberish>;
+    amountOutMinimum: PromiseOrValue<BigNumberish>;
+    deadline: PromiseOrValue<BigNumberish>;
+    path: PromiseOrValue<BytesLike>;
   };
 
   export type SwapUniExactInputParamsStructOutput = [
@@ -164,15 +165,15 @@ export declare namespace Swap {
   };
 
   export type SwapUniExactInputSingleParamsStruct = {
-    subAccountIdIn: BigNumberish;
-    subAccountIdOut: BigNumberish;
-    underlyingIn: string;
-    underlyingOut: string;
-    amountIn: BigNumberish;
-    amountOutMinimum: BigNumberish;
-    deadline: BigNumberish;
-    fee: BigNumberish;
-    sqrtPriceLimitX96: BigNumberish;
+    subAccountIdIn: PromiseOrValue<BigNumberish>;
+    subAccountIdOut: PromiseOrValue<BigNumberish>;
+    underlyingIn: PromiseOrValue<string>;
+    underlyingOut: PromiseOrValue<string>;
+    amountIn: PromiseOrValue<BigNumberish>;
+    amountOutMinimum: PromiseOrValue<BigNumberish>;
+    deadline: PromiseOrValue<BigNumberish>;
+    fee: PromiseOrValue<BigNumberish>;
+    sqrtPriceLimitX96: PromiseOrValue<BigNumberish>;
   };
 
   export type SwapUniExactInputSingleParamsStructOutput = [
@@ -240,11 +241,14 @@ export interface SwapInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "swapAndRepayUni",
-    values: [Swap.SwapUniExactOutputParamsStruct, BigNumberish]
+    values: [Swap.SwapUniExactOutputParamsStruct, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "swapAndRepayUniSingle",
-    values: [Swap.SwapUniExactOutputSingleParamsStruct, BigNumberish]
+    values: [
+      Swap.SwapUniExactOutputSingleParamsStruct,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "swapUniExactInput",
@@ -918,39 +922,39 @@ export interface Swap extends BaseContract {
 
     swap1Inch(
       params: Swap.Swap1InchParamsStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     swapAndRepayUni(
       params: Swap.SwapUniExactOutputParamsStruct,
-      targetDebt: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      targetDebt: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     swapAndRepayUniSingle(
       params: Swap.SwapUniExactOutputSingleParamsStruct,
-      targetDebt: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      targetDebt: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     swapUniExactInput(
       params: Swap.SwapUniExactInputParamsStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     swapUniExactInputSingle(
       params: Swap.SwapUniExactInputSingleParamsStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     swapUniExactOutput(
       params: Swap.SwapUniExactOutputParamsStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     swapUniExactOutputSingle(
       params: Swap.SwapUniExactOutputSingleParamsStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     uniswapRouter(overrides?: CallOverrides): Promise<[string]>;
@@ -964,39 +968,39 @@ export interface Swap extends BaseContract {
 
   swap1Inch(
     params: Swap.Swap1InchParamsStruct,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   swapAndRepayUni(
     params: Swap.SwapUniExactOutputParamsStruct,
-    targetDebt: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    targetDebt: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   swapAndRepayUniSingle(
     params: Swap.SwapUniExactOutputSingleParamsStruct,
-    targetDebt: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    targetDebt: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   swapUniExactInput(
     params: Swap.SwapUniExactInputParamsStruct,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   swapUniExactInputSingle(
     params: Swap.SwapUniExactInputSingleParamsStruct,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   swapUniExactOutput(
     params: Swap.SwapUniExactOutputParamsStruct,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   swapUniExactOutputSingle(
     params: Swap.SwapUniExactOutputSingleParamsStruct,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   uniswapRouter(overrides?: CallOverrides): Promise<string>;
@@ -1015,13 +1019,13 @@ export interface Swap extends BaseContract {
 
     swapAndRepayUni(
       params: Swap.SwapUniExactOutputParamsStruct,
-      targetDebt: BigNumberish,
+      targetDebt: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     swapAndRepayUniSingle(
       params: Swap.SwapUniExactOutputSingleParamsStruct,
-      targetDebt: BigNumberish,
+      targetDebt: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1050,7 +1054,7 @@ export interface Swap extends BaseContract {
 
   filters: {
     "AssetStatus(address,uint256,uint256,uint96,uint256,uint256,int96,uint256)"(
-      underlying?: string | null,
+      underlying?: PromiseOrValue<string> | null,
       totalBalances?: null,
       totalBorrows?: null,
       reserveBalance?: null,
@@ -1060,7 +1064,7 @@ export interface Swap extends BaseContract {
       timestamp?: null
     ): AssetStatusEventFilter;
     AssetStatus(
-      underlying?: string | null,
+      underlying?: PromiseOrValue<string> | null,
       totalBalances?: null,
       totalBorrows?: null,
       reserveBalance?: null,
@@ -1071,146 +1075,146 @@ export interface Swap extends BaseContract {
     ): AssetStatusEventFilter;
 
     "Borrow(address,address,uint256)"(
-      underlying?: string | null,
-      account?: string | null,
+      underlying?: PromiseOrValue<string> | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): BorrowEventFilter;
     Borrow(
-      underlying?: string | null,
-      account?: string | null,
+      underlying?: PromiseOrValue<string> | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): BorrowEventFilter;
 
     "DelegateAverageLiquidity(address,address)"(
-      account?: string | null,
-      delegate?: string | null
+      account?: PromiseOrValue<string> | null,
+      delegate?: PromiseOrValue<string> | null
     ): DelegateAverageLiquidityEventFilter;
     DelegateAverageLiquidity(
-      account?: string | null,
-      delegate?: string | null
+      account?: PromiseOrValue<string> | null,
+      delegate?: PromiseOrValue<string> | null
     ): DelegateAverageLiquidityEventFilter;
 
     "Deposit(address,address,uint256)"(
-      underlying?: string | null,
-      account?: string | null,
+      underlying?: PromiseOrValue<string> | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): DepositEventFilter;
     Deposit(
-      underlying?: string | null,
-      account?: string | null,
+      underlying?: PromiseOrValue<string> | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): DepositEventFilter;
 
     "EnterMarket(address,address)"(
-      underlying?: string | null,
-      account?: string | null
+      underlying?: PromiseOrValue<string> | null,
+      account?: PromiseOrValue<string> | null
     ): EnterMarketEventFilter;
     EnterMarket(
-      underlying?: string | null,
-      account?: string | null
+      underlying?: PromiseOrValue<string> | null,
+      account?: PromiseOrValue<string> | null
     ): EnterMarketEventFilter;
 
     "ExitMarket(address,address)"(
-      underlying?: string | null,
-      account?: string | null
+      underlying?: PromiseOrValue<string> | null,
+      account?: PromiseOrValue<string> | null
     ): ExitMarketEventFilter;
     ExitMarket(
-      underlying?: string | null,
-      account?: string | null
+      underlying?: PromiseOrValue<string> | null,
+      account?: PromiseOrValue<string> | null
     ): ExitMarketEventFilter;
 
     "Genesis()"(): GenesisEventFilter;
     Genesis(): GenesisEventFilter;
 
     "GovConvertReserves(address,address,uint256)"(
-      underlying?: string | null,
-      recipient?: string | null,
+      underlying?: PromiseOrValue<string> | null,
+      recipient?: PromiseOrValue<string> | null,
       amount?: null
     ): GovConvertReservesEventFilter;
     GovConvertReserves(
-      underlying?: string | null,
-      recipient?: string | null,
+      underlying?: PromiseOrValue<string> | null,
+      recipient?: PromiseOrValue<string> | null,
       amount?: null
     ): GovConvertReservesEventFilter;
 
     "GovSetAssetConfig(address,tuple)"(
-      underlying?: string | null,
+      underlying?: PromiseOrValue<string> | null,
       newConfig?: null
     ): GovSetAssetConfigEventFilter;
     GovSetAssetConfig(
-      underlying?: string | null,
+      underlying?: PromiseOrValue<string> | null,
       newConfig?: null
     ): GovSetAssetConfigEventFilter;
 
     "GovSetChainlinkPriceFeed(address,address)"(
-      underlying?: string | null,
+      underlying?: PromiseOrValue<string> | null,
       chainlinkAggregator?: null
     ): GovSetChainlinkPriceFeedEventFilter;
     GovSetChainlinkPriceFeed(
-      underlying?: string | null,
+      underlying?: PromiseOrValue<string> | null,
       chainlinkAggregator?: null
     ): GovSetChainlinkPriceFeedEventFilter;
 
     "GovSetIRM(address,uint256,bytes)"(
-      underlying?: string | null,
+      underlying?: PromiseOrValue<string> | null,
       interestRateModel?: null,
       resetParams?: null
     ): GovSetIRMEventFilter;
     GovSetIRM(
-      underlying?: string | null,
+      underlying?: PromiseOrValue<string> | null,
       interestRateModel?: null,
       resetParams?: null
     ): GovSetIRMEventFilter;
 
     "GovSetPricingConfig(address,uint16,uint32)"(
-      underlying?: string | null,
+      underlying?: PromiseOrValue<string> | null,
       newPricingType?: null,
       newPricingParameter?: null
     ): GovSetPricingConfigEventFilter;
     GovSetPricingConfig(
-      underlying?: string | null,
+      underlying?: PromiseOrValue<string> | null,
       newPricingType?: null,
       newPricingParameter?: null
     ): GovSetPricingConfigEventFilter;
 
     "GovSetReserveFee(address,uint32)"(
-      underlying?: string | null,
+      underlying?: PromiseOrValue<string> | null,
       newReserveFee?: null
     ): GovSetReserveFeeEventFilter;
     GovSetReserveFee(
-      underlying?: string | null,
+      underlying?: PromiseOrValue<string> | null,
       newReserveFee?: null
     ): GovSetReserveFeeEventFilter;
 
     "InstallerInstallModule(uint256,address,bytes32)"(
-      moduleId?: BigNumberish | null,
-      moduleImpl?: string | null,
+      moduleId?: PromiseOrValue<BigNumberish> | null,
+      moduleImpl?: PromiseOrValue<string> | null,
       moduleGitCommit?: null
     ): InstallerInstallModuleEventFilter;
     InstallerInstallModule(
-      moduleId?: BigNumberish | null,
-      moduleImpl?: string | null,
+      moduleId?: PromiseOrValue<BigNumberish> | null,
+      moduleImpl?: PromiseOrValue<string> | null,
       moduleGitCommit?: null
     ): InstallerInstallModuleEventFilter;
 
     "InstallerSetGovernorAdmin(address)"(
-      newGovernorAdmin?: string | null
+      newGovernorAdmin?: PromiseOrValue<string> | null
     ): InstallerSetGovernorAdminEventFilter;
     InstallerSetGovernorAdmin(
-      newGovernorAdmin?: string | null
+      newGovernorAdmin?: PromiseOrValue<string> | null
     ): InstallerSetGovernorAdminEventFilter;
 
     "InstallerSetUpgradeAdmin(address)"(
-      newUpgradeAdmin?: string | null
+      newUpgradeAdmin?: PromiseOrValue<string> | null
     ): InstallerSetUpgradeAdminEventFilter;
     InstallerSetUpgradeAdmin(
-      newUpgradeAdmin?: string | null
+      newUpgradeAdmin?: PromiseOrValue<string> | null
     ): InstallerSetUpgradeAdminEventFilter;
 
     "Liquidation(address,address,address,address,uint256,uint256,uint256,uint256,uint256)"(
-      liquidator?: string | null,
-      violator?: string | null,
-      underlying?: string | null,
+      liquidator?: PromiseOrValue<string> | null,
+      violator?: PromiseOrValue<string> | null,
+      underlying?: PromiseOrValue<string> | null,
       collateral?: null,
       repay?: null,
       _yield?: null,
@@ -1219,9 +1223,9 @@ export interface Swap extends BaseContract {
       discount?: null
     ): LiquidationEventFilter;
     Liquidation(
-      liquidator?: string | null,
-      violator?: string | null,
-      underlying?: string | null,
+      liquidator?: PromiseOrValue<string> | null,
+      violator?: PromiseOrValue<string> | null,
+      underlying?: PromiseOrValue<string> | null,
       collateral?: null,
       repay?: null,
       _yield?: null,
@@ -1231,153 +1235,159 @@ export interface Swap extends BaseContract {
     ): LiquidationEventFilter;
 
     "MarketActivated(address,address,address)"(
-      underlying?: string | null,
-      eToken?: string | null,
-      dToken?: string | null
+      underlying?: PromiseOrValue<string> | null,
+      eToken?: PromiseOrValue<string> | null,
+      dToken?: PromiseOrValue<string> | null
     ): MarketActivatedEventFilter;
     MarketActivated(
-      underlying?: string | null,
-      eToken?: string | null,
-      dToken?: string | null
+      underlying?: PromiseOrValue<string> | null,
+      eToken?: PromiseOrValue<string> | null,
+      dToken?: PromiseOrValue<string> | null
     ): MarketActivatedEventFilter;
 
     "PTokenActivated(address,address)"(
-      underlying?: string | null,
-      pToken?: string | null
+      underlying?: PromiseOrValue<string> | null,
+      pToken?: PromiseOrValue<string> | null
     ): PTokenActivatedEventFilter;
     PTokenActivated(
-      underlying?: string | null,
-      pToken?: string | null
+      underlying?: PromiseOrValue<string> | null,
+      pToken?: PromiseOrValue<string> | null
     ): PTokenActivatedEventFilter;
 
     "PTokenUnWrap(address,address,uint256)"(
-      underlying?: string | null,
-      account?: string | null,
+      underlying?: PromiseOrValue<string> | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): PTokenUnWrapEventFilter;
     PTokenUnWrap(
-      underlying?: string | null,
-      account?: string | null,
+      underlying?: PromiseOrValue<string> | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): PTokenUnWrapEventFilter;
 
     "PTokenWrap(address,address,uint256)"(
-      underlying?: string | null,
-      account?: string | null,
+      underlying?: PromiseOrValue<string> | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): PTokenWrapEventFilter;
     PTokenWrap(
-      underlying?: string | null,
-      account?: string | null,
+      underlying?: PromiseOrValue<string> | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): PTokenWrapEventFilter;
 
     "ProxyCreated(address,uint256)"(
-      proxy?: string | null,
+      proxy?: PromiseOrValue<string> | null,
       moduleId?: null
     ): ProxyCreatedEventFilter;
     ProxyCreated(
-      proxy?: string | null,
+      proxy?: PromiseOrValue<string> | null,
       moduleId?: null
     ): ProxyCreatedEventFilter;
 
     "Repay(address,address,uint256)"(
-      underlying?: string | null,
-      account?: string | null,
+      underlying?: PromiseOrValue<string> | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): RepayEventFilter;
     Repay(
-      underlying?: string | null,
-      account?: string | null,
+      underlying?: PromiseOrValue<string> | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): RepayEventFilter;
 
     "RequestBorrow(address,uint256)"(
-      account?: string | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): RequestBorrowEventFilter;
     RequestBorrow(
-      account?: string | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): RequestBorrowEventFilter;
 
     "RequestBurn(address,uint256)"(
-      account?: string | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): RequestBurnEventFilter;
-    RequestBurn(account?: string | null, amount?: null): RequestBurnEventFilter;
+    RequestBurn(
+      account?: PromiseOrValue<string> | null,
+      amount?: null
+    ): RequestBurnEventFilter;
 
     "RequestDeposit(address,uint256)"(
-      account?: string | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): RequestDepositEventFilter;
     RequestDeposit(
-      account?: string | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): RequestDepositEventFilter;
 
     "RequestDonate(address,uint256)"(
-      account?: string | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): RequestDonateEventFilter;
     RequestDonate(
-      account?: string | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): RequestDonateEventFilter;
 
     "RequestLiquidate(address,address,address,address,uint256,uint256)"(
-      liquidator?: string | null,
-      violator?: string | null,
-      underlying?: string | null,
+      liquidator?: PromiseOrValue<string> | null,
+      violator?: PromiseOrValue<string> | null,
+      underlying?: PromiseOrValue<string> | null,
       collateral?: null,
       repay?: null,
       minYield?: null
     ): RequestLiquidateEventFilter;
     RequestLiquidate(
-      liquidator?: string | null,
-      violator?: string | null,
-      underlying?: string | null,
+      liquidator?: PromiseOrValue<string> | null,
+      violator?: PromiseOrValue<string> | null,
+      underlying?: PromiseOrValue<string> | null,
       collateral?: null,
       repay?: null,
       minYield?: null
     ): RequestLiquidateEventFilter;
 
     "RequestMint(address,uint256)"(
-      account?: string | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): RequestMintEventFilter;
-    RequestMint(account?: string | null, amount?: null): RequestMintEventFilter;
+    RequestMint(
+      account?: PromiseOrValue<string> | null,
+      amount?: null
+    ): RequestMintEventFilter;
 
     "RequestRepay(address,uint256)"(
-      account?: string | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): RequestRepayEventFilter;
     RequestRepay(
-      account?: string | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): RequestRepayEventFilter;
 
     "RequestSwap(address,address,address,address,uint256,uint256)"(
-      accountIn?: string | null,
-      accountOut?: string | null,
-      underlyingIn?: string | null,
+      accountIn?: PromiseOrValue<string> | null,
+      accountOut?: PromiseOrValue<string> | null,
+      underlyingIn?: PromiseOrValue<string> | null,
       underlyingOut?: null,
       amount?: null,
       swapType?: null
     ): RequestSwapEventFilter;
     RequestSwap(
-      accountIn?: string | null,
-      accountOut?: string | null,
-      underlyingIn?: string | null,
+      accountIn?: PromiseOrValue<string> | null,
+      accountOut?: PromiseOrValue<string> | null,
+      underlyingIn?: PromiseOrValue<string> | null,
       underlyingOut?: null,
       amount?: null,
       swapType?: null
     ): RequestSwapEventFilter;
 
     "RequestSwapHub(address,address,address,address,uint256,uint256,uint256,address)"(
-      accountIn?: string | null,
-      accountOut?: string | null,
-      underlyingIn?: string | null,
+      accountIn?: PromiseOrValue<string> | null,
+      accountOut?: PromiseOrValue<string> | null,
+      underlyingIn?: PromiseOrValue<string> | null,
       underlyingOut?: null,
       amountIn?: null,
       amountOut?: null,
@@ -1385,9 +1395,9 @@ export interface Swap extends BaseContract {
       swapHandler?: null
     ): RequestSwapHubEventFilter;
     RequestSwapHub(
-      accountIn?: string | null,
-      accountOut?: string | null,
-      underlyingIn?: string | null,
+      accountIn?: PromiseOrValue<string> | null,
+      accountOut?: PromiseOrValue<string> | null,
+      underlyingIn?: PromiseOrValue<string> | null,
       underlyingOut?: null,
       amountIn?: null,
       amountOut?: null,
@@ -1396,75 +1406,75 @@ export interface Swap extends BaseContract {
     ): RequestSwapHubEventFilter;
 
     "RequestSwapHubRepay(address,address,address,address,uint256,address)"(
-      accountIn?: string | null,
-      accountOut?: string | null,
-      underlyingIn?: string | null,
+      accountIn?: PromiseOrValue<string> | null,
+      accountOut?: PromiseOrValue<string> | null,
+      underlyingIn?: PromiseOrValue<string> | null,
       underlyingOut?: null,
       targetDebt?: null,
       swapHandler?: null
     ): RequestSwapHubRepayEventFilter;
     RequestSwapHubRepay(
-      accountIn?: string | null,
-      accountOut?: string | null,
-      underlyingIn?: string | null,
+      accountIn?: PromiseOrValue<string> | null,
+      accountOut?: PromiseOrValue<string> | null,
+      underlyingIn?: PromiseOrValue<string> | null,
       underlyingOut?: null,
       targetDebt?: null,
       swapHandler?: null
     ): RequestSwapHubRepayEventFilter;
 
     "RequestTransferDToken(address,address,uint256)"(
-      from?: string | null,
-      to?: string | null,
+      from?: PromiseOrValue<string> | null,
+      to?: PromiseOrValue<string> | null,
       amount?: null
     ): RequestTransferDTokenEventFilter;
     RequestTransferDToken(
-      from?: string | null,
-      to?: string | null,
+      from?: PromiseOrValue<string> | null,
+      to?: PromiseOrValue<string> | null,
       amount?: null
     ): RequestTransferDTokenEventFilter;
 
     "RequestTransferEToken(address,address,uint256)"(
-      from?: string | null,
-      to?: string | null,
+      from?: PromiseOrValue<string> | null,
+      to?: PromiseOrValue<string> | null,
       amount?: null
     ): RequestTransferETokenEventFilter;
     RequestTransferEToken(
-      from?: string | null,
-      to?: string | null,
+      from?: PromiseOrValue<string> | null,
+      to?: PromiseOrValue<string> | null,
       amount?: null
     ): RequestTransferETokenEventFilter;
 
     "RequestWithdraw(address,uint256)"(
-      account?: string | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): RequestWithdrawEventFilter;
     RequestWithdraw(
-      account?: string | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): RequestWithdrawEventFilter;
 
     "TrackAverageLiquidity(address)"(
-      account?: string | null
+      account?: PromiseOrValue<string> | null
     ): TrackAverageLiquidityEventFilter;
     TrackAverageLiquidity(
-      account?: string | null
+      account?: PromiseOrValue<string> | null
     ): TrackAverageLiquidityEventFilter;
 
     "UnTrackAverageLiquidity(address)"(
-      account?: string | null
+      account?: PromiseOrValue<string> | null
     ): UnTrackAverageLiquidityEventFilter;
     UnTrackAverageLiquidity(
-      account?: string | null
+      account?: PromiseOrValue<string> | null
     ): UnTrackAverageLiquidityEventFilter;
 
     "Withdraw(address,address,uint256)"(
-      underlying?: string | null,
-      account?: string | null,
+      underlying?: PromiseOrValue<string> | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): WithdrawEventFilter;
     Withdraw(
-      underlying?: string | null,
-      account?: string | null,
+      underlying?: PromiseOrValue<string> | null,
+      account?: PromiseOrValue<string> | null,
       amount?: null
     ): WithdrawEventFilter;
   };
@@ -1478,39 +1488,39 @@ export interface Swap extends BaseContract {
 
     swap1Inch(
       params: Swap.Swap1InchParamsStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     swapAndRepayUni(
       params: Swap.SwapUniExactOutputParamsStruct,
-      targetDebt: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      targetDebt: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     swapAndRepayUniSingle(
       params: Swap.SwapUniExactOutputSingleParamsStruct,
-      targetDebt: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      targetDebt: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     swapUniExactInput(
       params: Swap.SwapUniExactInputParamsStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     swapUniExactInputSingle(
       params: Swap.SwapUniExactInputSingleParamsStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     swapUniExactOutput(
       params: Swap.SwapUniExactOutputParamsStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     swapUniExactOutputSingle(
       params: Swap.SwapUniExactOutputSingleParamsStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     uniswapRouter(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1525,39 +1535,39 @@ export interface Swap extends BaseContract {
 
     swap1Inch(
       params: Swap.Swap1InchParamsStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     swapAndRepayUni(
       params: Swap.SwapUniExactOutputParamsStruct,
-      targetDebt: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      targetDebt: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     swapAndRepayUniSingle(
       params: Swap.SwapUniExactOutputSingleParamsStruct,
-      targetDebt: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      targetDebt: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     swapUniExactInput(
       params: Swap.SwapUniExactInputParamsStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     swapUniExactInputSingle(
       params: Swap.SwapUniExactInputSingleParamsStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     swapUniExactOutput(
       params: Swap.SwapUniExactOutputParamsStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     swapUniExactOutputSingle(
       params: Swap.SwapUniExactOutputSingleParamsStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     uniswapRouter(overrides?: CallOverrides): Promise<PopulatedTransaction>;

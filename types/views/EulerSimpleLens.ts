@@ -18,17 +18,18 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "../common";
 
 export declare namespace EulerSimpleLens {
   export type ResponseIRMStruct = {
-    kink: BigNumberish;
-    baseAPY: BigNumberish;
-    kinkAPY: BigNumberish;
-    maxAPY: BigNumberish;
-    baseSupplyAPY: BigNumberish;
-    kinkSupplyAPY: BigNumberish;
-    maxSupplyAPY: BigNumberish;
+    kink: PromiseOrValue<BigNumberish>;
+    baseAPY: PromiseOrValue<BigNumberish>;
+    kinkAPY: PromiseOrValue<BigNumberish>;
+    maxAPY: PromiseOrValue<BigNumberish>;
+    baseSupplyAPY: PromiseOrValue<BigNumberish>;
+    kinkSupplyAPY: PromiseOrValue<BigNumberish>;
+    maxSupplyAPY: PromiseOrValue<BigNumberish>;
   };
 
   export type ResponseIRMStructOutput = [
@@ -52,11 +53,11 @@ export declare namespace EulerSimpleLens {
 
 export declare namespace Storage {
   export type AssetConfigStruct = {
-    eTokenAddress: string;
-    borrowIsolated: boolean;
-    collateralFactor: BigNumberish;
-    borrowFactor: BigNumberish;
-    twapWindow: BigNumberish;
+    eTokenAddress: PromiseOrValue<string>;
+    borrowIsolated: PromiseOrValue<boolean>;
+    collateralFactor: PromiseOrValue<BigNumberish>;
+    borrowFactor: PromiseOrValue<BigNumberish>;
+    twapWindow: PromiseOrValue<BigNumberish>;
   };
 
   export type AssetConfigStructOutput = [
@@ -134,82 +135,88 @@ export interface EulerSimpleLensInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "exec", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getAccountStatus",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "getDTokenBalance",
-    values: [string, string]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "getETokenBalance",
-    values: [string, string]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "getEnteredMarkets",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "getEulerAccountAllowance",
-    values: [string, string]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "getPTokenBalance",
-    values: [string, string]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "getPriceFull",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "getPricingConfig",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "getTokenInfo",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "getTotalSupplyAndDebts",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "interestAccumulator",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "interestRateModel",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "interestRates",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "irmSettings", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "irmSettings",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(functionFragment: "markets", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "moduleGitCommit",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "reserveFee", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "reserveFee",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "underlyingToAssetConfig",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "underlyingToDToken",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "underlyingToEToken",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "underlyingToInternalTokens",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "underlyingToPToken",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
 
   decodeFunctionResult(functionFragment: "euler", data: BytesLike): Result;
@@ -332,7 +339,7 @@ export interface EulerSimpleLens extends BaseContract {
     exec(overrides?: CallOverrides): Promise<[string]>;
 
     getAccountStatus(
-      account: string,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
@@ -343,36 +350,36 @@ export interface EulerSimpleLens extends BaseContract {
     >;
 
     getDTokenBalance(
-      underlying: string,
-      account: string,
+      underlying: PromiseOrValue<string>,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     getETokenBalance(
-      underlying: string,
-      account: string,
+      underlying: PromiseOrValue<string>,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     getEnteredMarkets(
-      account: string,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[string[]]>;
 
     getEulerAccountAllowance(
-      underlying: string,
-      account: string,
+      underlying: PromiseOrValue<string>,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     getPTokenBalance(
-      underlying: string,
-      account: string,
+      underlying: PromiseOrValue<string>,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     getPriceFull(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
@@ -383,7 +390,7 @@ export interface EulerSimpleLens extends BaseContract {
     >;
 
     getPricingConfig(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
       [number, number, string] & {
@@ -394,12 +401,12 @@ export interface EulerSimpleLens extends BaseContract {
     >;
 
     getTokenInfo(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[string, string] & { name: string; symbol: string }>;
 
     getTotalSupplyAndDebts(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber] & {
@@ -411,17 +418,17 @@ export interface EulerSimpleLens extends BaseContract {
     >;
 
     interestAccumulator(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     interestRateModel(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     interestRates(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
@@ -432,7 +439,7 @@ export interface EulerSimpleLens extends BaseContract {
     >;
 
     irmSettings(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
       [EulerSimpleLens.ResponseIRMStructOutput] & {
@@ -445,12 +452,12 @@ export interface EulerSimpleLens extends BaseContract {
     moduleGitCommit(overrides?: CallOverrides): Promise<[string]>;
 
     reserveFee(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[number]>;
 
     underlyingToAssetConfig(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
       [Storage.AssetConfigStructOutput] & {
@@ -459,17 +466,17 @@ export interface EulerSimpleLens extends BaseContract {
     >;
 
     underlyingToDToken(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[string] & { dToken: string }>;
 
     underlyingToEToken(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[string] & { eToken: string }>;
 
     underlyingToInternalTokens(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
       [string, string, string] & {
@@ -480,7 +487,7 @@ export interface EulerSimpleLens extends BaseContract {
     >;
 
     underlyingToPToken(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[string] & { pToken: string }>;
   };
@@ -490,7 +497,7 @@ export interface EulerSimpleLens extends BaseContract {
   exec(overrides?: CallOverrides): Promise<string>;
 
   getAccountStatus(
-    account: string,
+    account: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber] & {
@@ -501,36 +508,36 @@ export interface EulerSimpleLens extends BaseContract {
   >;
 
   getDTokenBalance(
-    underlying: string,
-    account: string,
+    underlying: PromiseOrValue<string>,
+    account: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   getETokenBalance(
-    underlying: string,
-    account: string,
+    underlying: PromiseOrValue<string>,
+    account: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   getEnteredMarkets(
-    account: string,
+    account: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<string[]>;
 
   getEulerAccountAllowance(
-    underlying: string,
-    account: string,
+    underlying: PromiseOrValue<string>,
+    account: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   getPTokenBalance(
-    underlying: string,
-    account: string,
+    underlying: PromiseOrValue<string>,
+    account: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   getPriceFull(
-    underlying: string,
+    underlying: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber] & {
@@ -541,7 +548,7 @@ export interface EulerSimpleLens extends BaseContract {
   >;
 
   getPricingConfig(
-    underlying: string,
+    underlying: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<
     [number, number, string] & {
@@ -552,12 +559,12 @@ export interface EulerSimpleLens extends BaseContract {
   >;
 
   getTokenInfo(
-    underlying: string,
+    underlying: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<[string, string] & { name: string; symbol: string }>;
 
   getTotalSupplyAndDebts(
-    underlying: string,
+    underlying: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber, BigNumber] & {
@@ -569,17 +576,17 @@ export interface EulerSimpleLens extends BaseContract {
   >;
 
   interestAccumulator(
-    underlying: string,
+    underlying: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   interestRateModel(
-    underlying: string,
+    underlying: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   interestRates(
-    underlying: string,
+    underlying: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber] & {
@@ -590,7 +597,7 @@ export interface EulerSimpleLens extends BaseContract {
   >;
 
   irmSettings(
-    underlying: string,
+    underlying: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<EulerSimpleLens.ResponseIRMStructOutput>;
 
@@ -598,25 +605,28 @@ export interface EulerSimpleLens extends BaseContract {
 
   moduleGitCommit(overrides?: CallOverrides): Promise<string>;
 
-  reserveFee(underlying: string, overrides?: CallOverrides): Promise<number>;
+  reserveFee(
+    underlying: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<number>;
 
   underlyingToAssetConfig(
-    underlying: string,
+    underlying: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<Storage.AssetConfigStructOutput>;
 
   underlyingToDToken(
-    underlying: string,
+    underlying: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<string>;
 
   underlyingToEToken(
-    underlying: string,
+    underlying: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<string>;
 
   underlyingToInternalTokens(
-    underlying: string,
+    underlying: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<
     [string, string, string] & {
@@ -627,7 +637,7 @@ export interface EulerSimpleLens extends BaseContract {
   >;
 
   underlyingToPToken(
-    underlying: string,
+    underlying: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -637,7 +647,7 @@ export interface EulerSimpleLens extends BaseContract {
     exec(overrides?: CallOverrides): Promise<string>;
 
     getAccountStatus(
-      account: string,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
@@ -648,36 +658,36 @@ export interface EulerSimpleLens extends BaseContract {
     >;
 
     getDTokenBalance(
-      underlying: string,
-      account: string,
+      underlying: PromiseOrValue<string>,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getETokenBalance(
-      underlying: string,
-      account: string,
+      underlying: PromiseOrValue<string>,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getEnteredMarkets(
-      account: string,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<string[]>;
 
     getEulerAccountAllowance(
-      underlying: string,
-      account: string,
+      underlying: PromiseOrValue<string>,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getPTokenBalance(
-      underlying: string,
-      account: string,
+      underlying: PromiseOrValue<string>,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getPriceFull(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
@@ -688,7 +698,7 @@ export interface EulerSimpleLens extends BaseContract {
     >;
 
     getPricingConfig(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
       [number, number, string] & {
@@ -699,12 +709,12 @@ export interface EulerSimpleLens extends BaseContract {
     >;
 
     getTokenInfo(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[string, string] & { name: string; symbol: string }>;
 
     getTotalSupplyAndDebts(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber] & {
@@ -716,17 +726,17 @@ export interface EulerSimpleLens extends BaseContract {
     >;
 
     interestAccumulator(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     interestRateModel(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     interestRates(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
@@ -737,7 +747,7 @@ export interface EulerSimpleLens extends BaseContract {
     >;
 
     irmSettings(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<EulerSimpleLens.ResponseIRMStructOutput>;
 
@@ -745,25 +755,28 @@ export interface EulerSimpleLens extends BaseContract {
 
     moduleGitCommit(overrides?: CallOverrides): Promise<string>;
 
-    reserveFee(underlying: string, overrides?: CallOverrides): Promise<number>;
+    reserveFee(
+      underlying: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<number>;
 
     underlyingToAssetConfig(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<Storage.AssetConfigStructOutput>;
 
     underlyingToDToken(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<string>;
 
     underlyingToEToken(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<string>;
 
     underlyingToInternalTokens(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
       [string, string, string] & {
@@ -774,7 +787,7 @@ export interface EulerSimpleLens extends BaseContract {
     >;
 
     underlyingToPToken(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<string>;
   };
@@ -787,76 +800,76 @@ export interface EulerSimpleLens extends BaseContract {
     exec(overrides?: CallOverrides): Promise<BigNumber>;
 
     getAccountStatus(
-      account: string,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getDTokenBalance(
-      underlying: string,
-      account: string,
+      underlying: PromiseOrValue<string>,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getETokenBalance(
-      underlying: string,
-      account: string,
+      underlying: PromiseOrValue<string>,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getEnteredMarkets(
-      account: string,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getEulerAccountAllowance(
-      underlying: string,
-      account: string,
+      underlying: PromiseOrValue<string>,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getPTokenBalance(
-      underlying: string,
-      account: string,
+      underlying: PromiseOrValue<string>,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getPriceFull(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getPricingConfig(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getTokenInfo(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getTotalSupplyAndDebts(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     interestAccumulator(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     interestRateModel(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     interestRates(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     irmSettings(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -865,32 +878,32 @@ export interface EulerSimpleLens extends BaseContract {
     moduleGitCommit(overrides?: CallOverrides): Promise<BigNumber>;
 
     reserveFee(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     underlyingToAssetConfig(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     underlyingToDToken(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     underlyingToEToken(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     underlyingToInternalTokens(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     underlyingToPToken(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -901,76 +914,76 @@ export interface EulerSimpleLens extends BaseContract {
     exec(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getAccountStatus(
-      account: string,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getDTokenBalance(
-      underlying: string,
-      account: string,
+      underlying: PromiseOrValue<string>,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getETokenBalance(
-      underlying: string,
-      account: string,
+      underlying: PromiseOrValue<string>,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getEnteredMarkets(
-      account: string,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getEulerAccountAllowance(
-      underlying: string,
-      account: string,
+      underlying: PromiseOrValue<string>,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getPTokenBalance(
-      underlying: string,
-      account: string,
+      underlying: PromiseOrValue<string>,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getPriceFull(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getPricingConfig(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getTokenInfo(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getTotalSupplyAndDebts(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     interestAccumulator(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     interestRateModel(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     interestRates(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     irmSettings(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -979,32 +992,32 @@ export interface EulerSimpleLens extends BaseContract {
     moduleGitCommit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     reserveFee(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     underlyingToAssetConfig(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     underlyingToDToken(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     underlyingToEToken(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     underlyingToInternalTokens(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     underlyingToPToken(
-      underlying: string,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

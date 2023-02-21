@@ -10,6 +10,7 @@ import {
   Overrides,
 } from "ethers";
 import type { Provider, TransactionRequest } from "@ethersproject/providers";
+import type { PromiseOrValue } from "../../common";
 import type {
   EulerSimpleLens,
   EulerSimpleLensInterface,
@@ -641,9 +642,9 @@ export class EulerSimpleLens__factory extends ContractFactory {
   }
 
   override deploy(
-    moduleGitCommit_: BytesLike,
-    euler_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    moduleGitCommit_: PromiseOrValue<BytesLike>,
+    euler_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<EulerSimpleLens> {
     return super.deploy(
       moduleGitCommit_,
@@ -652,9 +653,9 @@ export class EulerSimpleLens__factory extends ContractFactory {
     ) as Promise<EulerSimpleLens>;
   }
   override getDeployTransaction(
-    moduleGitCommit_: BytesLike,
-    euler_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    moduleGitCommit_: PromiseOrValue<BytesLike>,
+    euler_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): TransactionRequest {
     return super.getDeployTransaction(
       moduleGitCommit_,

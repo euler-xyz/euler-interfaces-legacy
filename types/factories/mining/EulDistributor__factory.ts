@@ -11,173 +11,174 @@ import type {
 
 const _abi = [
   {
-    type: "constructor",
+    stateMutability: "nonpayable",
     inputs: [
       {
-        internalType: "address",
         type: "address",
         name: "eul_",
+        internalType: "address",
       },
       {
+        type: "address",
         internalType: "address",
         name: "eulStakes_",
-        type: "address",
       },
     ],
-    stateMutability: "nonpayable",
+    type: "constructor",
   },
   {
-    anonymous: false,
-    type: "event",
     name: "OwnerChanged",
     inputs: [
       {
-        internalType: "address",
-        type: "address",
-        name: "newOwner",
         indexed: true,
+        type: "address",
+        internalType: "address",
+        name: "newOwner",
       },
     ],
+    anonymous: false,
+    type: "event",
   },
   {
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
     inputs: [
       {
-        type: "address",
         name: "account",
         internalType: "address",
+        type: "address",
       },
       {
-        type: "address",
         name: "token",
         internalType: "address",
+        type: "address",
       },
       {
-        internalType: "uint256",
-        name: "claimable",
         type: "uint256",
+        name: "claimable",
+        internalType: "uint256",
       },
       {
-        internalType: "bytes32[]",
         type: "bytes32[]",
         name: "proof",
+        internalType: "bytes32[]",
       },
       {
-        type: "address",
         name: "stake",
         internalType: "address",
+        type: "address",
       },
     ],
     name: "claim",
+    stateMutability: "nonpayable",
+    type: "function",
+    outputs: [],
   },
   {
+    type: "function",
     outputs: [
       {
         name: "",
-        type: "uint256",
         internalType: "uint256",
+        type: "uint256",
+      },
+    ],
+    inputs: [
+      {
+        type: "address",
+        name: "",
+        internalType: "address",
+      },
+      {
+        type: "address",
+        internalType: "address",
+        name: "",
       },
     ],
     stateMutability: "view",
-    type: "function",
-    inputs: [
-      {
-        name: "",
-        type: "address",
-        internalType: "address",
-      },
-      {
-        name: "",
-        type: "address",
-        internalType: "address",
-      },
-    ],
     name: "claimed",
   },
   {
-    type: "function",
-    inputs: [],
     name: "currRoot",
+    stateMutability: "view",
+    inputs: [],
     outputs: [
       {
-        name: "",
         type: "bytes32",
         internalType: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    stateMutability: "view",
-    outputs: [
-      {
-        internalType: "address",
-        type: "address",
         name: "",
       },
     ],
     type: "function",
+  },
+  {
     name: "eul",
-    inputs: [],
-  },
-  {
     stateMutability: "view",
+    inputs: [],
     outputs: [
       {
+        name: "",
         internalType: "address",
         type: "address",
+      },
+    ],
+    type: "function",
+  },
+  {
+    outputs: [
+      {
+        type: "address",
+        internalType: "address",
         name: "",
       },
     ],
     type: "function",
+    stateMutability: "view",
     name: "eulStakes",
     inputs: [],
   },
   {
+    outputs: [
+      {
+        type: "string",
+        internalType: "string",
+        name: "",
+      },
+    ],
     type: "function",
+    stateMutability: "view",
     name: "name",
     inputs: [],
-    stateMutability: "view",
-    outputs: [
-      {
-        internalType: "string",
-        type: "string",
-        name: "",
-      },
-    ],
   },
   {
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
     inputs: [],
+    stateMutability: "view",
     name: "owner",
-  },
-  {
     type: "function",
-    name: "prevRoot",
-    inputs: [],
-    stateMutability: "view",
     outputs: [
       {
+        type: "address",
+        name: "",
+        internalType: "address",
+      },
+    ],
+  },
+  {
+    inputs: [],
+    name: "prevRoot",
+    stateMutability: "view",
+    type: "function",
+    outputs: [
+      {
+        name: "",
         internalType: "bytes32",
         type: "bytes32",
-        name: "",
       },
     ],
   },
   {
     outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
+    name: "transferOwnership",
+    stateMutability: "nonpayable",
     inputs: [
       {
         type: "address",
@@ -185,20 +186,19 @@ const _abi = [
         internalType: "address",
       },
     ],
-    name: "transferOwnership",
   },
   {
     type: "function",
+    outputs: [],
     inputs: [
       {
-        name: "newRoot",
         type: "bytes32",
+        name: "newRoot",
         internalType: "bytes32",
       },
     ],
-    name: "updateRoot",
-    outputs: [],
     stateMutability: "nonpayable",
+    name: "updateRoot",
   },
 ];
 

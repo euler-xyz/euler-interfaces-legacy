@@ -158,8 +158,7 @@ interface IEulerExec {
         uint liabilityValue;
         uint numBorrows;
         bool borrowIsolated;
-        uint numCollaterals;
-        bool overrideEnabled;
+        uint overrideCollateralValue;
     }
 
     /// @notice Aggregate struct for reporting detailed (per-asset) liquidity for an account

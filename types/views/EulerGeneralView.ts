@@ -62,6 +62,10 @@ export declare namespace EulerGeneralView {
     eTokenBalanceUnderlying: PromiseOrValue<BigNumberish>;
     dTokenBalance: PromiseOrValue<BigNumberish>;
     liquidityStatus: IRiskManager.LiquidityStatusStruct;
+    overrideLiabilities: string[];
+    overrideCollaterals: string[];
+    overrideLiabilitiesConfig: Storage.OverrideConfigStruct[];
+    overrideCollateralsConfig: Storage.OverrideConfigStruct[];
   };
 
   export type ResponseMarketStructOutput = [
@@ -91,7 +95,11 @@ export declare namespace EulerGeneralView {
     BigNumber,
     BigNumber,
     BigNumber,
-    IRiskManager.LiquidityStatusStructOutput
+    IRiskManager.LiquidityStatusStructOutput,
+    string[],
+    string[],
+    Storage.OverrideConfigStructOutput[],
+    Storage.OverrideConfigStructOutput[]
   ] & {
     underlying: string;
     name: string;
@@ -120,6 +128,10 @@ export declare namespace EulerGeneralView {
     eTokenBalanceUnderlying: BigNumber;
     dTokenBalance: BigNumber;
     liquidityStatus: IRiskManager.LiquidityStatusStructOutput;
+    overrideLiabilities: string[];
+    overrideCollaterals: string[];
+    overrideLiabilitiesConfig: Storage.OverrideConfigStructOutput[];
+    overrideCollateralsConfig: Storage.OverrideConfigStructOutput[];
   };
 
   export type ResponseStruct = {
@@ -210,26 +222,39 @@ export declare namespace Storage {
     borrowFactor: number;
     twapWindow: number;
   };
+
+  export type OverrideConfigStruct = {
+    enabled: boolean;
+    collateralFactor: BigNumberish;
+  };
+
+  export type OverrideConfigStructOutput = [boolean, number] & {
+    enabled: boolean;
+    collateralFactor: number;
+  };
 }
 
 export declare namespace IRiskManager {
   export type LiquidityStatusStruct = {
-    collateralValue: PromiseOrValue<BigNumberish>;
-    liabilityValue: PromiseOrValue<BigNumberish>;
-    numBorrows: PromiseOrValue<BigNumberish>;
-    borrowIsolated: PromiseOrValue<boolean>;
+    collateralValue: BigNumberish;
+    liabilityValue: BigNumberish;
+    numBorrows: BigNumberish;
+    borrowIsolated: boolean;
+    overrideCollateralValue: BigNumberish;
   };
 
   export type LiquidityStatusStructOutput = [
     BigNumber,
     BigNumber,
     BigNumber,
-    boolean
+    boolean,
+    BigNumber
   ] & {
     collateralValue: BigNumber;
     liabilityValue: BigNumber;
     numBorrows: BigNumber;
     borrowIsolated: boolean;
+    overrideCollateralValue: BigNumber;
   };
 
   export type AssetLiquidityStruct = {

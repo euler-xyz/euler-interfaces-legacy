@@ -77,10 +77,11 @@ export declare namespace Exec {
 
 export declare namespace IRiskManager {
   export type LiquidityStatusStruct = {
-    collateralValue: PromiseOrValue<BigNumberish>;
-    liabilityValue: PromiseOrValue<BigNumberish>;
-    numBorrows: PromiseOrValue<BigNumberish>;
-    borrowIsolated: PromiseOrValue<boolean>;
+    collateralValue: BigNumberish;
+    liabilityValue: BigNumberish;
+    numBorrows: BigNumberish;
+    borrowIsolated: boolean;
+    overrideCollateralValue: BigNumberish;
   };
 
   export type LiquidityStatusStructOutput = [
@@ -88,15 +89,13 @@ export declare namespace IRiskManager {
     BigNumber,
     BigNumber,
     boolean,
-    BigNumber,
-    boolean
+    BigNumber
   ] & {
     collateralValue: BigNumber;
     liabilityValue: BigNumber;
     numBorrows: BigNumber;
     borrowIsolated: boolean;
-    numCollaterals: BigNumber;
-    overrideEnabled: boolean;
+    overrideCollateralValue: BigNumber;
   };
 
   export type AssetLiquidityStruct = {

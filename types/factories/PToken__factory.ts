@@ -11,12 +11,12 @@ const _abi = [
     inputs: [
       {
         name: "euler_",
-        internalType: "address",
         type: "address",
+        internalType: "address",
       },
       {
-        type: "address",
         internalType: "address",
+        type: "address",
         name: "underlying_",
       },
     ],
@@ -25,84 +25,94 @@ const _abi = [
   },
   {
     name: "Approval",
+    type: "event",
+    anonymous: false,
     inputs: [
       {
+        internalType: "address",
         type: "address",
-        indexed: true,
         name: "owner",
-        internalType: "address",
-      },
-      {
-        type: "address",
         indexed: true,
-        name: "spender",
-        internalType: "address",
       },
       {
-        indexed: false,
-        type: "uint256",
-        name: "value",
+        internalType: "address",
+        type: "address",
+        name: "spender",
+        indexed: true,
+      },
+      {
         internalType: "uint256",
+        type: "uint256",
+        indexed: false,
+        name: "value",
       },
     ],
-    anonymous: false,
-    type: "event",
   },
   {
-    anonymous: false,
     type: "event",
+    anonymous: false,
     name: "Transfer",
     inputs: [
       {
         indexed: true,
-        type: "address",
         name: "from",
+        type: "address",
         internalType: "address",
       },
       {
-        internalType: "address",
+        indexed: true,
         name: "to",
         type: "address",
-        indexed: true,
+        internalType: "address",
       },
       {
+        name: "value",
         indexed: false,
         type: "uint256",
         internalType: "uint256",
-        name: "value",
       },
     ],
   },
   {
-    outputs: [
+    inputs: [
       {
-        name: "",
-        internalType: "uint256",
-        type: "uint256",
+        internalType: "address",
+        type: "address",
+        name: "holder",
+      },
+      {
+        name: "spender",
+        type: "address",
+        internalType: "address",
       },
     ],
     type: "function",
     stateMutability: "view",
-    name: "allowance",
-    inputs: [
+    outputs: [
       {
-        type: "address",
-        name: "holder",
-        internalType: "address",
-      },
-      {
-        name: "spender",
-        internalType: "address",
-        type: "address",
+        internalType: "uint256",
+        type: "uint256",
+        name: "",
       },
     ],
+    name: "allowance",
   },
   {
+    type: "function",
+    stateMutability: "nonpayable",
+    outputs: [
+      {
+        name: "",
+        type: "bool",
+        internalType: "bool",
+      },
+    ],
+    name: "approve",
     inputs: [
       {
-        name: "spender",
         internalType: "address",
         type: "address",
+        name: "spender",
       },
       {
         internalType: "uint256",
@@ -110,47 +120,37 @@ const _abi = [
         type: "uint256",
       },
     ],
-    stateMutability: "nonpayable",
-    name: "approve",
-    type: "function",
-    outputs: [
-      {
-        name: "",
-        internalType: "bool",
-        type: "bool",
-      },
-    ],
   },
   {
+    type: "function",
+    stateMutability: "view",
     outputs: [
       {
         type: "uint256",
-        internalType: "uint256",
         name: "",
+        internalType: "uint256",
       },
     ],
-    type: "function",
-    stateMutability: "view",
     name: "balanceOf",
     inputs: [
       {
+        name: "who",
         type: "address",
         internalType: "address",
-        name: "who",
       },
     ],
   },
   {
-    type: "function",
-    outputs: [],
     inputs: [
       {
-        type: "address",
         internalType: "address",
         name: "who",
+        type: "address",
       },
     ],
+    type: "function",
     stateMutability: "nonpayable",
+    outputs: [],
     name: "claimSurplus",
   },
   {
@@ -161,158 +161,158 @@ const _abi = [
         type: "uint8",
       },
     ],
-    type: "function",
     name: "decimals",
     stateMutability: "view",
+    type: "function",
     inputs: [],
   },
   {
-    type: "function",
-    outputs: [],
     inputs: [
       {
-        internalType: "address",
         name: "who",
         type: "address",
+        internalType: "address",
       },
       {
-        name: "amount",
         internalType: "uint256",
+        name: "amount",
         type: "uint256",
       },
     ],
-    stateMutability: "nonpayable",
     name: "forceUnwrap",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
-    name: "name",
+    type: "function",
     stateMutability: "view",
-    inputs: [],
+    name: "name",
     outputs: [
       {
-        type: "string",
         internalType: "string",
+        type: "string",
         name: "",
       },
     ],
-    type: "function",
+    inputs: [],
   },
   {
     type: "function",
-    outputs: [
-      {
-        name: "",
-        internalType: "string",
-        type: "string",
-      },
-    ],
-    inputs: [],
     stateMutability: "view",
     name: "symbol",
-  },
-  {
     outputs: [
       {
+        internalType: "string",
+        type: "string",
         name: "",
-        internalType: "uint256",
-        type: "uint256",
       },
     ],
-    type: "function",
-    stateMutability: "view",
-    name: "totalSupply",
     inputs: [],
   },
   {
-    type: "function",
+    inputs: [],
     outputs: [
       {
-        type: "bool",
-        internalType: "bool",
         name: "",
+        type: "uint256",
+        internalType: "uint256",
       },
     ],
+    name: "totalSupply",
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "address",
-        name: "recipient",
         type: "address",
+        name: "recipient",
       },
       {
+        type: "uint256",
         name: "amount",
         internalType: "uint256",
-        type: "uint256",
       },
     ],
-    stateMutability: "nonpayable",
+    outputs: [
+      {
+        type: "bool",
+        name: "",
+        internalType: "bool",
+      },
+    ],
     name: "transfer",
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
-    outputs: [
-      {
-        name: "",
-        internalType: "bool",
-        type: "bool",
-      },
-    ],
-    type: "function",
-    stateMutability: "nonpayable",
-    name: "transferFrom",
     inputs: [
       {
-        type: "address",
-        internalType: "address",
         name: "from",
+        type: "address",
+        internalType: "address",
       },
       {
-        name: "recipient",
         internalType: "address",
         type: "address",
+        name: "recipient",
       },
       {
-        name: "amount",
         internalType: "uint256",
+        name: "amount",
         type: "uint256",
       },
     ],
+    stateMutability: "nonpayable",
+    type: "function",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    name: "transferFrom",
   },
   {
+    inputs: [],
+    outputs: [
+      {
+        internalType: "address",
+        type: "address",
+        name: "",
+      },
+    ],
     name: "underlying",
     stateMutability: "view",
-    inputs: [],
-    outputs: [
-      {
-        type: "address",
-        internalType: "address",
-        name: "",
-      },
-    ],
     type: "function",
   },
   {
-    outputs: [],
     type: "function",
-    name: "unwrap",
     stateMutability: "nonpayable",
+    name: "unwrap",
+    outputs: [],
     inputs: [
       {
+        internalType: "uint256",
         type: "uint256",
         name: "amount",
-        internalType: "uint256",
       },
     ],
   },
   {
     inputs: [
       {
-        name: "amount",
         internalType: "uint256",
+        name: "amount",
         type: "uint256",
       },
     ],
+    type: "function",
     stateMutability: "nonpayable",
     name: "wrap",
-    type: "function",
     outputs: [],
   },
 ];

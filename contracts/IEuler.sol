@@ -191,7 +191,7 @@ interface IEulerExec {
     /// @notice Compute detailed liquidity for an account, broken down by asset
     /// @param account User address
     /// @return assets List of user's entered assets and each asset's corresponding liquidity
-    function detailedLiquidity(address account) external view returns (AssetLiquidity[] memory assets);
+    function liquidityPerAsset(address account) external view returns (AssetLiquidity[] memory assets);
 
     /// @notice Retrieve Euler's view of an asset's price
     /// @param underlying Token address

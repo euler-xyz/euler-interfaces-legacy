@@ -24,16 +24,15 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "../common";
 
 export declare namespace Storage {
   export type AssetConfigStruct = {
-    eTokenAddress: PromiseOrValue<string>;
-    borrowIsolated: PromiseOrValue<boolean>;
-    collateralFactor: PromiseOrValue<BigNumberish>;
-    borrowFactor: PromiseOrValue<BigNumberish>;
-    twapWindow: PromiseOrValue<BigNumberish>;
+    eTokenAddress: string;
+    borrowIsolated: boolean;
+    collateralFactor: BigNumberish;
+    borrowFactor: BigNumberish;
+    twapWindow: BigNumberish;
   };
 
   export type AssetConfigStructOutput = [
@@ -123,52 +122,45 @@ export interface ETokenInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "allowance",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "approve",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "approveSubAccount",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [BigNumberish, string, BigNumberish]
   ): string;
-  encodeFunctionData(
-    functionFragment: "balanceOf",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(
     functionFragment: "balanceOfUnderlying",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "burn",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "convertBalanceToUnderlying",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "convertUnderlyingToBalance",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "deposit",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "donateToReserves",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "mint",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "moduleGitCommit",
@@ -196,19 +188,15 @@ export interface ETokenInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "touch", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "transfer",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "transferFrom",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [string, string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "transferFromMax",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "underlyingAsset",
@@ -216,7 +204,7 @@ export interface ETokenInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "withdraw",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+    values: [BigNumberish, BigNumberish]
   ): string;
 
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
@@ -935,68 +923,65 @@ export interface EToken extends BaseContract {
 
   functions: {
     allowance(
-      holder: PromiseOrValue<string>,
-      spender: PromiseOrValue<string>,
+      holder: string,
+      spender: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     approve(
-      spender: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      spender: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     approveSubAccount(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      spender: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      spender: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    balanceOf(
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     balanceOfUnderlying(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     burn(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     convertBalanceToUnderlying(
-      balance: PromiseOrValue<BigNumberish>,
+      balance: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     convertUnderlyingToBalance(
-      underlyingAmount: PromiseOrValue<BigNumberish>,
+      underlyingAmount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
 
     deposit(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     donateToReserves(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     mint(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     moduleGitCommit(overrides?: CallOverrides): Promise<[string]>;
@@ -1016,100 +1001,97 @@ export interface EToken extends BaseContract {
     totalSupplyUnderlying(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     touch(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     transfer(
-      to: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      to: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     transferFrom(
-      from: PromiseOrValue<string>,
-      to: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      from: string,
+      to: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     transferFromMax(
-      from: PromiseOrValue<string>,
-      to: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      from: string,
+      to: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     underlyingAsset(overrides?: CallOverrides): Promise<[string]>;
 
     withdraw(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
   allowance(
-    holder: PromiseOrValue<string>,
-    spender: PromiseOrValue<string>,
+    holder: string,
+    spender: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   approve(
-    spender: PromiseOrValue<string>,
-    amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    spender: string,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   approveSubAccount(
-    subAccountId: PromiseOrValue<BigNumberish>,
-    spender: PromiseOrValue<string>,
-    amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    subAccountId: BigNumberish,
+    spender: string,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  balanceOf(
-    account: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   balanceOfUnderlying(
-    account: PromiseOrValue<string>,
+    account: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   burn(
-    subAccountId: PromiseOrValue<BigNumberish>,
-    amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    subAccountId: BigNumberish,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   convertBalanceToUnderlying(
-    balance: PromiseOrValue<BigNumberish>,
+    balance: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   convertUnderlyingToBalance(
-    underlyingAmount: PromiseOrValue<BigNumberish>,
+    underlyingAmount: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   decimals(overrides?: CallOverrides): Promise<number>;
 
   deposit(
-    subAccountId: PromiseOrValue<BigNumberish>,
-    amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    subAccountId: BigNumberish,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   donateToReserves(
-    subAccountId: PromiseOrValue<BigNumberish>,
-    amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    subAccountId: BigNumberish,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   mint(
-    subAccountId: PromiseOrValue<BigNumberish>,
-    amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    subAccountId: BigNumberish,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   moduleGitCommit(overrides?: CallOverrides): Promise<string>;
@@ -1129,99 +1111,96 @@ export interface EToken extends BaseContract {
   totalSupplyUnderlying(overrides?: CallOverrides): Promise<BigNumber>;
 
   touch(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   transfer(
-    to: PromiseOrValue<string>,
-    amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    to: string,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   transferFrom(
-    from: PromiseOrValue<string>,
-    to: PromiseOrValue<string>,
-    amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    from: string,
+    to: string,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   transferFromMax(
-    from: PromiseOrValue<string>,
-    to: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    from: string,
+    to: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   underlyingAsset(overrides?: CallOverrides): Promise<string>;
 
   withdraw(
-    subAccountId: PromiseOrValue<BigNumberish>,
-    amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    subAccountId: BigNumberish,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     allowance(
-      holder: PromiseOrValue<string>,
-      spender: PromiseOrValue<string>,
+      holder: string,
+      spender: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     approve(
-      spender: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
+      spender: string,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     approveSubAccount(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      spender: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
+      subAccountId: BigNumberish,
+      spender: string,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    balanceOf(
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     balanceOfUnderlying(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     burn(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     convertBalanceToUnderlying(
-      balance: PromiseOrValue<BigNumberish>,
+      balance: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     convertUnderlyingToBalance(
-      underlyingAmount: PromiseOrValue<BigNumberish>,
+      underlyingAmount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<number>;
 
     deposit(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     donateToReserves(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     mint(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1244,47 +1223,47 @@ export interface EToken extends BaseContract {
     touch(overrides?: CallOverrides): Promise<void>;
 
     transfer(
-      to: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
+      to: string,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     transferFrom(
-      from: PromiseOrValue<string>,
-      to: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
+      from: string,
+      to: string,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     transferFromMax(
-      from: PromiseOrValue<string>,
-      to: PromiseOrValue<string>,
+      from: string,
+      to: string,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     underlyingAsset(overrides?: CallOverrides): Promise<string>;
 
     withdraw(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
   };
 
   filters: {
     "Approval(address,address,uint256)"(
-      owner?: PromiseOrValue<string> | null,
-      spender?: PromiseOrValue<string> | null,
+      owner?: string | null,
+      spender?: string | null,
       value?: null
     ): ApprovalEventFilter;
     Approval(
-      owner?: PromiseOrValue<string> | null,
-      spender?: PromiseOrValue<string> | null,
+      owner?: string | null,
+      spender?: string | null,
       value?: null
     ): ApprovalEventFilter;
 
     "AssetStatus(address,uint256,uint256,uint96,uint256,uint256,int96,uint256)"(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       totalBalances?: null,
       totalBorrows?: null,
       reserveBalance?: null,
@@ -1294,7 +1273,7 @@ export interface EToken extends BaseContract {
       timestamp?: null
     ): AssetStatusEventFilter;
     AssetStatus(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       totalBalances?: null,
       totalBorrows?: null,
       reserveBalance?: null,
@@ -1305,93 +1284,93 @@ export interface EToken extends BaseContract {
     ): AssetStatusEventFilter;
 
     "Borrow(address,address,uint256)"(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): BorrowEventFilter;
     Borrow(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): BorrowEventFilter;
 
     "DelegateAverageLiquidity(address,address)"(
-      account?: PromiseOrValue<string> | null,
-      delegate?: PromiseOrValue<string> | null
+      account?: string | null,
+      delegate?: string | null
     ): DelegateAverageLiquidityEventFilter;
     DelegateAverageLiquidity(
-      account?: PromiseOrValue<string> | null,
-      delegate?: PromiseOrValue<string> | null
+      account?: string | null,
+      delegate?: string | null
     ): DelegateAverageLiquidityEventFilter;
 
     "Deposit(address,address,uint256)"(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): DepositEventFilter;
     Deposit(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): DepositEventFilter;
 
     "EnterMarket(address,address)"(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null
+      underlying?: string | null,
+      account?: string | null
     ): EnterMarketEventFilter;
     EnterMarket(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null
+      underlying?: string | null,
+      account?: string | null
     ): EnterMarketEventFilter;
 
     "ExitMarket(address,address)"(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null
+      underlying?: string | null,
+      account?: string | null
     ): ExitMarketEventFilter;
     ExitMarket(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null
+      underlying?: string | null,
+      account?: string | null
     ): ExitMarketEventFilter;
 
     "Genesis()"(): GenesisEventFilter;
     Genesis(): GenesisEventFilter;
 
     "GovConvertReserves(address,address,uint256)"(
-      underlying?: PromiseOrValue<string> | null,
-      recipient?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      recipient?: string | null,
       amount?: null
     ): GovConvertReservesEventFilter;
     GovConvertReserves(
-      underlying?: PromiseOrValue<string> | null,
-      recipient?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      recipient?: string | null,
       amount?: null
     ): GovConvertReservesEventFilter;
 
     "GovSetAssetConfig(address,tuple)"(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       newConfig?: null
     ): GovSetAssetConfigEventFilter;
     GovSetAssetConfig(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       newConfig?: null
     ): GovSetAssetConfigEventFilter;
 
     "GovSetChainlinkPriceFeed(address,address)"(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       chainlinkAggregator?: null
     ): GovSetChainlinkPriceFeedEventFilter;
     GovSetChainlinkPriceFeed(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       chainlinkAggregator?: null
     ): GovSetChainlinkPriceFeedEventFilter;
 
     "GovSetIRM(address,uint256,bytes)"(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       interestRateModel?: null,
       resetParams?: null
     ): GovSetIRMEventFilter;
     GovSetIRM(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       interestRateModel?: null,
       resetParams?: null
     ): GovSetIRMEventFilter;
@@ -1408,54 +1387,54 @@ export interface EToken extends BaseContract {
     ): GovSetOverrideEventFilter;
 
     "GovSetPricingConfig(address,uint16,uint32)"(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       newPricingType?: null,
       newPricingParameter?: null
     ): GovSetPricingConfigEventFilter;
     GovSetPricingConfig(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       newPricingType?: null,
       newPricingParameter?: null
     ): GovSetPricingConfigEventFilter;
 
     "GovSetReserveFee(address,uint32)"(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       newReserveFee?: null
     ): GovSetReserveFeeEventFilter;
     GovSetReserveFee(
-      underlying?: PromiseOrValue<string> | null,
+      underlying?: string | null,
       newReserveFee?: null
     ): GovSetReserveFeeEventFilter;
 
     "InstallerInstallModule(uint256,address,bytes32)"(
-      moduleId?: PromiseOrValue<BigNumberish> | null,
-      moduleImpl?: PromiseOrValue<string> | null,
+      moduleId?: BigNumberish | null,
+      moduleImpl?: string | null,
       moduleGitCommit?: null
     ): InstallerInstallModuleEventFilter;
     InstallerInstallModule(
-      moduleId?: PromiseOrValue<BigNumberish> | null,
-      moduleImpl?: PromiseOrValue<string> | null,
+      moduleId?: BigNumberish | null,
+      moduleImpl?: string | null,
       moduleGitCommit?: null
     ): InstallerInstallModuleEventFilter;
 
     "InstallerSetGovernorAdmin(address)"(
-      newGovernorAdmin?: PromiseOrValue<string> | null
+      newGovernorAdmin?: string | null
     ): InstallerSetGovernorAdminEventFilter;
     InstallerSetGovernorAdmin(
-      newGovernorAdmin?: PromiseOrValue<string> | null
+      newGovernorAdmin?: string | null
     ): InstallerSetGovernorAdminEventFilter;
 
     "InstallerSetUpgradeAdmin(address)"(
-      newUpgradeAdmin?: PromiseOrValue<string> | null
+      newUpgradeAdmin?: string | null
     ): InstallerSetUpgradeAdminEventFilter;
     InstallerSetUpgradeAdmin(
-      newUpgradeAdmin?: PromiseOrValue<string> | null
+      newUpgradeAdmin?: string | null
     ): InstallerSetUpgradeAdminEventFilter;
 
     "Liquidation(address,address,address,address,uint256,uint256,uint256,uint256,uint256)"(
-      liquidator?: PromiseOrValue<string> | null,
-      violator?: PromiseOrValue<string> | null,
-      underlying?: PromiseOrValue<string> | null,
+      liquidator?: string | null,
+      violator?: string | null,
+      underlying?: string | null,
       collateral?: null,
       repay?: null,
       _yield?: null,
@@ -1464,9 +1443,9 @@ export interface EToken extends BaseContract {
       discount?: null
     ): LiquidationEventFilter;
     Liquidation(
-      liquidator?: PromiseOrValue<string> | null,
-      violator?: PromiseOrValue<string> | null,
-      underlying?: PromiseOrValue<string> | null,
+      liquidator?: string | null,
+      violator?: string | null,
+      underlying?: string | null,
       collateral?: null,
       repay?: null,
       _yield?: null,
@@ -1476,159 +1455,153 @@ export interface EToken extends BaseContract {
     ): LiquidationEventFilter;
 
     "MarketActivated(address,address,address)"(
-      underlying?: PromiseOrValue<string> | null,
-      eToken?: PromiseOrValue<string> | null,
-      dToken?: PromiseOrValue<string> | null
+      underlying?: string | null,
+      eToken?: string | null,
+      dToken?: string | null
     ): MarketActivatedEventFilter;
     MarketActivated(
-      underlying?: PromiseOrValue<string> | null,
-      eToken?: PromiseOrValue<string> | null,
-      dToken?: PromiseOrValue<string> | null
+      underlying?: string | null,
+      eToken?: string | null,
+      dToken?: string | null
     ): MarketActivatedEventFilter;
 
     "PTokenActivated(address,address)"(
-      underlying?: PromiseOrValue<string> | null,
-      pToken?: PromiseOrValue<string> | null
+      underlying?: string | null,
+      pToken?: string | null
     ): PTokenActivatedEventFilter;
     PTokenActivated(
-      underlying?: PromiseOrValue<string> | null,
-      pToken?: PromiseOrValue<string> | null
+      underlying?: string | null,
+      pToken?: string | null
     ): PTokenActivatedEventFilter;
 
     "PTokenUnWrap(address,address,uint256)"(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): PTokenUnWrapEventFilter;
     PTokenUnWrap(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): PTokenUnWrapEventFilter;
 
     "PTokenWrap(address,address,uint256)"(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): PTokenWrapEventFilter;
     PTokenWrap(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): PTokenWrapEventFilter;
 
     "ProxyCreated(address,uint256)"(
-      proxy?: PromiseOrValue<string> | null,
+      proxy?: string | null,
       moduleId?: null
     ): ProxyCreatedEventFilter;
     ProxyCreated(
-      proxy?: PromiseOrValue<string> | null,
+      proxy?: string | null,
       moduleId?: null
     ): ProxyCreatedEventFilter;
 
     "Repay(address,address,uint256)"(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): RepayEventFilter;
     Repay(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): RepayEventFilter;
 
     "RequestBorrow(address,uint256)"(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestBorrowEventFilter;
     RequestBorrow(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestBorrowEventFilter;
 
     "RequestBurn(address,uint256)"(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestBurnEventFilter;
-    RequestBurn(
-      account?: PromiseOrValue<string> | null,
-      amount?: null
-    ): RequestBurnEventFilter;
+    RequestBurn(account?: string | null, amount?: null): RequestBurnEventFilter;
 
     "RequestDeposit(address,uint256)"(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestDepositEventFilter;
     RequestDeposit(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestDepositEventFilter;
 
     "RequestDonate(address,uint256)"(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestDonateEventFilter;
     RequestDonate(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestDonateEventFilter;
 
     "RequestLiquidate(address,address,address,address,uint256,uint256)"(
-      liquidator?: PromiseOrValue<string> | null,
-      violator?: PromiseOrValue<string> | null,
-      underlying?: PromiseOrValue<string> | null,
+      liquidator?: string | null,
+      violator?: string | null,
+      underlying?: string | null,
       collateral?: null,
       repay?: null,
       minYield?: null
     ): RequestLiquidateEventFilter;
     RequestLiquidate(
-      liquidator?: PromiseOrValue<string> | null,
-      violator?: PromiseOrValue<string> | null,
-      underlying?: PromiseOrValue<string> | null,
+      liquidator?: string | null,
+      violator?: string | null,
+      underlying?: string | null,
       collateral?: null,
       repay?: null,
       minYield?: null
     ): RequestLiquidateEventFilter;
 
     "RequestMint(address,uint256)"(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestMintEventFilter;
-    RequestMint(
-      account?: PromiseOrValue<string> | null,
-      amount?: null
-    ): RequestMintEventFilter;
+    RequestMint(account?: string | null, amount?: null): RequestMintEventFilter;
 
     "RequestRepay(address,uint256)"(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestRepayEventFilter;
     RequestRepay(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestRepayEventFilter;
 
     "RequestSwap(address,address,address,address,uint256,uint256)"(
-      accountIn?: PromiseOrValue<string> | null,
-      accountOut?: PromiseOrValue<string> | null,
-      underlyingIn?: PromiseOrValue<string> | null,
+      accountIn?: string | null,
+      accountOut?: string | null,
+      underlyingIn?: string | null,
       underlyingOut?: null,
       amount?: null,
       swapType?: null
     ): RequestSwapEventFilter;
     RequestSwap(
-      accountIn?: PromiseOrValue<string> | null,
-      accountOut?: PromiseOrValue<string> | null,
-      underlyingIn?: PromiseOrValue<string> | null,
+      accountIn?: string | null,
+      accountOut?: string | null,
+      underlyingIn?: string | null,
       underlyingOut?: null,
       amount?: null,
       swapType?: null
     ): RequestSwapEventFilter;
 
     "RequestSwapHub(address,address,address,address,uint256,uint256,uint256,address)"(
-      accountIn?: PromiseOrValue<string> | null,
-      accountOut?: PromiseOrValue<string> | null,
-      underlyingIn?: PromiseOrValue<string> | null,
+      accountIn?: string | null,
+      accountOut?: string | null,
+      underlyingIn?: string | null,
       underlyingOut?: null,
       amountIn?: null,
       amountOut?: null,
@@ -1636,9 +1609,9 @@ export interface EToken extends BaseContract {
       swapHandler?: null
     ): RequestSwapHubEventFilter;
     RequestSwapHub(
-      accountIn?: PromiseOrValue<string> | null,
-      accountOut?: PromiseOrValue<string> | null,
-      underlyingIn?: PromiseOrValue<string> | null,
+      accountIn?: string | null,
+      accountOut?: string | null,
+      underlyingIn?: string | null,
       underlyingOut?: null,
       amountIn?: null,
       amountOut?: null,
@@ -1647,154 +1620,151 @@ export interface EToken extends BaseContract {
     ): RequestSwapHubEventFilter;
 
     "RequestSwapHubRepay(address,address,address,address,uint256,address)"(
-      accountIn?: PromiseOrValue<string> | null,
-      accountOut?: PromiseOrValue<string> | null,
-      underlyingIn?: PromiseOrValue<string> | null,
+      accountIn?: string | null,
+      accountOut?: string | null,
+      underlyingIn?: string | null,
       underlyingOut?: null,
       targetDebt?: null,
       swapHandler?: null
     ): RequestSwapHubRepayEventFilter;
     RequestSwapHubRepay(
-      accountIn?: PromiseOrValue<string> | null,
-      accountOut?: PromiseOrValue<string> | null,
-      underlyingIn?: PromiseOrValue<string> | null,
+      accountIn?: string | null,
+      accountOut?: string | null,
+      underlyingIn?: string | null,
       underlyingOut?: null,
       targetDebt?: null,
       swapHandler?: null
     ): RequestSwapHubRepayEventFilter;
 
     "RequestTransferDToken(address,address,uint256)"(
-      from?: PromiseOrValue<string> | null,
-      to?: PromiseOrValue<string> | null,
+      from?: string | null,
+      to?: string | null,
       amount?: null
     ): RequestTransferDTokenEventFilter;
     RequestTransferDToken(
-      from?: PromiseOrValue<string> | null,
-      to?: PromiseOrValue<string> | null,
+      from?: string | null,
+      to?: string | null,
       amount?: null
     ): RequestTransferDTokenEventFilter;
 
     "RequestTransferEToken(address,address,uint256)"(
-      from?: PromiseOrValue<string> | null,
-      to?: PromiseOrValue<string> | null,
+      from?: string | null,
+      to?: string | null,
       amount?: null
     ): RequestTransferETokenEventFilter;
     RequestTransferEToken(
-      from?: PromiseOrValue<string> | null,
-      to?: PromiseOrValue<string> | null,
+      from?: string | null,
+      to?: string | null,
       amount?: null
     ): RequestTransferETokenEventFilter;
 
     "RequestWithdraw(address,uint256)"(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestWithdrawEventFilter;
     RequestWithdraw(
-      account?: PromiseOrValue<string> | null,
+      account?: string | null,
       amount?: null
     ): RequestWithdrawEventFilter;
 
     "TrackAverageLiquidity(address)"(
-      account?: PromiseOrValue<string> | null
+      account?: string | null
     ): TrackAverageLiquidityEventFilter;
     TrackAverageLiquidity(
-      account?: PromiseOrValue<string> | null
+      account?: string | null
     ): TrackAverageLiquidityEventFilter;
 
     "Transfer(address,address,uint256)"(
-      from?: PromiseOrValue<string> | null,
-      to?: PromiseOrValue<string> | null,
+      from?: string | null,
+      to?: string | null,
       value?: null
     ): TransferEventFilter;
     Transfer(
-      from?: PromiseOrValue<string> | null,
-      to?: PromiseOrValue<string> | null,
+      from?: string | null,
+      to?: string | null,
       value?: null
     ): TransferEventFilter;
 
     "UnTrackAverageLiquidity(address)"(
-      account?: PromiseOrValue<string> | null
+      account?: string | null
     ): UnTrackAverageLiquidityEventFilter;
     UnTrackAverageLiquidity(
-      account?: PromiseOrValue<string> | null
+      account?: string | null
     ): UnTrackAverageLiquidityEventFilter;
 
     "Withdraw(address,address,uint256)"(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): WithdrawEventFilter;
     Withdraw(
-      underlying?: PromiseOrValue<string> | null,
-      account?: PromiseOrValue<string> | null,
+      underlying?: string | null,
+      account?: string | null,
       amount?: null
     ): WithdrawEventFilter;
   };
 
   estimateGas: {
     allowance(
-      holder: PromiseOrValue<string>,
-      spender: PromiseOrValue<string>,
+      holder: string,
+      spender: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     approve(
-      spender: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      spender: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     approveSubAccount(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      spender: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      spender: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    balanceOf(
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     balanceOfUnderlying(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     burn(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     convertBalanceToUnderlying(
-      balance: PromiseOrValue<BigNumberish>,
+      balance: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     convertUnderlyingToBalance(
-      underlyingAmount: PromiseOrValue<BigNumberish>,
+      underlyingAmount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
 
     deposit(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     donateToReserves(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     mint(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     moduleGitCommit(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1814,101 +1784,101 @@ export interface EToken extends BaseContract {
     totalSupplyUnderlying(overrides?: CallOverrides): Promise<BigNumber>;
 
     touch(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     transfer(
-      to: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      to: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     transferFrom(
-      from: PromiseOrValue<string>,
-      to: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      from: string,
+      to: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     transferFromMax(
-      from: PromiseOrValue<string>,
-      to: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      from: string,
+      to: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     underlyingAsset(overrides?: CallOverrides): Promise<BigNumber>;
 
     withdraw(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     allowance(
-      holder: PromiseOrValue<string>,
-      spender: PromiseOrValue<string>,
+      holder: string,
+      spender: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     approve(
-      spender: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      spender: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     approveSubAccount(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      spender: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      spender: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     balanceOf(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     balanceOfUnderlying(
-      account: PromiseOrValue<string>,
+      account: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     burn(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     convertBalanceToUnderlying(
-      balance: PromiseOrValue<BigNumberish>,
+      balance: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     convertUnderlyingToBalance(
-      underlyingAmount: PromiseOrValue<BigNumberish>,
+      underlyingAmount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     deposit(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     donateToReserves(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     mint(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     moduleGitCommit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1932,34 +1902,34 @@ export interface EToken extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     touch(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     transfer(
-      to: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      to: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     transferFrom(
-      from: PromiseOrValue<string>,
-      to: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      from: string,
+      to: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     transferFromMax(
-      from: PromiseOrValue<string>,
-      to: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      from: string,
+      to: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     underlyingAsset(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     withdraw(
-      subAccountId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      subAccountId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

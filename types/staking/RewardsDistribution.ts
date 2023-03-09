@@ -24,7 +24,6 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-  PromiseOrValue,
 } from "../common";
 
 export interface RewardsDistributionInterface extends utils.Interface {
@@ -69,7 +68,7 @@ export interface RewardsDistributionInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "addRewardDistribution",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "authority", values?: undefined): string;
   encodeFunctionData(
@@ -78,7 +77,7 @@ export interface RewardsDistributionInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "distributions",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "distributionsLength",
@@ -86,15 +85,11 @@ export interface RewardsDistributionInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "editRewardDistribution",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [BigNumberish, string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "nominateNewOwner",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "nominatedOwner",
@@ -103,7 +98,7 @@ export interface RewardsDistributionInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "removeRewardDistribution",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "rewardsToken",
@@ -111,11 +106,11 @@ export interface RewardsDistributionInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "setAuthority",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setRewardToken",
-    values: [PromiseOrValue<string>]
+    values: [string]
   ): string;
 
   decodeFunctionResult(
@@ -255,23 +250,23 @@ export interface RewardsDistribution extends BaseContract {
 
   functions: {
     acceptOwnership(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     addRewardDistribution(
-      destination: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      destination: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     authority(overrides?: CallOverrides): Promise<[string]>;
 
     distributeRewards(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     distributions(
-      arg0: PromiseOrValue<BigNumberish>,
+      arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [string, BigNumber] & { destination: string; amount: BigNumber }
@@ -280,15 +275,15 @@ export interface RewardsDistribution extends BaseContract {
     distributionsLength(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     editRewardDistribution(
-      index: PromiseOrValue<BigNumberish>,
-      destination: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      index: BigNumberish,
+      destination: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     nominateNewOwner(
-      _owner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _owner: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     nominatedOwner(overrides?: CallOverrides): Promise<[string]>;
@@ -296,56 +291,56 @@ export interface RewardsDistribution extends BaseContract {
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     removeRewardDistribution(
-      index: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      index: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     rewardsToken(overrides?: CallOverrides): Promise<[string]>;
 
     setAuthority(
-      _authority: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _authority: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setRewardToken(
-      _rewardsToken: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _rewardsToken: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
   acceptOwnership(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   addRewardDistribution(
-    destination: PromiseOrValue<string>,
-    amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    destination: string,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   authority(overrides?: CallOverrides): Promise<string>;
 
   distributeRewards(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   distributions(
-    arg0: PromiseOrValue<BigNumberish>,
+    arg0: BigNumberish,
     overrides?: CallOverrides
   ): Promise<[string, BigNumber] & { destination: string; amount: BigNumber }>;
 
   distributionsLength(overrides?: CallOverrides): Promise<BigNumber>;
 
   editRewardDistribution(
-    index: PromiseOrValue<BigNumberish>,
-    destination: PromiseOrValue<string>,
-    amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    index: BigNumberish,
+    destination: string,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   nominateNewOwner(
-    _owner: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _owner: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   nominatedOwner(overrides?: CallOverrides): Promise<string>;
@@ -353,28 +348,28 @@ export interface RewardsDistribution extends BaseContract {
   owner(overrides?: CallOverrides): Promise<string>;
 
   removeRewardDistribution(
-    index: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    index: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   rewardsToken(overrides?: CallOverrides): Promise<string>;
 
   setAuthority(
-    _authority: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _authority: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setRewardToken(
-    _rewardsToken: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _rewardsToken: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     acceptOwnership(overrides?: CallOverrides): Promise<void>;
 
     addRewardDistribution(
-      destination: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
+      destination: string,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -383,7 +378,7 @@ export interface RewardsDistribution extends BaseContract {
     distributeRewards(overrides?: CallOverrides): Promise<boolean>;
 
     distributions(
-      arg0: PromiseOrValue<BigNumberish>,
+      arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [string, BigNumber] & { destination: string; amount: BigNumber }
@@ -392,35 +387,29 @@ export interface RewardsDistribution extends BaseContract {
     distributionsLength(overrides?: CallOverrides): Promise<BigNumber>;
 
     editRewardDistribution(
-      index: PromiseOrValue<BigNumberish>,
-      destination: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
+      index: BigNumberish,
+      destination: string,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    nominateNewOwner(
-      _owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    nominateNewOwner(_owner: string, overrides?: CallOverrides): Promise<void>;
 
     nominatedOwner(overrides?: CallOverrides): Promise<string>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
     removeRewardDistribution(
-      index: PromiseOrValue<BigNumberish>,
+      index: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     rewardsToken(overrides?: CallOverrides): Promise<string>;
 
-    setAuthority(
-      _authority: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setAuthority(_authority: string, overrides?: CallOverrides): Promise<void>;
 
     setRewardToken(
-      _rewardsToken: PromiseOrValue<string>,
+      _rewardsToken: string,
       overrides?: CallOverrides
     ): Promise<void>;
   };
@@ -452,38 +441,38 @@ export interface RewardsDistribution extends BaseContract {
 
   estimateGas: {
     acceptOwnership(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     addRewardDistribution(
-      destination: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      destination: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     authority(overrides?: CallOverrides): Promise<BigNumber>;
 
     distributeRewards(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     distributions(
-      arg0: PromiseOrValue<BigNumberish>,
+      arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     distributionsLength(overrides?: CallOverrides): Promise<BigNumber>;
 
     editRewardDistribution(
-      index: PromiseOrValue<BigNumberish>,
-      destination: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      index: BigNumberish,
+      destination: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     nominateNewOwner(
-      _owner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _owner: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     nominatedOwner(overrides?: CallOverrides): Promise<BigNumber>;
@@ -491,42 +480,42 @@ export interface RewardsDistribution extends BaseContract {
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     removeRewardDistribution(
-      index: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      index: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     rewardsToken(overrides?: CallOverrides): Promise<BigNumber>;
 
     setAuthority(
-      _authority: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _authority: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setRewardToken(
-      _rewardsToken: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _rewardsToken: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     acceptOwnership(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     addRewardDistribution(
-      destination: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      destination: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     authority(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     distributeRewards(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     distributions(
-      arg0: PromiseOrValue<BigNumberish>,
+      arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -535,15 +524,15 @@ export interface RewardsDistribution extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     editRewardDistribution(
-      index: PromiseOrValue<BigNumberish>,
-      destination: PromiseOrValue<string>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      index: BigNumberish,
+      destination: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     nominateNewOwner(
-      _owner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _owner: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     nominatedOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -551,20 +540,20 @@ export interface RewardsDistribution extends BaseContract {
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     removeRewardDistribution(
-      index: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      index: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     rewardsToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setAuthority(
-      _authority: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _authority: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setRewardToken(
-      _rewardsToken: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _rewardsToken: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }
